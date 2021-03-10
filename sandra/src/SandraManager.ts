@@ -3,13 +3,13 @@ import {Concept} from "./Concept.js";
 import {Entity} from "./Entity.js";
 import {Reference} from "./Reference.js";
 import {Gossiper} from "./Gossiper.js";
-import {BlockchainEventFactory} from "./CSCannon/BlockchainEventFactory.js";
-import {BlockchainEvent} from "./CSCannon/BlockchainEvent.js";
-import {BlockchainAddress} from "./CSCannon/BlockchainAddress.js";
-import {BlockchainContract} from "./CSCannon/BlockchainContract.js";
-import {Blockchain} from "./CSCannon/Blockchain.js";
-import {CrystalSuiteConnector} from "../../CrystalSuiteConnector.js";
-import {EthereumBlockchain} from "./CSCannon/Ethereum/EthereumBlockchain.js";
+import {BlockchainEventFactory} from "./canonizer/BlockchainEventFactory.js";
+import {BlockchainEvent} from "./canonizer/BlockchainEvent.js";
+import {BlockchainAddress} from "./canonizer/BlockchainAddress.js";
+import {BlockchainContract} from "./canonizer/BlockchainContract.js";
+import {Blockchain} from "./canonizer/Blockchain.js";
+import {CrystalSuiteConnector} from "./connectors/CrystalSuiteConnector.js"
+import {EthereumBlockchain} from "./canonizer/Ethereum/EthereumBlockchain.js";
 
 export class SandraManager {
 

@@ -12,6 +12,7 @@ try {
     console.log(e)
 }
 
+
 export class CsCannonApiManager {
     private canonize: CSCanonizeManager;
     private apiUrl: string;

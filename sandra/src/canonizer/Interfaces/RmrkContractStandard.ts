@@ -20,7 +20,7 @@ export class RmrkContractStandard extends ContractStandard{
 
         this.sandra = canonizeManager.getSandra() ;
 
-        //we need to bind the the standard to the CSCannon class
+        //we need to bind the the standard to the canonizer class
         this.addReference(new Reference(canonizeManager.getSandra().get('class_name'),"CsCannon\\\Blockchains\\\Interfaces\\\RmrkContractStandard"));
 
         if (tokenSn) {

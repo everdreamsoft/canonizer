@@ -39,7 +39,7 @@ export class RmrkContract extends BlockchainContract
             throw 'This contract ID length is uncorrect';
         }
 
-        if(Number.isNaN(idSplit[0])){
+        if(Number.isNaN(Number(idSplit[0]))){
             throw 'Missing block ID in contract ID';
         }
 

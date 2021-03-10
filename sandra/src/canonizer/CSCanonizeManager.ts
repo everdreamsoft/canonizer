@@ -14,6 +14,7 @@ import {AssetSolverFactory} from "./AssetSolvers/AssetSolverFactory.js";
 import {LocalSolver} from "./AssetSolvers/LocalSolver.js";
 import {AssetSolver} from "./AssetSolvers/AssetSolver.js";
 import {BlockchainEventFactory} from "./BlockchainEventFactory.js";
+import {KusamaBlockchain} from "./Substrate/Kusama/KusamaBlockchain";
 
 
 interface CanonizeOptions{
@@ -34,6 +35,7 @@ export class CSCanonizeManager {
     private apiConnector?:ApiConnector;
     private assetSolverFactory:AssetSolverFactory;
     private localSolver:LocalSolver ;
+    private loadedBlockchains:Blockchain[] = [];
     public static  mintIssuerAddressString:string = '0x0000000000000000000000000000000000000000' ;
 
     constructor(options?:CanonizeOptions,sandra:SandraManager = new SandraManager()) {
@@ -188,7 +190,35 @@ export class CSCanonizeManager {
 
     }
 
+    public getBlockchainByName(name:CompatibleBlockchains){
 
+
+
+    }
+
+    public getOrInitBlockchain(name:CompatibleBlockchains):Blockchain{
+
+        const found = this.activeBlockchainFactory.getEntitiesWithRefValue(this.sandra.get('blockchain'),name);
+        if (found)
+            return found ;
+
+        switch (name) {
+            case CompatibleBlockchains.kusama:
+                return new KusamaBlockchain(this.getSandra());
+
+        }
+
+
+    }
+
+
+
+
+
+}
+
+export enum CompatibleBlockchains {
+    kusama = 'kusama',
 
 
 
