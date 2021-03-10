@@ -9,6 +9,7 @@ const BlockchainTokenFactory_js_1 = require("./BlockchainTokenFactory.js");
 const ContractStandardFactory_js_1 = require("./ContractStandardFactory.js");
 const EntityFactory_js_1 = require("../EntityFactory.js");
 const Gossiper_js_1 = require("../Gossiper.js");
+const Blockchain_js_1 = require("./Blockchain.js");
 const Entity_js_1 = require("../Entity.js");
 const Reference_js_1 = require("../Reference.js");
 const AssetSolverFactory_js_1 = require("./AssetSolvers/AssetSolverFactory.js");
@@ -109,12 +110,14 @@ class CSCanonizeManager {
     }
     getOrInitBlockchain(name) {
         const found = this.activeBlockchainFactory.getEntitiesWithRefValue(this.sandra.get('blockchain'), name);
-        if (found)
+        if (found instanceof Blockchain_js_1.Blockchain) {
             return found;
+        }
         switch (name) {
             case CompatibleBlockchains.kusama:
                 return new KusamaBlockchain_1.KusamaBlockchain(this.getSandra());
         }
+        throw new Error("Blockchain not found" + name);
     }
 }
 exports.CSCanonizeManager = CSCanonizeManager;

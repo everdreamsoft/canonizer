@@ -198,15 +198,19 @@ export class CSCanonizeManager {
 
     public getOrInitBlockchain(name:CompatibleBlockchains):Blockchain{
 
+
         const found = this.activeBlockchainFactory.getEntitiesWithRefValue(this.sandra.get('blockchain'),name);
-        if (found)
-            return found ;
+        if (found instanceof Blockchain) {
+
+            return found;
+        }
 
         switch (name) {
             case CompatibleBlockchains.kusama:
                 return new KusamaBlockchain(this.getSandra());
 
         }
+         throw new Error("Blockchain not found"+name);
 
 
     }
