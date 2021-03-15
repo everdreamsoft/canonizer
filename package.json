@@ -1,7 +1,7 @@
 {
   "name": "canonizer",
   "version": "0.0.1",
-  "description": "<pre>\r     <code>\r         npm install --save @polkadot/api\r     </code>\r </pre>",
+  "description": "Multi-blockchain tool",
   "main": "index.js",
   "dependencies": {
     "@polkadot/api": "^3.11.1",
@@ -23,23 +23,25 @@
     "typescript": "^4.2.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "typescript": "^2.4.1",
-    "fetch": "node --max_old_space_size=2048 ./index.js fetch",
-    "bruno": "node ./index bruno",
-    "batch": "node ./index batch",
-    "tests": "node ./index tests",
-    "scan": "node ./index scan"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Millord1/Ksm_rmrk.git"
+    "url": "git+https://github.com/everdreamsoft/canonizer.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "canonizer",
+    "blockchain",
+    "tool",
+    "nft",
+    "multi-blockchain",
+    "multiblockchain",
+    "everdreamsoft"
+  ],
+  "author": "EverdreamSoft",
+  "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/Millord1/Ksm_rmrk"
+    "url": "https://github.com/everdreamsoft/canonizer/issues"
   },
-  "homepage": "https://github.com/Millord1/Ksm_rmrk#readme"
+  "homepage": "https://github.com/everdreamsoft/canonizer#readme"
 }
