@@ -2,7 +2,7 @@
   "name": "canonizer",
   "version": "0.0.1",
   "description": "Multi-blockchain tool",
-  "main": "index.js",
+  "main": "src/index.js",
   "dependencies": {
     "@polkadot/api": "^3.11.1",
     "commander": "^6.2.1",
