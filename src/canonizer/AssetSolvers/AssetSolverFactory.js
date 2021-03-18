@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AssetSolverFactory = void 0;
 const EntityFactory_js_1 = require("../../EntityFactory.js");
 class AssetSolverFactory extends EntityFactory_js_1.EntityFactory {
     constructor(manager) {

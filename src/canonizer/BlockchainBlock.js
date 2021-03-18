@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BlockchainBlock = void 0;
 const Entity_js_1 = require("../Entity.js");
 const Reference_js_1 = require("../Reference.js");
 class BlockchainBlock extends Entity_js_1.Entity {

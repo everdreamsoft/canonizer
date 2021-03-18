@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Gossiper = void 0;
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 class Gossiper {
     constructor(entityFactory, updateOnReference) {

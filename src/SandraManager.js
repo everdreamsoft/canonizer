@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SandraManager = void 0;
 const Concept_js_1 = require("./Concept.js");
 class SandraManager {
     constructor() {
