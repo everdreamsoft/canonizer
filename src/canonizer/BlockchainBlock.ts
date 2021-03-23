@@ -18,6 +18,11 @@ export class BlockchainBlock extends Entity {
 
     }
 
+    public getBlockId():string{
+
+        return this.getRefValue(BlockchainBlock.INDEX_SHORTNAME);
+    }
+
 
 
 
