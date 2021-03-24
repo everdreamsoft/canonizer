@@ -2,16 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BlockchainEvent = void 0;
 const Entity_js_1 = require("../Entity.js");
-const BlockchainEventFactory_js_1 = require("./BlockchainEventFactory.js");
 const Reference_js_1 = require("../Reference.js");
 const Blockchain_js_1 = require("./Blockchain.js");
 const BlockchainBlock_js_1 = require("./BlockchainBlock.js");
 class BlockchainEvent extends Entity_js_1.Entity {
     constructor(factory, source, destination, contract, txid, timestamp, quantity, blockchain, blockId, token, sandra) {
-        if (factory == null)
-            factory = new BlockchainEventFactory_js_1.BlockchainEventFactory(blockchain, sandra);
-        let txidRef = new Reference_js_1.Reference(sandra.get(Blockchain_js_1.Blockchain.TXID_CONCEPT_NAME), txid);
-        super(factory, [txidRef]);
+        super(factory);
+        this.eventType = 'transfer';
+        this.addReference(new Reference_js_1.Reference(sandra.get(Blockchain_js_1.Blockchain.TXID_CONCEPT_NAME), txid));
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source);
         }
@@ -21,6 +19,7 @@ class BlockchainEvent extends Entity_js_1.Entity {
         if (typeof contract == "string") {
             contract = blockchain.contractFactory.getOrCreate(contract);
         }
+        this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainEvent.EVENT_BLOCK_TIME), timestamp));
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainEvent.QUANTITY), quantity));
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra);
@@ -49,4 +48,5 @@ BlockchainEvent.EVENT_BLOCK_TIME = 'timestamp';
 BlockchainEvent.QUANTITY = 'quantity';
 BlockchainEvent.ON_BLOCKCHAIN = 'onBlockchain';
 BlockchainEvent.EVENT_BLOCK = 'onBlock';
+BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB = "BlockchainEventType";
 //# sourceMappingURL=BlockchainEvent.js.map

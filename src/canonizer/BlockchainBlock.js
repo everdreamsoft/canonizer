@@ -9,6 +9,9 @@ class BlockchainBlock extends Entity_js_1.Entity {
         this.addReference(new Reference_js_1.Reference(sandraManager.get(BlockchainBlock.INDEX_SHORTNAME), blockId.toString()));
         this.addReference(new Reference_js_1.Reference(sandraManager.get(BlockchainBlock.BLOCK_TIMESTAMP), blockTimestamp));
     }
+    getBlockId() {
+        return this.getRefValue(BlockchainBlock.INDEX_SHORTNAME);
+    }
 }
 exports.BlockchainBlock = BlockchainBlock;
 BlockchainBlock.INDEX_SHORTNAME = 'blockIndex';

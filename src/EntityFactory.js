@@ -24,7 +24,6 @@ class EntityFactory {
             factory.sandraManager.registerNewReference(element);
             factory.refMap.set(element.concept.unid, element.concept.shortname);
             let refMapByConcept;
-            console.log();
             if (!this.entityByRevValMap.has(element.concept)) {
                 refMapByConcept = new Map();
                 this.entityByRevValMap.set(element.concept, refMapByConcept);

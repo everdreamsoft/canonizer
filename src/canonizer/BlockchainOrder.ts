@@ -8,7 +8,6 @@ import {Blockchain} from "./Blockchain.js";
 import {BlockchainBlock} from "./BlockchainBlock.js";
 import {ContractStandard} from "./ContractStandard.js";
 import {BlockchainEvent} from "./BlockchainEvent.js";
-import {Concept} from "../Concept";
 
 export class BlockchainOrder extends Entity {
 
@@ -25,6 +24,7 @@ export class BlockchainOrder extends Entity {
     public static BUY_TOTAL = "buyTotal";
     public static ORDER_BUY_CONTRACT = "buyContract";
     public static ORDER_SELL_CONTRACT = "sellContract";
+
 
     public eventType:string = 'order';
 
@@ -81,17 +81,7 @@ export class BlockchainOrder extends Entity {
         this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB,this.eventType,sandra);
 
 
-        const buyRefArray = this.getRefArray(tokenBuy);
-        const sellRefArray = this.getRefArray(tokenSell);
 
-        this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT,buyContract,sandra,buyRefArray)
-        this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT,sellContract,sandra,sellRefArray)
-
-    }
-
-
-    private getRefArray(token: ContractStandard|null): Array<Reference>|[]
-    {
         let refArray:Reference[] = [];
 
         if (token){
@@ -105,7 +95,9 @@ export class BlockchainOrder extends Entity {
 
         }
 
-        return refArray;
+        this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT,buyContract,sandra,refArray)
+        this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT,sellContract,sandra,refArray)
+
     }
 
 

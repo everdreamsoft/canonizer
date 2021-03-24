@@ -50,4 +50,5 @@ class SandraManager {
     }
 }
 exports.SandraManager = SandraManager;
+SandraManager.ISA_SHORTNAME = 'is_a';
 //# sourceMappingURL=SandraManager.js.map
