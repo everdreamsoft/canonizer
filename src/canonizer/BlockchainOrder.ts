@@ -19,8 +19,8 @@ export class BlockchainOrder extends Entity {
     public static ON_BLOCKCHAIN = 'onBlockchain';
     public static EVENT_BLOCK = 'onBlock';
 
-    public static SELL_AMOUNT = "sellAmount";
-    public static BUY_PRICE = "buyPrice";
+    public static BUY_AMOUNT = "buyAmount";
+    public static SELL_PRICE = "sellPrice";
     public static BUY_TOTAL = "buyTotal";
     public static ORDER_BUY_CONTRACT = "buyContract";
     public static ORDER_SELL_CONTRACT = "sellContract";
@@ -37,8 +37,8 @@ export class BlockchainOrder extends Entity {
                        source:BlockchainAddress|string,
                        buyContract:BlockchainContract|string,
                        sellContract:BlockchainContract|string,
-                       sellAmount:string,
-                       buyPrice:string,
+                       buyAmount:string,
+                       sellPrice:string,
                        buyTotal:string,
                        txid:string,
                        timestamp:string,
@@ -68,8 +68,8 @@ export class BlockchainOrder extends Entity {
         }
 
         this.addReference(  new Reference(sandra.get(BlockchainOrder.EVENT_BLOCK_TIME),timestamp));
-        this.addReference(  new Reference(sandra.get(BlockchainOrder.SELL_AMOUNT), sellAmount));
-        this.addReference(  new Reference(sandra.get(BlockchainOrder.BUY_PRICE), buyPrice));
+        this.addReference(  new Reference(sandra.get(BlockchainOrder.BUY_AMOUNT),buyAmount));
+        this.addReference(  new Reference(sandra.get(BlockchainOrder.SELL_PRICE), sellPrice));
         this.addReference(  new Reference(sandra.get(BlockchainOrder.BUY_TOTAL), buyTotal));
 
         this.joinEntity(BlockchainOrder.EVENT_SOURCE_ADDRESS, source, sandra);
@@ -81,7 +81,17 @@ export class BlockchainOrder extends Entity {
         this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB,this.eventType,sandra);
 
 
+        const buyRefArray = this.getRefArray(tokenBuy);
+        const sellRefArray = this.getRefArray(tokenSell);
 
+        this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT,buyContract,sandra,buyRefArray)
+        this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT,sellContract,sandra,sellRefArray)
+
+    }
+
+
+    private getRefArray(token: ContractStandard|null): Array<Reference>|[]
+    {
         let refArray:Reference[] = [];
 
         if (token){
@@ -95,11 +105,8 @@ export class BlockchainOrder extends Entity {
 
         }
 
-        this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT,buyContract,sandra,refArray)
-        this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT,sellContract,sandra,refArray)
-
+        return refArray;
     }
-
 
 
 
