@@ -22,7 +22,9 @@ export class BlockchainOrder extends Entity {
     public static SELL_AMOUNT = "sellAmount";
     public static BUY_PRICE = "buyPrice";
     public static BUY_TOTAL = "buyTotal";
-    public static ORDER_CONTRACT = "blockchainContract";
+    public static ORDER_BUY_CONTRACT = "buyContract";
+    public static ORDER_SELL_CONTRACT = "sellContract";
+
 
     public eventType:string = 'order';
 
@@ -42,7 +44,8 @@ export class BlockchainOrder extends Entity {
                        timestamp:string,
                        blockchain:Blockchain,
                        blockId:number,
-                       token:ContractStandard | null,
+                       tokenBuy:ContractStandard | null,
+                       tokenSell:ContractStandard | null,
                        sandra:SandraManager,
 
     ) {
@@ -92,8 +95,8 @@ export class BlockchainOrder extends Entity {
 
         }
 
-        this.joinEntity(BlockchainOrder.ORDER_CONTRACT,buyContract,sandra,refArray)
-        this.joinEntity(BlockchainOrder.ORDER_CONTRACT,sellContract,sandra,refArray)
+        this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT,buyContract,sandra,refArray)
+        this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT,sellContract,sandra,refArray)
 
     }
 

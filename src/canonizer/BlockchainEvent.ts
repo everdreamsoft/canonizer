@@ -18,7 +18,7 @@ export class BlockchainEvent extends Entity {
     public static QUANTITY = 'quantity';
     public static ON_BLOCKCHAIN = 'onBlockchain';
     public static EVENT_BLOCK = 'onBlock';
-    public static BLOCKCHAIN_EVENT_TYPE_VERB = "BlockchainEventType";
+    public static BLOCKCHAIN_EVENT_TYPE_VERB = "blockchainEventType";
 
 
 
