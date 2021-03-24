@@ -12,10 +12,7 @@ import {BlockchainEvent} from "./BlockchainEvent.js";
 export class BlockchainOrder extends Entity {
 
     public static EVENT_SOURCE_ADDRESS = 'source';
-    public static EVENT_DESTINATION_VERB = 'hasSingleDestination';
-    public static EVENT_SOURCE_CONTRACT = 'blockchainContract';
     public static EVENT_BLOCK_TIME = 'timestamp';
-    public static QUANTITY = 'quantity';
     public static ON_BLOCKCHAIN = 'onBlockchain';
     public static EVENT_BLOCK = 'onBlock';
 
@@ -68,8 +65,6 @@ export class BlockchainOrder extends Entity {
         }
 
         this.addReference(  new Reference(sandra.get(BlockchainOrder.EVENT_BLOCK_TIME),timestamp));
-        this.addReference(  new Reference(sandra.get(BlockchainOrder.BUY_AMOUNT),buyAmount));
-        this.addReference(  new Reference(sandra.get(BlockchainOrder.SELL_PRICE), sellPrice));
         this.addReference(  new Reference(sandra.get(BlockchainOrder.BUY_TOTAL), buyTotal));
 
         this.joinEntity(BlockchainOrder.EVENT_SOURCE_ADDRESS, source, sandra);
@@ -81,8 +76,15 @@ export class BlockchainOrder extends Entity {
         this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB,this.eventType,sandra);
 
 
-        const buyRefArray = this.getRefArray(tokenBuy);
-        const sellRefArray = this.getRefArray(tokenSell);
+        const buyRefArray: Array<Reference> = BlockchainOrder.getRefArray(tokenBuy);
+        buyRefArray.push(
+            new Reference(sandra.get(BlockchainOrder.BUY_AMOUNT), buyAmount)
+        );
+
+        const sellRefArray: Array<Reference> = BlockchainOrder.getRefArray(tokenSell);
+        sellRefArray.push(
+            new Reference(sandra.get(BlockchainOrder.SELL_PRICE), sellPrice)
+        );
 
         this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT,buyContract,sandra,buyRefArray)
         this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT,sellContract,sandra,sellRefArray)
@@ -90,7 +92,7 @@ export class BlockchainOrder extends Entity {
     }
 
 
-    private getRefArray(token: ContractStandard|null): Array<Reference>|[]
+    private static getRefArray(token: ContractStandard|null): Array<Reference>|[]
     {
         let refArray:Reference[] = [];
 
