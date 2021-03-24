@@ -10,6 +10,7 @@ import {ContractStandard} from "./ContractStandard.js";
 
 export class BlockchainEvent extends Entity {
 
+    public eventType:string = 'transfer';
     public static EVENT_SOURCE_ADDRESS = 'source';
     public static EVENT_DESTINATION_VERB = 'hasSingleDestination';
     public static EVENT_SOURCE_CONTRACT = 'blockchainContract';
@@ -17,9 +18,14 @@ export class BlockchainEvent extends Entity {
     public static QUANTITY = 'quantity';
     public static ON_BLOCKCHAIN = 'onBlockchain';
     public static EVENT_BLOCK = 'onBlock';
+    public static BLOCKCHAIN_EVENT_TYPE_VERB = "BlockchainEventType";
 
 
-    public constructor(factory:BlockchainEventFactory|null,
+
+
+
+
+     constructor(factory:BlockchainEventFactory,
 
                        source:BlockchainAddress|string,
                        destination:BlockchainAddress|string,
@@ -35,12 +41,10 @@ export class BlockchainEvent extends Entity {
     ) {
 
 
-        if (factory == null)
-            factory = new BlockchainEventFactory(blockchain,sandra)
+         super(factory);
 
-        let txidRef = new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid);
+         this.addReference(  new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid));
 
-        super(factory,[txidRef]);
 
         if ( typeof source == "string"){
             source = blockchain.addressFactory.getOrCreate(source)
@@ -51,6 +55,8 @@ export class BlockchainEvent extends Entity {
         if ( typeof contract == "string"){
             contract = blockchain.contractFactory.getOrCreate(contract)
         }
+
+         this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB,this.eventType,sandra);
 
 
 

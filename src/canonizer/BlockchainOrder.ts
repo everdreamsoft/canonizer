@@ -22,10 +22,14 @@ export class BlockchainOrder extends Entity {
     public static BUY_PRICE = "buyPrice";
     public static BUY_TOTAL = "buyTotal";
     public static ORDER_CONTRACT = "blockchainContract";
-    public static ISA_ORDER = "blockchainOrder";
+
+    public eventType:string = 'transfer';
 
 
-    public constructor(factory:BlockchainEventFactory|null,
+
+
+
+    public constructor(factory:BlockchainEventFactory,
 
                        source:BlockchainAddress|string,
                        buyContract:BlockchainContract|string,
@@ -42,13 +46,10 @@ export class BlockchainOrder extends Entity {
 
     ) {
 
+        super(factory);
 
-        if (factory == null)
-            factory = new BlockchainEventFactory(blockchain,sandra)
+        this.addReference(  new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid));
 
-        let txidRef = new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid);
-
-        super(factory,[txidRef]);
 
         if ( typeof source == "string"){
             source = blockchain.addressFactory.getOrCreate(source)
@@ -73,7 +74,7 @@ export class BlockchainOrder extends Entity {
         this.joinEntity(BlockchainOrder.EVENT_BLOCK,blockchainBlock,sandra);
 
         this.setTriplet(BlockchainOrder.ON_BLOCKCHAIN,blockchain.name,sandra);
-        this.setTriplet(SandraManager.ISA_SHORTNAME,BlockchainOrder.ISA_ORDER,sandra);
+
 
 
         let refArray:Reference[] = [];
