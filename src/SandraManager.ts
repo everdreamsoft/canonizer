@@ -21,6 +21,10 @@ export class SandraManager {
     public entityList:Array<Entity> = [];
     public refList:Array<Reference> = [];
 
+
+
+    public static ISA_SHORTNAME = 'is_a' ;
+
     public constructor() {
 
         this.conceptMap = new Map<string,Concept>();

@@ -49,7 +49,7 @@ export class EntityFactory {
         factory.refMap.set(element.concept.unid,element.concept.shortname);
 
         let refMapByConcept:Map<string, Entity[]>;
-        console.log()
+
         if (!this.entityByRevValMap.has(element.concept)){
 
             refMapByConcept = new Map<string, Entity[]>() ;

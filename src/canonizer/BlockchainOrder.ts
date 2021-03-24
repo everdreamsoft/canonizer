@@ -22,6 +22,7 @@ export class BlockchainOrder extends Entity {
     public static BUY_PRICE = "buyPrice";
     public static BUY_TOTAL = "buyTotal";
     public static ORDER_CONTRACT = "blockchainContract";
+    public static ISA_ORDER = "blockchainOrder";
 
 
     public constructor(factory:BlockchainEventFactory|null,
@@ -72,6 +73,7 @@ export class BlockchainOrder extends Entity {
         this.joinEntity(BlockchainOrder.EVENT_BLOCK,blockchainBlock,sandra);
 
         this.setTriplet(BlockchainOrder.ON_BLOCKCHAIN,blockchain.name,sandra);
+        this.setTriplet(SandraManager.ISA_SHORTNAME,BlockchainOrder.ISA_ORDER,sandra);
 
 
         let refArray:Reference[] = [];
