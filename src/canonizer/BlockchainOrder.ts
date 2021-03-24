@@ -7,6 +7,7 @@ import {Reference} from "../Reference.js";
 import {Blockchain} from "./Blockchain.js";
 import {BlockchainBlock} from "./BlockchainBlock.js";
 import {ContractStandard} from "./ContractStandard.js";
+import {BlockchainEvent} from "./BlockchainEvent.js";
 
 export class BlockchainOrder extends Entity {
 
@@ -23,7 +24,7 @@ export class BlockchainOrder extends Entity {
     public static BUY_TOTAL = "buyTotal";
     public static ORDER_CONTRACT = "blockchainContract";
 
-    public eventType:string = 'transfer';
+    public eventType:string = 'order';
 
 
 
@@ -74,6 +75,7 @@ export class BlockchainOrder extends Entity {
         this.joinEntity(BlockchainOrder.EVENT_BLOCK,blockchainBlock,sandra);
 
         this.setTriplet(BlockchainOrder.ON_BLOCKCHAIN,blockchain.name,sandra);
+        this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB,this.eventType,sandra);
 
 
 
