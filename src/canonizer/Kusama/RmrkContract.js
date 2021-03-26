@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RmrkContract = void 0;
 const BlockchainContract_js_1 = require("../BlockchainContract.js");
 const Reference_js_1 = require("../../Reference.js");
 class RmrkContract extends BlockchainContract_js_1.BlockchainContract {

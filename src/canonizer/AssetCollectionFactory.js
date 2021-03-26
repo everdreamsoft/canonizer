@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AssetCollectionFactory = void 0;
 const EntityFactory_js_1 = require("../EntityFactory.js");
 class AssetCollectionFactory extends EntityFactory_js_1.EntityFactory {
     constructor(sandra) {
@@ -16,4 +15,5 @@ AssetCollectionFactory.IMAGE_EXTENSION = 'imageExtension';
 AssetCollectionFactory.MAIN_IMAGE = 'imageUrl';
 AssetCollectionFactory.MAIN_NAME = 'name';
 AssetCollectionFactory.DESCRIPTION = 'descriptiopn';
+AssetCollectionFactory.COLLECTION_OWNER = 'owner';
 //# sourceMappingURL=AssetCollectionFactory.js.map

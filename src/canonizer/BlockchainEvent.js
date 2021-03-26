@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BlockchainEvent = void 0;
 const Entity_js_1 = require("../Entity.js");
 const Reference_js_1 = require("../Reference.js");
 const Blockchain_js_1 = require("./Blockchain.js");
@@ -48,5 +47,5 @@ BlockchainEvent.EVENT_BLOCK_TIME = 'timestamp';
 BlockchainEvent.QUANTITY = 'quantity';
 BlockchainEvent.ON_BLOCKCHAIN = 'onBlockchain';
 BlockchainEvent.EVENT_BLOCK = 'onBlock';
-BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB = "BlockchainEventType";
+BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB = "blockchainEventType";
 //# sourceMappingURL=BlockchainEvent.js.map
