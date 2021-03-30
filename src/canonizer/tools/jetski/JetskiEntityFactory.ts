@@ -12,14 +12,20 @@ export class JetskiEntityFactory extends EntityFactory {
 
     public constructor(sandra:SandraManager) {
 
-        super('jetskiRun','jetskiRunFile',sandra);
+        super('jetskiRun','jetskiRunFile',sandra,sandra.get(JetskiEntityFactory.JETSKI_INSTANCE));
+        this.updateOnExistingRef
 
     }
 
     public getOrCreateJetskiInstance(name:string):JetskiEntity{
 
        let jetski = this.getEntitiesWithRefValue(JetskiEntityFactory.JETSKI_INSTANCE,name)
-        if (!jetski) jetski = new JetskiEntity(this,name)
+        if (!jetski || Object.keys(jetski).length < 1) {
+            jetski = new JetskiEntity(this,name)
+        }
+        else{
+            jetski = jetski[0];
+        }
 
         return jetski ;
 

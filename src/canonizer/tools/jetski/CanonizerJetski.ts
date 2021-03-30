@@ -2,6 +2,7 @@ import {CSCanonizeManager} from "../../CSCanonizeManager.js";
 import {JetskiEntityFactory} from "./JetskiEntityFactory.js";
 import {BlockchainBlock} from "../../BlockchainBlock.js";
 import {Blockchain} from "../../Blockchain.js";
+import {Gossiper} from "../../../Gossiper.js";
 
 export class CanonizerJetski {
 
@@ -25,7 +26,7 @@ export class CanonizerJetski {
     public notifyRun(block:BlockchainBlock,blockchain:Blockchain){
 
         let latestJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory.LATEST_JETSKI+blockchain.getName());
-        let currentJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory.LATEST_JETSKI+blockchain.getName());
+        let currentJetski = this.jetskiFactory.getOrCreateJetskiInstance(this.instanceCode);
 
     }
 
@@ -35,6 +36,12 @@ export class CanonizerJetski {
 
     }
 
+    public async gossipJetskiStatus(){
+
+        let gossiper = new Gossiper(this.jetskiFactory);
+        return   gossiper.gossipToUrl(this.manager.getApiConnector())
+
+    }
 
 
 }
