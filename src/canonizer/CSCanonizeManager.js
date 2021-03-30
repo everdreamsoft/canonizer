@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompatibleBlockchains = exports.CSCanonizeManager = void 0;
 const SandraManager_js_1 = require("../SandraManager.js");
 const AssetCollectionFactory_js_1 = require("./AssetCollectionFactory.js");
 const AssetCollection_js_1 = require("./AssetCollection.js");

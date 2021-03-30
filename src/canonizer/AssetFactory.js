@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AssetFactory = void 0;
 const EntityFactory_js_1 = require("../EntityFactory.js");
 class AssetFactory extends EntityFactory_js_1.EntityFactory {
     constructor(sandra) {

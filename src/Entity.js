@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Entity = void 0;
 const Reference_js_1 = require("./Reference.js");
 //does this move to the other branche ?
 class Entity {

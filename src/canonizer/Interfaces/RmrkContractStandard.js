@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RmrkContractStandard = void 0;
 const Reference_js_1 = require("../../Reference.js");
 const ContractStandard_js_1 = require("../ContractStandard.js");
 class RmrkContractStandard extends ContractStandard_js_1.ContractStandard {
