@@ -14,10 +14,10 @@ export class RmrkCanonizerWrapper  {
 
     }
 
-    public createRmrkCollection(collectionInterface:AssetCollectionInterface,maxSupply:Number,solver?:AssetSolver){
+    public createRmrkCollection(collectionInterface:AssetCollectionInterface,maxSupply:number,creationBlock:number,solver?:AssetSolver){
 
         let assetSolver = solver ? solver : this.canonizeManager.getLocalSolver() ;
-        let collection = RmrkAssetCollection.createRmrkCollection(this.canonizeManager,collectionInterface,maxSupply)
+        let collection = RmrkAssetCollection.createRmrkCollection(this.canonizeManager,collectionInterface,maxSupply,creationBlock)
         collection.joinEntity(AssetSolverFactory.COLLECTION_JOIN_VERB,assetSolver,this.canonizeManager.getSandra());
 
         return collection ;
