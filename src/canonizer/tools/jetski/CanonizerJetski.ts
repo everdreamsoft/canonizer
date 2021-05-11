@@ -2,7 +2,7 @@ import {CSCanonizeManager} from "../../CSCanonizeManager.js";
 import {JetskiEntityFactory} from "./JetskiEntityFactory.js";
 import {BlockchainBlock} from "../../BlockchainBlock.js";
 import {Blockchain} from "../../Blockchain.js";
-import {Gossiper} from "../../../Gossiper.js";
+import {ApiConnector, Gossiper} from "../../../Gossiper";
 
 export class CanonizerJetski {
 
@@ -11,37 +11,45 @@ export class CanonizerJetski {
     private instanceCode:string ;
 
 
-    public constructor(manager:CSCanonizeManager) {
+    public constructor(manager:CSCanonizeManager, instance:string) {
 
         this.manager = manager ;
         this.jetskiFactory = new JetskiEntityFactory(manager.getSandra());
+        this.instanceCode = instance;
 
-        this.instanceCode = 'myCode';
+    }
+
+    public getJetskifacotry()
+    {
+        return this.jetskiFactory;
+    }
 
 
-
-
+    public async gossipLatestBlock(apiConnector?:ApiConnector)
+    {
+        let gossiper = new Gossiper(this.jetskiFactory);
+        return gossiper.gossipToUrl(this.manager.getApiConnector(apiConnector));
     }
 
     public notifyRun(block:BlockchainBlock,blockchain:Blockchain){
 
-        let latestJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory.LATEST_JETSKI+blockchain.getName());
-        let currentJetski = this.jetskiFactory.getOrCreateJetskiInstance(this.instanceCode);
+        let latestJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory.LATEST_JETSKI+blockchain.getName(), block, this.instanceCode);
+        let currentJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory.LATEST_JETSKI+blockchain.getName(), block, this.instanceCode);
 
     }
 
-    private buildInstanceCode():string{
+    private static buildInstanceCode():string{
 
         return (Date.now() / 1000).toString() ;
 
     }
 
-    public async gossipJetskiStatus(){
 
-        let gossiper = new Gossiper(this.jetskiFactory);
-        return   gossiper.gossipToUrl(this.manager.getApiConnector())
-
+    public clearInstance()
+    {
+        this.instanceCode = "no_instance";
     }
+
 
 
 }

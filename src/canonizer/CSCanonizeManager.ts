@@ -72,6 +72,12 @@ export class CSCanonizeManager {
 
     }
 
+    public getLocalSolver():AssetSolver{
+
+        return this.localSolver ;
+
+    }
+
     public getAssetFactory():AssetFactory{
 
         return this.assetFactory ;

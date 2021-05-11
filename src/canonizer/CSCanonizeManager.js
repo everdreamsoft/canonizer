@@ -38,6 +38,9 @@ class CSCanonizeManager {
     createAsset(assetInterface) {
         return new Asset_js_1.Asset(this.assetFactory, assetInterface, this.sandra);
     }
+    getLocalSolver() {
+        return this.localSolver;
+    }
     getAssetFactory() {
         return this.assetFactory;
     }
