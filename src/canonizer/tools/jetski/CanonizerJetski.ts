@@ -19,7 +19,7 @@ export class CanonizerJetski {
 
     }
 
-    public getJetskifacotry()
+    public getJetskifacory()
     {
         return this.jetskiFactory;
     }
