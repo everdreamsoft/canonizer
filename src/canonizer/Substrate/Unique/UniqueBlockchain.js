@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UniqueBlockchain = void 0;
 const Blockchain_js_1 = require("../../Blockchain.js");
 class UniqueBlockchain extends Blockchain_js_1.Blockchain {
     constructor(sandra) {

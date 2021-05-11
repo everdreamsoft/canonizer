@@ -180,7 +180,7 @@ export class CSCanonizeManager {
 
     }
 
-    private getApiConnector(apiConnector?:ApiConnector){
+    public getApiConnector(apiConnector?:ApiConnector){
 
         if (apiConnector !== undefined){
             return apiConnector ;
