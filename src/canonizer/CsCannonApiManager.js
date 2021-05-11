@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CsCannonApiManager = void 0;
 let XMLHttpRequest = null;
 let nodeXMLHttp = false;
 try {
