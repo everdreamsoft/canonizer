@@ -15,6 +15,7 @@ export class AssetFactory extends EntityFactory
     public static collectionJoinVerb = 'bindToCollection';
     public static description = 'description';
     public static ASSET_NAME = 'name';
+    public static ASSET_EMOTE = 'emote_'; // add unicode of emote
 
     public constructor(sandra: SandraManager) {
         super('blockchainAsset', 'blockchainAssetFile', sandra);
