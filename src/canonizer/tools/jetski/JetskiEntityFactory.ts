@@ -12,22 +12,21 @@ export class JetskiEntityFactory extends EntityFactory {
     static INSTANCE_CODE = "instanceCode";
 
     public constructor(sandra:SandraManager) {
-
         super('jetskiRun','jetskiRunFile',sandra);
+        this.updateOnExistingRef = sandra.get(JetskiEntityFactory.JETSKI_INSTANCE);
     }
 
-    public getOrCreateJetskiInstance(name:string, block: BlockchainBlock, instance: string):JetskiEntity{
+    public getOrCreateJetskiInstance(name:string, block: BlockchainBlock, instance: string, sandra: SandraManager):JetskiEntity{
 
        let jetski = this.getEntitiesWithRefValue(JetskiEntityFactory.JETSKI_INSTANCE,JetskiEntityFactory.LATEST_JETSKI+name)
-        if (!(jetski instanceof JetskiEntity)) jetski = new JetskiEntity(this,name)
+        if (!(jetski instanceof JetskiEntity)) jetski = new JetskiEntity(this,sandra, name)
 
         if(jetski){
             jetski.createOrUpdateRef(JetskiEntityFactory.LATEST_BLOCK, block.getBlockId());
             jetski.createOrUpdateRef(JetskiEntityFactory.INSTANCE_CODE, instance);
         }
 
-        return jetski ;
-
+        return jetski;
     }
 
 
