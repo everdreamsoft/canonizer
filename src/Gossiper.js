@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Gossiper = void 0;
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 class Gossiper {
     constructor(entityFactory, updateOnReference) {
@@ -11,6 +10,9 @@ class Gossiper {
         this.entityFactory = entityFactory;
         this.updateOnReference = updateOnReference;
         this.joinFactoryGossip = [];
+    }
+    static gossipFactory(entityFactory, updateOnRefrenceConcept) {
+        return new Gossiper(entityFactory, updateOnRefrenceConcept);
     }
     exposeGossip(isFinalFactory = true) {
         let how = this.entityFactory.refMap;
@@ -53,9 +55,6 @@ class Gossiper {
         }
         return myData;
     }
-    static gossipFactory(entityFactory, updateOnRefrenceConcept) {
-        return new Gossiper(entityFactory, updateOnRefrenceConcept);
-    }
     gossipEntity(entity) {
         let myData = {
             id: entity.id,
@@ -81,7 +80,10 @@ class Gossiper {
             tripletRef[1].forEach(element => {
                 //simplify reference for display
                 let simpleReference = this.simplifyReference(element.refs);
-                myData.tripletsReferences[tripletRef[0].shortname].push({ targetUnid: element.concept.unid, refs: simpleReference });
+                myData.tripletsReferences[tripletRef[0].shortname].push({
+                    targetUnid: element.concept.unid,
+                    refs: simpleReference
+                });
             });
         }
         return myData;
@@ -129,7 +131,6 @@ class Gossiper {
             const xmlhttp = new XMLHttpRequest();
             let flushData = '&flush=true';
             xmlhttp.open("POST", connector.gossipUrl + '?jwt=' + connector.jwt + flushData);
-            console.log(connector.gossipUrl + '?jwt=' + connector.jwt + flushData);
             xmlhttp.setRequestHeader("Content-Type", "application/json");
             xmlhttp.send();
             xmlhttp.onreadystatechange = function () {
@@ -140,6 +141,12 @@ class Gossiper {
                 else if (this.readyState == 4)
                     reject('Bad request :' + this.status);
             };
+        });
+    }
+    async listenFromRemote(connector) {
+        const xmlhttp = new XMLHttpRequest();
+        return new Promise((resolve, reject) => {
+            xmlhttp.open("GET", connector.gossipUrl + '?jwt=' + connector.jwt);
         });
     }
 }

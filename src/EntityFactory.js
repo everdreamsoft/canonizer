@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EntityFactory = void 0;
 class EntityFactory {
     constructor(isa, containedIn, sandraManager, updateOnExistingRef) {
         this.entityArray = [];
@@ -71,6 +70,8 @@ class EntityFactory {
             return;
         let createOnRef = entityFactory.updateOnExistingRef;
         this.joinedFactory.push({ entityFactory, onVerb, createOnRef });
+    }
+    listenFromRemote(gossiper) {
     }
 }
 exports.EntityFactory = EntityFactory;

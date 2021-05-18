@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Concept = void 0;
 class Concept {
     constructor(unid, shortname) {
         this.isPureShortname = false;
