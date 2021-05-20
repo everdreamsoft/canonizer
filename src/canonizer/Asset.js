@@ -1,51 +1,65 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const Entity_js_1 = require("../Entity.js");
-const AssetFactory_js_1 = require("./AssetFactory.js");
-const Reference_js_1 = require("../Reference.js");
-class Asset extends Entity_js_1.Entity {
-    constructor(factory, assetInterface, sandra) {
-        super(factory);
-        this.sandra = sandra;
-        this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.ID), assetInterface.assetId));
-        assetInterface.imageUrl ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.imageUrl), assetInterface.imageUrl)) : null;
-        assetInterface.metadataUrl ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.metaDataUrl), assetInterface.metadataUrl)) : null;
-        assetInterface.description ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.description), assetInterface.description)) : null;
-        assetInterface.name ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.ASSET_NAME), assetInterface.name)) : null;
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+import { Entity } from "../Entity.js";
+import { AssetFactory } from "./AssetFactory.js";
+import { Reference } from "../Reference.js";
+var Asset = /** @class */ (function (_super) {
+    __extends(Asset, _super);
+    function Asset(factory, assetInterface, sandra) {
+        var _this = _super.call(this, factory) || this;
+        _this.sandra = sandra;
+        _this.addReference(new Reference(sandra.get(AssetFactory.ID), assetInterface.assetId));
+        assetInterface.imageUrl ? _this.addReference(new Reference(sandra.get(AssetFactory.imageUrl), assetInterface.imageUrl)) : null;
+        assetInterface.metadataUrl ? _this.addReference(new Reference(sandra.get(AssetFactory.metaDataUrl), assetInterface.metadataUrl)) : null;
+        assetInterface.description ? _this.addReference(new Reference(sandra.get(AssetFactory.description), assetInterface.description)) : null;
+        assetInterface.name ? _this.addReference(new Reference(sandra.get(AssetFactory.ASSET_NAME), assetInterface.name)) : null;
+        return _this;
     }
-    bindContract(contract) {
-        this.joinEntity(AssetFactory_js_1.AssetFactory.tokenJoinVerb, contract, this.sandra, [new Reference_js_1.Reference(this.sandra.get('sn'), 'canonizer')]);
-    }
-    getJoinedContracts() {
+    Asset.prototype.bindContract = function (contract) {
+        this.joinEntity(AssetFactory.tokenJoinVerb, contract, this.sandra, [new Reference(this.sandra.get('sn'), 'canonizer')]);
+    };
+    Asset.prototype.getJoinedContracts = function () {
         // @ts-ignore
-        return this.getJoinedEntitiesOnVerb(AssetFactory_js_1.AssetFactory.tokenJoinVerb);
-    }
-    getJoinedCollections() {
+        return this.getJoinedEntitiesOnVerb(AssetFactory.tokenJoinVerb);
+    };
+    Asset.prototype.getJoinedCollections = function () {
         // @ts-ignore
-        return this.getJoinedEntitiesOnVerb(AssetFactory_js_1.AssetFactory.collectionJoinVerb);
-    }
-    bindCollection(assetCollection) {
-        this.joinEntity(AssetFactory_js_1.AssetFactory.collectionJoinVerb, assetCollection, this.sandra);
-    }
-    getImageUrl() {
-        return this.getRefValue(AssetFactory_js_1.AssetFactory.imageUrl);
-    }
-    setImageUrl(imgUrl) {
-        this.createOrUpdateRef(AssetFactory_js_1.AssetFactory.imageUrl, imgUrl);
-    }
-    getId() {
-        return this.getRefValue(AssetFactory_js_1.AssetFactory.ID);
-    }
-    getDescription() {
-        return this.getRefValue(AssetFactory_js_1.AssetFactory.description);
-    }
-    setDescription(description) {
-        return this.getRefValue(AssetFactory_js_1.AssetFactory.description);
-    }
-    setMetaDatasUrl(metaDatasUrl) {
+        return this.getJoinedEntitiesOnVerb(AssetFactory.collectionJoinVerb);
+    };
+    Asset.prototype.bindCollection = function (assetCollection) {
+        this.joinEntity(AssetFactory.collectionJoinVerb, assetCollection, this.sandra);
+    };
+    Asset.prototype.getImageUrl = function () {
+        return this.getRefValue(AssetFactory.imageUrl);
+    };
+    Asset.prototype.setImageUrl = function (imgUrl) {
+        this.createOrUpdateRef(AssetFactory.imageUrl, imgUrl);
+    };
+    Asset.prototype.getId = function () {
+        return this.getRefValue(AssetFactory.ID);
+    };
+    Asset.prototype.getDescription = function () {
+        return this.getRefValue(AssetFactory.description);
+    };
+    Asset.prototype.setDescription = function (description) {
+        return this.getRefValue(AssetFactory.description);
+    };
+    Asset.prototype.setMetaDatasUrl = function (metaDatasUrl) {
         // TODO createOrUpdateRef
         // this.metaDatasUrl = metaDatasUrl;
-    }
-}
-exports.Asset = Asset;
+    };
+    return Asset;
+}(Entity));
+export { Asset };
 //# sourceMappingURL=Asset.js.map
