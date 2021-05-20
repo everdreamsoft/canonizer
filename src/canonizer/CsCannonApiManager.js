@@ -26,7 +26,7 @@ class CsCannonApiManager {
         let response = await this.apiCall('collections?sortBy=creationTimestamp&orderBy=desc');
         //console.log(response)
         let collections = [];
-        let toremove = 1;
+        let toremove = 2;
         response.data.forEach((collection) => {
             console.log(collection.id);
             if (collection.name != undefined && collection.id != '46C7F6523465F3681D-CHUNG') { //should be curator

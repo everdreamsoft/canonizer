@@ -33,7 +33,7 @@ export class CsCannonApiManager {
         let response:any = await this.apiCall('collections?sortBy=creationTimestamp&orderBy=desc');
         //console.log(response)
         let collections:AssetCollection[] = [];
-        let toremove = 1 ;
+        let toremove = 2 ;
 
         response.data.forEach((collection:AssetCollectionInterface) => {
 
