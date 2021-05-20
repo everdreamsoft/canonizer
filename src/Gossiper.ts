@@ -265,7 +265,7 @@ export class Gossiper {
 
         const xmlhttp = new XMLHttpRequest();
         return new Promise((resolve: any, reject: any) => {
-            xmlhttp.open("GET", connector.gossipUrl + '?jwt=' + connector.jwt + flushData);
+            xmlhttp.open("GET", connector.gossipUrl + '?jwt=' + connector.jwt);
         });
 
     }

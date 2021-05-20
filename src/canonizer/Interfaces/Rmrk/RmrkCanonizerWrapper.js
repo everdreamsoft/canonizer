@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RmrkCanonizerWrapper = void 0;
 const AssetSolverFactory_1 = require("../../AssetSolvers/AssetSolverFactory");
 const RmrkAssetCollection_1 = require("./RmrkAssetCollection");
 class RmrkCanonizerWrapper {

@@ -1,17 +1,16 @@
 import {Entity} from "../../../Entity.js";
-import {AssetFactory} from "../../AssetFactory.js";
-import {SandraManager} from "../../../SandraManager.js";
-import {AssetInterface} from "../../Asset.js";
 import {JetskiEntityFactory} from "./JetskiEntityFactory.js";
 import {BlockchainBlock} from "../../BlockchainBlock.js";
+import {SandraManager} from "../../../SandraManager";
+import {Reference} from "../../../Reference";
 
 export class JetskiEntity extends Entity {
 
 
-    public constructor(factory: JetskiEntityFactory, name:string) {
+    public constructor(factory: JetskiEntityFactory, sandra: SandraManager, name:string) {
         super(factory);
-        this.createOrUpdateRef(JetskiEntityFactory.JETSKI_INSTANCE,name);
-
+        this.addReference(new Reference(sandra.get(JetskiEntityFactory.JETSKI_INSTANCE), JetskiEntityFactory.LATEST_JETSKI+name));
+        // this.createOrUpdateRef(JetskiEntityFactory.JETSKI_INSTANCE,name);
     }
 
     public setLatestBlock(block:BlockchainBlock){
@@ -19,5 +18,7 @@ export class JetskiEntity extends Entity {
         this.createOrUpdateRef(JetskiEntityFactory.LATEST_BLOCK,block.getBlockId())
 
     }
+
+
 
 }

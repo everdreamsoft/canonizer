@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BlockchainTransfer = void 0;
 const BlockchainEventFactory_js_1 = require("./BlockchainEventFactory.js");
 const Reference_js_1 = require("../Reference.js");
 const Blockchain_js_1 = require("./Blockchain.js");

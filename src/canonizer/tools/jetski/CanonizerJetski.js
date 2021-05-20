@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CanonizerJetski = void 0;
 const JetskiEntityFactory_js_1 = require("./JetskiEntityFactory.js");
 const Gossiper_1 = require("../../../Gossiper");
 class CanonizerJetski {
@@ -9,7 +8,7 @@ class CanonizerJetski {
         this.jetskiFactory = new JetskiEntityFactory_js_1.JetskiEntityFactory(manager.getSandra());
         this.instanceCode = instance;
     }
-    getJetskifacotry() {
+    getJetskifacory() {
         return this.jetskiFactory;
     }
     async gossipLatestBlock(apiConnector) {

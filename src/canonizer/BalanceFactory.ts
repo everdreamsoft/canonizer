@@ -5,9 +5,7 @@ import {BlockchainAddress} from "./BlockchainAddress.js";
 export class BalanceFactory extends EntityFactory{
     private sandra: SandraManager;
 
-    private address:BlockchainAddress ;
-
-
+    //private address:BlockchainAddress ;
 
 
     public constructor(sandra:SandraManager) {
@@ -19,7 +17,6 @@ export class BalanceFactory extends EntityFactory{
     }
 
     public getBalanceForAddress(){
-
 
 
 

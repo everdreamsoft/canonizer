@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BlockchainOrderFactory = void 0;
 const EntityFactory_1 = require("../EntityFactory");
 const Blockchain_1 = require("./Blockchain");
 class BlockchainOrderFactory extends EntityFactory_1.EntityFactory {

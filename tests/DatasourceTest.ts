@@ -7,5 +7,5 @@ const chain = new KusamaBlockchain(sandra);
 
 const kusamaAddress = chain.addressFactory.getOrCreate('myGreatAddress');
 
-const myDataSource = new Datasource();
-kusamaAddress.datasource.getBalance();
+//const myDataSource = new Datasource();
+//kusamaAddress.datasource.getBalance();

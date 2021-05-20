@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KusamaBlockchain = void 0;
 const Blockchain_js_1 = require("../../Blockchain.js");
 const EntityFactory_js_1 = require("../../../EntityFactory.js");
 const BlockchainBlock_js_1 = require("../../BlockchainBlock.js");

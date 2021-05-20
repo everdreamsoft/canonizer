@@ -1,16 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JetskiEntityFactory = void 0;
 const EntityFactory_js_1 = require("../../../EntityFactory.js");
 const JetskiEntity_js_1 = require("./JetskiEntity.js");
 class JetskiEntityFactory extends EntityFactory_js_1.EntityFactory {
     constructor(sandra) {
         super('jetskiRun', 'jetskiRunFile', sandra);
+        this.updateOnExistingRef = sandra.get(JetskiEntityFactory.JETSKI_INSTANCE);
     }
-    getOrCreateJetskiInstance(name, block, instance) {
+    getOrCreateJetskiInstance(name, block, instance, sandra) {
         let jetski = this.getEntitiesWithRefValue(JetskiEntityFactory.JETSKI_INSTANCE, JetskiEntityFactory.LATEST_JETSKI + name);
         if (!(jetski instanceof JetskiEntity_js_1.JetskiEntity))
-            jetski = new JetskiEntity_js_1.JetskiEntity(this, name);
+            jetski = new JetskiEntity_js_1.JetskiEntity(this, sandra, name);
         if (jetski) {
             jetski.createOrUpdateRef(JetskiEntityFactory.LATEST_BLOCK, block.getBlockId());
             jetski.createOrUpdateRef(JetskiEntityFactory.INSTANCE_CODE, instance);
