@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.JetskiEntityFactory = void 0;
 const EntityFactory_js_1 = require("../../../EntityFactory.js");
 const JetskiEntity_js_1 = require("./JetskiEntity.js");
 class JetskiEntityFactory extends EntityFactory_js_1.EntityFactory {

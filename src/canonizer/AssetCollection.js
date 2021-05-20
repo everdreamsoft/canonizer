@@ -1,51 +1,38 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-import { Entity } from "../Entity.js";
-import { AssetCollectionFactory } from "./AssetCollectionFactory.js";
-import { Reference } from "../Reference.js";
-var AssetCollection = /** @class */ (function (_super) {
-    __extends(AssetCollection, _super);
-    function AssetCollection(factory, collectionInterface, sandra) {
-        var _this = _super.call(this, factory) || this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AssetCollection = void 0;
+const Entity_js_1 = require("../Entity.js");
+const AssetCollectionFactory_js_1 = require("./AssetCollectionFactory.js");
+const Reference_js_1 = require("../Reference.js");
+class AssetCollection extends Entity_js_1.Entity {
+    constructor(factory, collectionInterface, sandra) {
+        super(factory);
         //canonical vocabulary
-        _this.COLLECTION_ID = 'collectionId';
-        _this.NAME = 'name';
-        _this.MAIN_IMAGE = 'imageUrl';
-        _this.MAIN_NAME = 'name';
-        _this.DESCRIPTION = 'description';
-        _this.addReference(new Reference(sandra.get(_this.COLLECTION_ID), collectionInterface.id));
-        collectionInterface.name ? _this.addReference(new Reference(sandra.get(_this.NAME), collectionInterface.name)) : null;
-        collectionInterface.imageUrl ? _this.addReference(new Reference(sandra.get(_this.MAIN_IMAGE), collectionInterface.imageUrl)) : null;
-        collectionInterface.description ? _this.addReference(new Reference(sandra.get(_this.DESCRIPTION), collectionInterface.description)) : null;
-        return _this;
+        this.COLLECTION_ID = 'collectionId';
+        this.NAME = 'name';
+        this.MAIN_IMAGE = 'imageUrl';
+        this.MAIN_NAME = 'name';
+        this.DESCRIPTION = 'description';
+        this.addReference(new Reference_js_1.Reference(sandra.get(this.COLLECTION_ID), collectionInterface.id));
+        collectionInterface.name ? this.addReference(new Reference_js_1.Reference(sandra.get(this.NAME), collectionInterface.name)) : null;
+        collectionInterface.imageUrl ? this.addReference(new Reference_js_1.Reference(sandra.get(this.MAIN_IMAGE), collectionInterface.imageUrl)) : null;
+        collectionInterface.description ? this.addReference(new Reference_js_1.Reference(sandra.get(this.DESCRIPTION), collectionInterface.description)) : null;
     }
-    AssetCollection.prototype.getImageUrl = function () {
+    getImageUrl() {
         return this.getRefValue(this.MAIN_IMAGE) ? this.getRefValue(this.MAIN_IMAGE) : '';
-    };
-    AssetCollection.prototype.getName = function () {
+    }
+    getName() {
         return this.getRefValue(this.NAME) ? this.getRefValue(this.NAME) : '';
-    };
-    AssetCollection.prototype.getDescription = function () {
+    }
+    getDescription() {
         return this.getRefValue(this.DESCRIPTION) ? this.getRefValue(this.DESCRIPTION) : '';
-    };
-    AssetCollection.prototype.getId = function () {
+    }
+    getId() {
         return this.getRefValue(this.COLLECTION_ID) ? this.getRefValue(this.COLLECTION_ID) : '';
-    };
-    AssetCollection.prototype.setOwner = function (owner) {
-        this.joinEntity(AssetCollectionFactory.COLLECTION_OWNER, owner, this.factory.sandraManager);
-    };
-    return AssetCollection;
-}(Entity));
-export { AssetCollection };
+    }
+    setOwner(owner) {
+        this.joinEntity(AssetCollectionFactory_js_1.AssetCollectionFactory.COLLECTION_OWNER, owner, this.factory.sandraManager);
+    }
+}
+exports.AssetCollection = AssetCollection;
 //# sourceMappingURL=AssetCollection.js.map

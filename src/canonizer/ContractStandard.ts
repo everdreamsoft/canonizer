@@ -17,7 +17,7 @@ export abstract class ContractStandard extends Entity{
     specifierArray:Map<Concept,string> = new Map<Concept,string>()
     name:string = 'genericStandard' ;
 
-    protected setSpecifierValue(concept:Concept,value:string){
+    public setSpecifierValue(concept:Concept,value:string){
 
         this.specifierArray.set(concept,value);
 

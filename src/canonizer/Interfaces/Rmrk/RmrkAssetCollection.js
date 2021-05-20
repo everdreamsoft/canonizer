@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RmrkAssetCollection = void 0;
 const AssetCollection_1 = require("../../AssetCollection");
 const Reference_1 = require("../../../Reference");
 class RmrkAssetCollection extends AssetCollection_1.AssetCollection {

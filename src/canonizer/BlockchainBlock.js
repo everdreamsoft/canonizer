@@ -1,32 +1,19 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-import { Entity } from "../Entity.js";
-import { Reference } from "../Reference.js";
-var BlockchainBlock = /** @class */ (function (_super) {
-    __extends(BlockchainBlock, _super);
-    function BlockchainBlock(factory, blockId, blockTimestamp, sandraManager) {
-        var _this = _super.call(this, factory) || this;
-        _this.addReference(new Reference(sandraManager.get(BlockchainBlock.INDEX_SHORTNAME), blockId.toString()));
-        _this.addReference(new Reference(sandraManager.get(BlockchainBlock.BLOCK_TIMESTAMP), blockTimestamp));
-        return _this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BlockchainBlock = void 0;
+const Entity_js_1 = require("../Entity.js");
+const Reference_js_1 = require("../Reference.js");
+class BlockchainBlock extends Entity_js_1.Entity {
+    constructor(factory, blockId, blockTimestamp, sandraManager) {
+        super(factory);
+        this.addReference(new Reference_js_1.Reference(sandraManager.get(BlockchainBlock.INDEX_SHORTNAME), blockId.toString()));
+        this.addReference(new Reference_js_1.Reference(sandraManager.get(BlockchainBlock.BLOCK_TIMESTAMP), blockTimestamp));
     }
-    BlockchainBlock.prototype.getBlockId = function () {
+    getBlockId() {
         return this.getRefValue(BlockchainBlock.INDEX_SHORTNAME);
-    };
-    BlockchainBlock.INDEX_SHORTNAME = 'blockIndex';
-    BlockchainBlock.BLOCK_TIMESTAMP = 'timestamp';
-    return BlockchainBlock;
-}(Entity));
-export { BlockchainBlock };
+    }
+}
+exports.BlockchainBlock = BlockchainBlock;
+BlockchainBlock.INDEX_SHORTNAME = 'blockIndex';
+BlockchainBlock.BLOCK_TIMESTAMP = 'timestamp';
 //# sourceMappingURL=BlockchainBlock.js.map
