@@ -18,6 +18,8 @@ export class RmrkContractStandard extends ContractStandard{
         let factory = canonizeManager.getContractStandardFactory();
         super(factory);
 
+        this.name = 'RmrkStandard';
+
         this.sandra = canonizeManager.getSandra() ;
 
         //we need to bind the the standard to the canonizer class

@@ -15,6 +15,7 @@ export abstract class ContractStandard extends Entity{
 
 
     specifierArray:Map<Concept,string> = new Map<Concept,string>()
+    name:string = 'genericStandard' ;
 
     protected setSpecifierValue(concept:Concept,value:string){
 
@@ -34,9 +35,11 @@ export abstract class ContractStandard extends Entity{
 
        return new BlockchainToken(canonizeManager,this.getDisplayStructure());
 
-
-
    }
+    public getName(){
+
+        return this.name ;
+    }
 
 
 
