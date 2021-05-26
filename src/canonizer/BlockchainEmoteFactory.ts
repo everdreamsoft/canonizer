@@ -7,15 +7,19 @@ export class BlockchainEmoteFactory extends EntityFactory
 
     public is_a: string = 'tokenEmote';
     public contained_in_file = 'tokenEmoteFile';
+
     public static EMOTE_ID = "emoteId";
-    public static EVENT_TYPE = 'emote';
-    public static EMOTE_SOURCE_ADDRESS = "source";
-    public static EMOTE_UNICODE = "emote";
-    public static ON_TOKEN = "onToken";
-    public static CREATION_DATE = "createOn";
+    public static EMOTE_SOURCE_ADDRESS = 'source';
+    public static EVENT_BLOCK_TIME = 'timestamp';
+    public static ON_BLOCKCHAIN = 'onBlockchain';
+    public static EMOTE_BLOCK = 'onBlock';
+    public static EMOTE_UNICODE = 'emote';
+    public static TARGET_CONTRACT = "targetContract";
+    public static TARGET_TOKEN = "targetToken";
+    public static BLOCKCHAIN_EVENT_TYPE_VERB = "blockchainEventType"
 
     public constructor(sandra: SandraManager) {
-        super('emote', 'emoteFile', sandra);
+        super('emoteEvent', 'emoteEventFile', sandra);
 
         this.updateOnExistingRef = sandra.get(BlockchainEmoteFactory.EMOTE_ID);
     }

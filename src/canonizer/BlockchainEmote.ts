@@ -1,49 +1,65 @@
 import {Entity} from "../Entity";
 import {BlockchainEmoteFactory} from "./BlockchainEmoteFactory";
 import {SandraManager} from "../SandraManager";
-import {BlockchainAddressFactory} from "./BlockchainAddressFactory";
 import {Reference} from "../Reference";
-import {BlockchainEvent} from "./BlockchainEvent";
 import {Blockchain} from "./Blockchain";
-
-export interface EmoteInterface{
-
-    sender: string,
-    unicode: string,
-    contract: string,
-    sb: string,
-    timestamp: string,
-
-}
+import {BlockchainContract} from "./BlockchainContract";
+import {BlockchainAddress} from "./BlockchainAddress";
+import {BlockchainBlock} from "./BlockchainBlock";
+import {BlockchainToken} from "./BlockchainToken";
+import {BlockchainTokenFactory} from "./BlockchainTokenFactory";
 
 export class BlockchainEmote extends Entity
 {
 
-    private sandra: SandraManager;
+    public static eventType = "emoteEvent";
 
-    constructor(factory: BlockchainEmoteFactory, sandra: SandraManager, emoteInterface: EmoteInterface, blockchain: Blockchain) {
+    constructor(
+        factory: BlockchainEmoteFactory,
+        sandra: SandraManager,
+        blockchain: Blockchain,
+        source: string|BlockchainAddress,
+        txId: string,
+        blockId: number,
+        timestamp: string,
+        emote: string,
+        token: BlockchainToken,
+        contract: BlockchainContract
+        ) {
         super(factory);
 
-        this.sandra = sandra;
 
-        this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.EMOTE_ID), emoteInterface.sender+"_"+emoteInterface.unicode));
+        if(typeof source == "string"){
+            source =  blockchain.addressFactory.getOrCreate(source);
+        }
 
-        const blockchainAddress = new BlockchainAddressFactory(sandra);
-        const sender = blockchainAddress.getOrCreate(emoteInterface.sender);
+        // Create emoteId for updateOnExistingRef
+        const contractId = contract.getRefValue(sandra.get("id"));
+        const sn = token.getRefValue(sandra.get(BlockchainTokenFactory.ID));
+        const emoteId = source.getAddress() +"_"+ emote +"_"+ contractId +"-"+ sn;
 
-        this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB, BlockchainEmoteFactory.EVENT_TYPE, sandra);
+        // Add generic on refs data (tx, block etc)
+        this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.EMOTE_ID), emoteId));
+        this.addReference(new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txId));
+        this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.EVENT_BLOCK_TIME), timestamp));
 
-        this.joinEntity(BlockchainEmoteFactory.EMOTE_SOURCE_ADDRESS, sender, sandra);
+        // add emote
+        this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.EMOTE_UNICODE), emote));
 
-        // get blockchain token with ID ?
-        const token = blockchain.contractFactory.getOrCreate(emoteInterface.contract);
-        // const token = blockchain.contractFactory.getOrCreate(emoteInterface.token);
-        // this.joinEntity(BlockchainEmoteFactory.ON_TOKEN, token, sandra);
-        this.setTriplet(BlockchainEmoteFactory.ON_TOKEN, emoteInterface.token, sandra);
+        const blockchainBlock = new BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
 
-        this.setTriplet(BlockchainEmoteFactory.EMOTE_UNICODE, emoteInterface.unicode, sandra);
+        // Add generic data as triplet and entity
+        this.joinEntity(BlockchainEmoteFactory.EMOTE_BLOCK, blockchainBlock, sandra);
+        this.setTriplet(BlockchainEmoteFactory.ON_BLOCKCHAIN, blockchain.getName(), sandra);
 
-        this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.CREATION_DATE), emoteInterface.timestamp));
+        // Add owner Blockchain "Event" verb ?
+        this.setTriplet(BlockchainEmoteFactory.BLOCKCHAIN_EVENT_TYPE_VERB, BlockchainEmote.eventType, sandra);
+
+        // Add emote data
+        this.joinEntity(BlockchainEmoteFactory.EMOTE_SOURCE_ADDRESS, source, sandra);
+        this.joinEntity(BlockchainEmoteFactory.TARGET_CONTRACT, contract, sandra);
+        this.joinEntity(BlockchainEmoteFactory.TARGET_TOKEN, token, sandra);
+
 
     }
 
