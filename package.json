@@ -1,6 +1,6 @@
 {
   "name": "canonizer",
-  "version": "0.0.4",
+  "version": "0.0.14",
   "description": "Multi-blockchain tool",
   "main": "src/index.js",
   "dependencies": {

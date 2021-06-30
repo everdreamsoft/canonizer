@@ -15,6 +15,8 @@ import {LocalSolver} from "./AssetSolvers/LocalSolver.js";
 import {AssetSolver} from "./AssetSolvers/AssetSolver.js";
 import {BlockchainEventFactory} from "./BlockchainEventFactory.js";
 import {KusamaBlockchain} from "./Substrate/Kusama/KusamaBlockchain";
+import {RmrkContractStandard} from "./Interfaces/RmrkContractStandard.js";
+import {ContractStandard} from "./ContractStandard.js";
 
 
 interface CanonizeOptions{
@@ -37,6 +39,7 @@ export class CSCanonizeManager {
     private localSolver:LocalSolver ;
     private loadedBlockchains:Blockchain[] = [];
     public static  mintIssuerAddressString:string = '0x0000000000000000000000000000000000000000' ;
+    private contractStandardMap:Map<string,ContractStandard>  ;
 
     constructor(options?:CanonizeOptions,sandra:SandraManager = new SandraManager()) {
 
@@ -69,6 +72,12 @@ export class CSCanonizeManager {
     public createAsset(assetInterface:AssetInterface):Asset{
 
         return new Asset(this.assetFactory,assetInterface,this.sandra);
+
+    }
+
+    public getLocalSolver():AssetSolver{
+
+        return this.localSolver ;
 
     }
 
@@ -175,6 +184,7 @@ export class CSCanonizeManager {
     }
 
 
+
     public async gossipBlockchainOrder(blockchain:Blockchain ,apiConnector?:ApiConnector)
     {
         const gossiper = new Gossiper(blockchain.orderFactory);
@@ -189,6 +199,7 @@ export class CSCanonizeManager {
     }
 
     private getApiConnector(apiConnector?:ApiConnector){
+
 
         if (apiConnector !== undefined){
             return apiConnector ;
@@ -236,7 +247,28 @@ export class CSCanonizeManager {
     }
 
 
+    private registerCompatibleStandards(){
 
+        // add compatible standards here
+        const standard = new RmrkContractStandard(this);
+
+        this.contractStandardMap.set(standard.getName(),standard);
+
+        return this.contractStandardMap ;
+
+    }
+
+    public getStandardFromName(name:string){
+
+        const standard = this.contractStandardMap.get(name);
+
+        if (!standard) return null ;
+
+        return standard ;
+
+
+
+    }
 
 
 }

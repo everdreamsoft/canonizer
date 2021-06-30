@@ -16,6 +16,7 @@ const Reference_js_1 = require("../Reference.js");
 const AssetSolverFactory_js_1 = require("./AssetSolvers/AssetSolverFactory.js");
 const LocalSolver_js_1 = require("./AssetSolvers/LocalSolver.js");
 const KusamaBlockchain_1 = require("./Substrate/Kusama/KusamaBlockchain");
+const RmrkContractStandard_js_1 = require("./Interfaces/RmrkContractStandard.js");
 class CSCanonizeManager {
     constructor(options, sandra = new SandraManager_js_1.SandraManager()) {
         this.loadedBlockchains = [];
@@ -37,6 +38,9 @@ class CSCanonizeManager {
     }
     createAsset(assetInterface) {
         return new Asset_js_1.Asset(this.assetFactory, assetInterface, this.sandra);
+    }
+    getLocalSolver() {
+        return this.localSolver;
     }
     getAssetFactory() {
         return this.assetFactory;
@@ -130,6 +134,18 @@ class CSCanonizeManager {
                 return new KusamaBlockchain_1.KusamaBlockchain(this.getSandra());
         }
         throw new Error("Blockchain not found" + name);
+    }
+    registerCompatibleStandards() {
+        // add compatible standards here
+        const standard = new RmrkContractStandard_js_1.RmrkContractStandard(this);
+        this.contractStandardMap.set(standard.getName(), standard);
+        return this.contractStandardMap;
+    }
+    getStandardFromName(name) {
+        const standard = this.contractStandardMap.get(name);
+        if (!standard)
+            return null;
+        return standard;
     }
 }
 exports.CSCanonizeManager = CSCanonizeManager;

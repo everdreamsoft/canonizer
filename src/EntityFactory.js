@@ -72,6 +72,8 @@ class EntityFactory {
         let createOnRef = entityFactory.updateOnExistingRef;
         this.joinedFactory.push({ entityFactory, onVerb, createOnRef });
     }
+    listenFromRemote(gossiper) {
+    }
 }
 exports.EntityFactory = EntityFactory;
 //# sourceMappingURL=EntityFactory.js.map
