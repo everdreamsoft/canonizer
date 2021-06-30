@@ -18,4 +18,5 @@ AssetFactory.tokenJoinVerb = 'bindToContract';
 AssetFactory.collectionJoinVerb = 'bindToCollection';
 AssetFactory.description = 'description';
 AssetFactory.ASSET_NAME = 'name';
+AssetFactory.ASSET_EMOTE = 'emote_'; // add unicode of emote
 //# sourceMappingURL=AssetFactory.js.map

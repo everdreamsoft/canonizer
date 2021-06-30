@@ -8,7 +8,7 @@ class WestendBlockchain extends Blockchain_js_1.Blockchain {
         this.name = 'westend';
         this.name = 'westend';
         this.addressFactory.is_a = 'westendAddress';
-        this.addressFactory.contained_in_file = 'kusamaAddressFile';
+        this.addressFactory.contained_in_file = 'blockchainAddressFile';
         this.addressFactory.onBlockchain = this.name;
         this.contractFactory.is_a = 'rmrkContract';
         this.contractFactory.contained_in_file = 'blockchainContractFile';

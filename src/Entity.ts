@@ -9,6 +9,7 @@ export class Entity{
 
     public subjectConcept:Concept ;
     public id:number ;
+    // TODO make private and make getters
     public referenceArray:Reference[] = [];
     public factory:EntityFactory ;
     public brotherEntityMap:Map<Concept,Map<Concept, Entity[]>> = new Map<Concept,Map<Concept, Entity[]>>();

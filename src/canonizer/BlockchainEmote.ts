@@ -61,6 +61,7 @@ export class BlockchainEmote extends Entity
         this.joinEntity(BlockchainEmoteFactory.TARGET_TOKEN, token, sandra);
 
 
+
     }
 
 }

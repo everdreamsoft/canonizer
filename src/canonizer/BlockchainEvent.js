@@ -48,5 +48,5 @@ BlockchainEvent.EVENT_BLOCK_TIME = 'timestamp';
 BlockchainEvent.QUANTITY = 'quantity';
 BlockchainEvent.ON_BLOCKCHAIN = 'onBlockchain';
 BlockchainEvent.EVENT_BLOCK = 'onBlock';
-BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB = "BlockchainEventType";
+BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB = "blockchainEventType";
 //# sourceMappingURL=BlockchainEvent.js.map

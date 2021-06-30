@@ -5,8 +5,8 @@ import {SandraManager} from "../SandraManager";
 export class BlockchainEmoteFactory extends EntityFactory
 {
 
-    public is_a: string = 'tokenEmote';
-    public contained_in_file = 'tokenEmoteFile';
+    public is_a: string = 'emoteEvent';
+    public contained_in_file = 'emoteEventFile';
 
     public static EMOTE_ID = "emoteId";
     public static EMOTE_SOURCE_ADDRESS = 'source';
@@ -21,7 +21,7 @@ export class BlockchainEmoteFactory extends EntityFactory
     public constructor(sandra: SandraManager) {
         super('emoteEvent', 'emoteEventFile', sandra);
 
-        this.updateOnExistingRef = sandra.get(BlockchainEmoteFactory.EMOTE_ID);
+        this.updateOnExistingRef = sandra.get(BlockchainEmoteFactory.EVENT_BLOCK_TIME);
     }
 
 }
