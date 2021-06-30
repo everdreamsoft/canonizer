@@ -102,6 +102,14 @@ class CSCanonizeManager {
         let gossiper = new Gossiper_js_1.Gossiper(blockchain.eventFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
     }
+    async gossipBlockchainOrder(blockchain, apiConnector) {
+        const gossiper = new Gossiper_js_1.Gossiper(blockchain.orderFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
+    async gossipBlockchainEmote(blockchain, apiConnector) {
+        const gossiper = new Gossiper_js_1.Gossiper(blockchain.emoteFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
     getApiConnector(apiConnector) {
         if (apiConnector !== undefined) {
             return apiConnector;

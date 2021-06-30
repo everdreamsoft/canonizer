@@ -1,5 +1,4 @@
 import {Entity} from "../Entity.js";
-import {BlockchainAddressFactory} from "./BlockchainAddressFactory";
 import {SandraManager} from "../SandraManager.js";
 import {Reference} from "../Reference.js";
 import {BlockchainContractFactory} from "./BlockchainContractFactory.js";

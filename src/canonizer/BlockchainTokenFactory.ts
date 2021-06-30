@@ -7,7 +7,7 @@ export class BlockchainTokenFactory extends EntityFactory{
     is_a:string = 'tokenPath';
     contained_in_file:string = 'tokenPathFile';
 
-    static ID:string = 'code' ;
+    public static ID:string = 'code' ;
 
     constructor(canonizeManager:CSCanonizeManager) {
 

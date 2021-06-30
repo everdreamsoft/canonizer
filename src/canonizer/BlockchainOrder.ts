@@ -8,6 +8,7 @@ import {Blockchain} from "./Blockchain.js";
 import {BlockchainBlock} from "./BlockchainBlock.js";
 import {ContractStandard} from "./ContractStandard.js";
 import {BlockchainEvent} from "./BlockchainEvent.js";
+import {BlockchainOrderFactory} from "./BlockchainOrderFactory";
 
 export class BlockchainOrder extends Entity {
 
@@ -21,6 +22,10 @@ export class BlockchainOrder extends Entity {
     public static BUY_TOTAL = "buyTotal";
     public static ORDER_BUY_CONTRACT = "buyContract";
     public static ORDER_SELL_CONTRACT = "sellContract";
+    public static BUY_DESTINATION = "buyDestination";
+
+    public static TOKEN_BUY = "tokenBuy";
+    public static TOKEN_SELL = "tokenSell";
 
 
     public eventType:string = 'order';
@@ -29,7 +34,7 @@ export class BlockchainOrder extends Entity {
 
 
 
-    public constructor(factory:BlockchainEventFactory,
+    public constructor(factory:BlockchainOrderFactory,
 
                        source:BlockchainAddress|string,
                        buyContract:BlockchainContract|string,
@@ -44,12 +49,12 @@ export class BlockchainOrder extends Entity {
                        tokenBuy:ContractStandard | null,
                        tokenSell:ContractStandard | null,
                        sandra:SandraManager,
-
+                       buyDestination: BlockchainAddress|string = ""
     ) {
 
         super(factory);
 
-        this.addReference(  new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid));
+        this.addReference(new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid));
 
 
         if ( typeof source == "string"){
@@ -75,19 +80,21 @@ export class BlockchainOrder extends Entity {
         this.setTriplet(BlockchainOrder.ON_BLOCKCHAIN,blockchain.name,sandra);
         this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB,this.eventType,sandra);
 
+        if(buyDestination != ""){
+            if(typeof buyDestination == "string"){
+                buyDestination = blockchain.addressFactory.getOrCreate(buyDestination);
+            }
+            this.joinEntity(BlockchainOrder.BUY_DESTINATION, buyDestination, sandra);
+        }
 
-        const buyRefArray: Array<Reference> = BlockchainOrder.getRefArray(tokenBuy);
-        buyRefArray.push(
-            new Reference(sandra.get(BlockchainOrder.BUY_AMOUNT), buyAmount)
-        );
+        this.addReference(new Reference(sandra.get(BlockchainOrder.BUY_AMOUNT), buyAmount));
+        if(tokenBuy) this.joinEntity(BlockchainOrder.TOKEN_BUY, tokenBuy, sandra);
 
-        const sellRefArray: Array<Reference> = BlockchainOrder.getRefArray(tokenSell);
-        sellRefArray.push(
-            new Reference(sandra.get(BlockchainOrder.SELL_PRICE), sellPrice)
-        );
+        this.addReference(new Reference(sandra.get(BlockchainOrder.SELL_PRICE), sellPrice));
+        if(tokenSell) this.joinEntity(BlockchainOrder.TOKEN_SELL, tokenSell, sandra);
 
-        this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT,buyContract,sandra,buyRefArray)
-        this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT,sellContract,sandra,sellRefArray)
+        this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT,buyContract,sandra);
+        this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT,sellContract,sandra);
 
     }
 

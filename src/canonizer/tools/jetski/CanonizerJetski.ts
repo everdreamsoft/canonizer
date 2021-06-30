@@ -11,13 +11,16 @@ export class CanonizerJetski {
     private instanceCode:string ;
 
 
-    public constructor(manager:CSCanonizeManager, instance:string) {
+
+    public constructor(manager:CSCanonizeManager, instanceCode: string) {
 
         this.manager = manager ;
         this.jetskiFactory = new JetskiEntityFactory(manager.getSandra());
-        this.instanceCode = instance;
+        this.instanceCode = instanceCode;
+
 
     }
+
 
     public getJetskifacory()
     {

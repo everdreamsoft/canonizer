@@ -5,6 +5,7 @@ const Reference_js_1 = require("./Reference.js");
 //does this move to the other branche ?
 class Entity {
     constructor(factory, references = []) {
+        // TODO make private and make getters
         this.referenceArray = [];
         this.brotherEntityMap = new Map();
         this.id = 0;
