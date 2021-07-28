@@ -6,7 +6,7 @@ export class BlockchainOrderFactory extends EntityFactory
 {
 
     public constructor(sandra: SandraManager) {
-        super('BlockchainOrder', 'blockchainOrderFile', sandra);
+        super('blockchainOrder', 'blockchainOrderFile', sandra);
 
         this.updateOnExistingRef = sandra.get(Blockchain.TXID_CONCEPT_NAME);
     }
