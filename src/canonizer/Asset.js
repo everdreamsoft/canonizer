@@ -44,11 +44,11 @@ class Asset extends Entity_js_1.Entity {
     setDescription(description) {
         return this.getRefValue(AssetFactory_js_1.AssetFactory.description);
     }
-    setEmote(emote) {
-        this.createOrUpdateRef(AssetFactory_js_1.AssetFactory.ASSET_EMOTE + emote, emote);
-    }
     getEmote(emote) {
         return this.getRefValue(AssetFactory_js_1.AssetFactory.ASSET_EMOTE + emote);
+    }
+    setEmote(emote) {
+        this.createOrUpdateRef(AssetFactory_js_1.AssetFactory.ASSET_EMOTE + emote, emote);
     }
 }
 exports.Asset = Asset;
