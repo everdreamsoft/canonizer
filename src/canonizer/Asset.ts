@@ -92,16 +92,6 @@ export class Asset extends Entity
         this.createOrUpdateRef(AssetFactory.ASSET_EMOTE+emote, emote);
     }
 
-    public getEmote(emote: string)
-    {
-        return  this.getRefValue(AssetFactory.ASSET_EMOTE+emote);
-    }
-
-
-    public setEmote(emote: string)
-    {
-        this.createOrUpdateRef(AssetFactory.ASSET_EMOTE+emote, emote);
-    }
 
 
 
