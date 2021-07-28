@@ -183,7 +183,23 @@ export class CSCanonizeManager {
 
     }
 
-    public getApiConnector(apiConnector?:ApiConnector){
+
+
+    public async gossipBlockchainOrder(blockchain:Blockchain ,apiConnector?:ApiConnector)
+    {
+        const gossiper = new Gossiper(blockchain.orderFactory);
+        return   gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
+
+
+    public async gossipBlockchainEmote(blockchain: Blockchain, apiConnector?: ApiConnector)
+    {
+        const gossiper = new Gossiper(blockchain.emoteFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
+
+    private getApiConnector(apiConnector?:ApiConnector){
+
 
         if (apiConnector !== undefined){
             return apiConnector ;

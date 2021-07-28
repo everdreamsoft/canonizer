@@ -71,7 +71,7 @@ export class BlockchainEvent extends Entity {
        let blockchainBlock = new BlockchainBlock(blockchain.blockFactory,blockId,timestamp,sandra);
         this.joinEntity(BlockchainEvent.EVENT_BLOCK,blockchainBlock,sandra)
 
-        this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN,blockchain.name,sandra)
+        this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN,blockchain.name,sandra);
 
         let refArray:Reference[] = [];
 

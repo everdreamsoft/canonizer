@@ -1,8 +1,6 @@
 import {EntityFactory} from "../EntityFactory.js";
 import {SandraManager} from "../SandraManager.js";
-import {BlockchainAddress} from "./BlockchainAddress.js";
 import {BlockchainContract} from "./BlockchainContract.js";
-import {AssetCollection} from "./AssetCollection.js";
 
 export class BlockchainContractFactory extends EntityFactory{
 

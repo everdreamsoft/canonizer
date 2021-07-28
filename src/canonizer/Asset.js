@@ -13,6 +13,7 @@ class Asset extends Entity_js_1.Entity {
         assetInterface.metadataUrl ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.metaDataUrl), assetInterface.metadataUrl)) : null;
         assetInterface.description ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.description), assetInterface.description)) : null;
         assetInterface.name ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.ASSET_NAME), assetInterface.name)) : null;
+        assetInterface.emote ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.ASSET_EMOTE + assetInterface.emote), assetInterface.emote)) : null;
     }
     bindContract(contract) {
         this.joinEntity(AssetFactory_js_1.AssetFactory.tokenJoinVerb, contract, this.sandra, [new Reference_js_1.Reference(this.sandra.get('sn'), 'canonizer')]);
@@ -43,9 +44,11 @@ class Asset extends Entity_js_1.Entity {
     setDescription(description) {
         return this.getRefValue(AssetFactory_js_1.AssetFactory.description);
     }
-    setMetaDatasUrl(metaDatasUrl) {
-        // TODO createOrUpdateRef
-        // this.metaDatasUrl = metaDatasUrl;
+    setEmote(emote) {
+        this.createOrUpdateRef(AssetFactory_js_1.AssetFactory.ASSET_EMOTE + emote, emote);
+    }
+    getEmote(emote) {
+        return this.getRefValue(AssetFactory_js_1.AssetFactory.ASSET_EMOTE + emote);
     }
 }
 exports.Asset = Asset;

@@ -14,6 +14,7 @@ export interface AssetInterface{
     imageUrl?: string,
     description?:string,
     name?:string,
+    emote?: string,
 
 
 }
@@ -32,6 +33,7 @@ export class Asset extends Entity
         assetInterface.metadataUrl ? this.addReference(new Reference(sandra.get(AssetFactory.metaDataUrl), assetInterface.metadataUrl)) : null ;
         assetInterface.description? this.addReference(new Reference(sandra.get(AssetFactory.description), assetInterface.description)) : null ;
         assetInterface.name? this.addReference(new Reference(sandra.get(AssetFactory.ASSET_NAME), assetInterface.name)) : null ;
+        assetInterface.emote? this.addReference(new Reference(sandra.get(AssetFactory.ASSET_EMOTE+assetInterface.emote), assetInterface.emote)) : null ;
 
     }
 
@@ -81,12 +83,16 @@ export class Asset extends Entity
     }
 
 
-
-
-    public setMetaDatasUrl(metaDatasUrl: string){
-        // TODO createOrUpdateRef
-       // this.metaDatasUrl = metaDatasUrl;
+    public setEmote(emote: string)
+    {
+        this.createOrUpdateRef(AssetFactory.ASSET_EMOTE+emote, emote);
     }
+
+    public getEmote(emote: string)
+    {
+        return  this.getRefValue(AssetFactory.ASSET_EMOTE+emote);
+    }
+
 
 
 
