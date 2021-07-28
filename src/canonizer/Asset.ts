@@ -82,6 +82,10 @@ export class Asset extends Entity
         return this.getRefValue(AssetFactory.description);
     }
 
+    public getEmote(emote: string)
+    {
+        return  this.getRefValue(AssetFactory.ASSET_EMOTE+emote);
+    }
 
     public setEmote(emote: string)
     {
@@ -94,6 +98,10 @@ export class Asset extends Entity
     }
 
 
+    public setEmote(emote: string)
+    {
+        this.createOrUpdateRef(AssetFactory.ASSET_EMOTE+emote, emote);
+    }
 
 
 
