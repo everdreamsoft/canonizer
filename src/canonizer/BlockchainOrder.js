@@ -7,7 +7,7 @@ const Blockchain_js_1 = require("./Blockchain.js");
 const BlockchainBlock_js_1 = require("./BlockchainBlock.js");
 const BlockchainEvent_js_1 = require("./BlockchainEvent.js");
 class BlockchainOrder extends Entity_js_1.Entity {
-    constructor(factory, source, buyContract, sellContract, buyAmount, sellPrice, buyTotal, txid, timestamp, blockchain, blockId, tokenBuy, tokenSell, sandra) {
+    constructor(factory, source, buyContract, sellContract, buyAmount, sellPrice, buyTotal, txid, timestamp, blockchain, blockId, tokenBuy, tokenSell, sandra, buyDestination = "") {
         super(factory);
         this.eventType = 'order';
         this.addReference(new Reference_js_1.Reference(sandra.get(Blockchain_js_1.Blockchain.TXID_CONCEPT_NAME), txid));
@@ -27,12 +27,20 @@ class BlockchainOrder extends Entity_js_1.Entity {
         this.joinEntity(BlockchainOrder.EVENT_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainOrder.ON_BLOCKCHAIN, blockchain.name, sandra);
         this.setTriplet(BlockchainEvent_js_1.BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
-        const buyRefArray = BlockchainOrder.getRefArray(tokenBuy);
-        buyRefArray.push(new Reference_js_1.Reference(sandra.get(BlockchainOrder.BUY_AMOUNT), buyAmount));
-        const sellRefArray = BlockchainOrder.getRefArray(tokenSell);
-        sellRefArray.push(new Reference_js_1.Reference(sandra.get(BlockchainOrder.SELL_PRICE), sellPrice));
-        this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT, buyContract, sandra, buyRefArray);
-        this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT, sellContract, sandra, sellRefArray);
+        if (buyDestination != "") {
+            if (typeof buyDestination == "string") {
+                buyDestination = blockchain.addressFactory.getOrCreate(buyDestination);
+            }
+            this.joinEntity(BlockchainOrder.BUY_DESTINATION, buyDestination, sandra);
+        }
+        this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainOrder.BUY_AMOUNT), buyAmount));
+        if (tokenBuy)
+            this.joinEntity(BlockchainOrder.TOKEN_BUY, tokenBuy, sandra);
+        this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainOrder.SELL_PRICE), sellPrice));
+        if (tokenSell)
+            this.joinEntity(BlockchainOrder.TOKEN_SELL, tokenSell, sandra);
+        this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT, buyContract, sandra);
+        this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT, sellContract, sandra);
     }
     static getRefArray(token) {
         let refArray = [];
@@ -57,4 +65,7 @@ BlockchainOrder.SELL_PRICE = "sellPrice";
 BlockchainOrder.BUY_TOTAL = "buyTotal";
 BlockchainOrder.ORDER_BUY_CONTRACT = "buyContract";
 BlockchainOrder.ORDER_SELL_CONTRACT = "sellContract";
+BlockchainOrder.BUY_DESTINATION = "buyDestination";
+BlockchainOrder.TOKEN_BUY = "tokenBuy";
+BlockchainOrder.TOKEN_SELL = "tokenSell";
 //# sourceMappingURL=BlockchainOrder.js.map

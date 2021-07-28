@@ -4,10 +4,10 @@ exports.CanonizerJetski = void 0;
 const JetskiEntityFactory_js_1 = require("./JetskiEntityFactory.js");
 const Gossiper_1 = require("../../../Gossiper");
 class CanonizerJetski {
-    constructor(manager, instance) {
+    constructor(manager, instanceCode) {
         this.manager = manager;
         this.jetskiFactory = new JetskiEntityFactory_js_1.JetskiEntityFactory(manager.getSandra());
-        this.instanceCode = instance;
+        this.instanceCode = instanceCode;
     }
     getJetskifacory() {
         return this.jetskiFactory;
