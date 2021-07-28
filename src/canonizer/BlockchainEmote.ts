@@ -25,7 +25,7 @@ export class BlockchainEmote extends Entity
         emote: string,
         token: BlockchainToken,
         contract: BlockchainContract
-        ) {
+    ) {
         super(factory);
 
 
