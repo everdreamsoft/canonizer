@@ -35,10 +35,10 @@ class BlockchainOrder extends Entity_js_1.Entity {
         }
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainOrder.BUY_AMOUNT), buyAmount));
         if (tokenBuy)
-            this.joinEntity(BlockchainOrder.TOKEN_BUY, tokenBuy, sandra);
+            this.joinEntity(BlockchainOrder.TOKEN_BUY, tokenBuy, sandra, BlockchainOrder.getRefArray(tokenBuy));
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainOrder.SELL_PRICE), sellPrice));
         if (tokenSell)
-            this.joinEntity(BlockchainOrder.TOKEN_SELL, tokenSell, sandra);
+            this.joinEntity(BlockchainOrder.TOKEN_SELL, tokenSell, sandra, BlockchainOrder.getRefArray(tokenSell));
         this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT, buyContract, sandra);
         this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT, sellContract, sandra);
     }
@@ -48,7 +48,7 @@ class BlockchainOrder extends Entity_js_1.Entity {
             //we need to get the tokenpath data and add it as reference on the event
             let specifierMap = token.getSpecifierArray();
             for (let specifier of specifierMap) {
-                console.log(specifier[0]);
+                // console.log(specifier[0]);
                 refArray.push(new Reference_js_1.Reference(specifier[0], specifier[1]));
             }
         }

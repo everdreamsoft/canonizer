@@ -88,10 +88,10 @@ export class BlockchainOrder extends Entity {
         }
 
         this.addReference(new Reference(sandra.get(BlockchainOrder.BUY_AMOUNT), buyAmount));
-        if(tokenBuy) this.joinEntity(BlockchainOrder.TOKEN_BUY, tokenBuy, sandra);
+        if(tokenBuy) this.joinEntity(BlockchainOrder.TOKEN_BUY, tokenBuy, sandra, BlockchainOrder.getRefArray(tokenBuy));
 
         this.addReference(new Reference(sandra.get(BlockchainOrder.SELL_PRICE), sellPrice));
-        if(tokenSell) this.joinEntity(BlockchainOrder.TOKEN_SELL, tokenSell, sandra);
+        if(tokenSell) this.joinEntity(BlockchainOrder.TOKEN_SELL, tokenSell, sandra, BlockchainOrder.getRefArray(tokenSell));
 
         this.joinEntity(BlockchainOrder.ORDER_BUY_CONTRACT,buyContract,sandra);
         this.joinEntity(BlockchainOrder.ORDER_SELL_CONTRACT,sellContract,sandra);
@@ -108,7 +108,7 @@ export class BlockchainOrder extends Entity {
             let specifierMap = token.getSpecifierArray()
 
             for (let specifier of specifierMap) {
-                console.log(specifier[0]);
+                // console.log(specifier[0]);
                 refArray.push(new Reference(specifier[0],specifier[1]));
             }
 
