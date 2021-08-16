@@ -10,6 +10,7 @@ const BlockchainTokenFactory_1 = require("./BlockchainTokenFactory");
 class BlockchainEmote extends Entity_1.Entity {
     constructor(factory, sandra, blockchain, source, txId, blockId, timestamp, emote, token, contract) {
         super(factory);
+        this.eventType = "emoteEvent";
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source);
         }
@@ -28,7 +29,7 @@ class BlockchainEmote extends Entity_1.Entity {
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEmoteFactory_1.BlockchainEmoteFactory.ON_BLOCKCHAIN, blockchain.getName(), sandra);
         // Add owner Blockchain "Event" verb ?
-        this.setTriplet(BlockchainEmoteFactory_1.BlockchainEmoteFactory.BLOCKCHAIN_EVENT_TYPE_VERB, BlockchainEmote.eventType, sandra);
+        this.setTriplet(BlockchainEmoteFactory_1.BlockchainEmoteFactory.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
         // Add emote data
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.TARGET_CONTRACT, contract, sandra);
@@ -36,5 +37,4 @@ class BlockchainEmote extends Entity_1.Entity {
     }
 }
 exports.BlockchainEmote = BlockchainEmote;
-BlockchainEmote.eventType = "emoteEvent";
 //# sourceMappingURL=BlockchainEmote.js.map

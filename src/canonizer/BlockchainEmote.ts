@@ -12,7 +12,7 @@ import {BlockchainTokenFactory} from "./BlockchainTokenFactory";
 export class BlockchainEmote extends Entity
 {
 
-    public static eventType = "emoteEvent";
+    public eventType = "emoteEvent";
 
     constructor(
         factory: BlockchainEmoteFactory,
@@ -53,7 +53,7 @@ export class BlockchainEmote extends Entity
         this.setTriplet(BlockchainEmoteFactory.ON_BLOCKCHAIN, blockchain.getName(), sandra);
 
         // Add owner Blockchain "Event" verb ?
-        this.setTriplet(BlockchainEmoteFactory.BLOCKCHAIN_EVENT_TYPE_VERB, BlockchainEmote.eventType, sandra);
+        this.setTriplet(BlockchainEmoteFactory.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
 
         // Add emote data
         this.joinEntity(BlockchainEmoteFactory.EMOTE_SOURCE_ADDRESS, source, sandra);
