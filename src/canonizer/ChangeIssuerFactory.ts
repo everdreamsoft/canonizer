@@ -18,8 +18,9 @@ export class ChangeIssuerFactory extends EntityFactory
     public static NEW_ISSUER = 'newIssuer';
     public static COLLECTION_ID = 'collectionId';
 
-    public constructor(blockchain:Blockchain,sandra:SandraManager) {
+    public constructor(sandra:SandraManager) {
         super('changeIssuerEvent', 'changeIssuerEventFile', sandra);
+        this.updateOnExistingRef = sandra.get(Blockchain.TXID_CONCEPT_NAME);
     }
 
 

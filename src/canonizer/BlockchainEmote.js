@@ -6,7 +6,6 @@ const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
 const Reference_1 = require("../Reference");
 const Blockchain_1 = require("./Blockchain");
 const BlockchainBlock_1 = require("./BlockchainBlock");
-const BlockchainTokenFactory_1 = require("./BlockchainTokenFactory");
 class BlockchainEmote extends Entity_1.Entity {
     constructor(factory, sandra, blockchain, source, txId, blockId, timestamp, emote, token, contract) {
         super(factory);
@@ -16,7 +15,7 @@ class BlockchainEmote extends Entity_1.Entity {
         }
         // Create emoteId for updateOnExistingRef
         const contractId = contract.getRefValue(sandra.get("id"));
-        const sn = token.getRefValue(sandra.get(BlockchainTokenFactory_1.BlockchainTokenFactory.ID));
+        const sn = token.getDisplayStructure();
         const emoteId = source.getAddress() + "_" + emote + "_" + contractId + "-" + sn;
         // Add generic on refs data (tx, block etc)
         this.addReference(new Reference_1.Reference(sandra.get(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_ID), emoteId));

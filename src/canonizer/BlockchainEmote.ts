@@ -8,6 +8,7 @@ import {BlockchainAddress} from "./BlockchainAddress";
 import {BlockchainBlock} from "./BlockchainBlock";
 import {BlockchainToken} from "./BlockchainToken";
 import {BlockchainTokenFactory} from "./BlockchainTokenFactory";
+import {ContractStandard} from "./ContractStandard";
 
 export class BlockchainEmote extends Entity
 {
@@ -23,7 +24,7 @@ export class BlockchainEmote extends Entity
         blockId: number,
         timestamp: string,
         emote: string,
-        token: BlockchainToken,
+        token: ContractStandard,
         contract: BlockchainContract
     ) {
         super(factory);
@@ -35,7 +36,7 @@ export class BlockchainEmote extends Entity
 
         // Create emoteId for updateOnExistingRef
         const contractId = contract.getRefValue(sandra.get("id"));
-        const sn = token.getRefValue(sandra.get(BlockchainTokenFactory.ID));
+        const sn = token.getDisplayStructure();
         const emoteId = source.getAddress() +"_"+ emote +"_"+ contractId +"-"+ sn;
 
         // Add generic on refs data (tx, block etc)
