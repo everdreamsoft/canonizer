@@ -32,7 +32,19 @@ class BlockchainEmote extends Entity_1.Entity {
         // Add emote data
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.TARGET_CONTRACT, contract, sandra);
-        this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.TARGET_TOKEN, token, sandra);
+        this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.TARGET_TOKEN, token, sandra, BlockchainEmote.getRefArray(token));
+    }
+    static getRefArray(token) {
+        let refArray = [];
+        if (token) {
+            //we need to get the tokenpath data and add it as reference on the event
+            let specifierMap = token.getSpecifierArray();
+            for (let specifier of specifierMap) {
+                // console.log(specifier[0]);
+                refArray.push(new Reference_1.Reference(specifier[0], specifier[1]));
+            }
+        }
+        return refArray;
     }
 }
 exports.BlockchainEmote = BlockchainEmote;
