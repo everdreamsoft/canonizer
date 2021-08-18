@@ -7,8 +7,8 @@ import {EntityFactory} from "../EntityFactory";
 export class ChangeIssuerFactory extends EntityFactory
 {
 
-    public is_a: string = "changeIssuerEvent";
-    public contained_in_file: string = "changeIssuerEventFile";
+    public is_a: string = "changeIssuer";
+    public contained_in_file: string = "changeIssuerFile";
 
     public static EVENT_SOURCE_ADDRESS = 'source';
     public static EVENT_BLOCK_TIME = 'timestamp';
@@ -19,7 +19,7 @@ export class ChangeIssuerFactory extends EntityFactory
     public static COLLECTION_ID = 'collectionId';
 
     public constructor(sandra:SandraManager) {
-        super('changeIssuerEvent', 'changeIssuerEventFile', sandra);
+        super('changeIssuer', 'changeIssuerFile', sandra);
         this.updateOnExistingRef = sandra.get(Blockchain.TXID_CONCEPT_NAME);
     }
 
