@@ -91,6 +91,10 @@ class CSCanonizeManager {
     getAssetSolverFactory() {
         return this.assetSolverFactory;
     }
+    async gossipChangeIssuer(apiConnector) {
+        let gossiper = new Gossiper_js_1.Gossiper(this.changeIssuerFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
     async gossipCollection(apiConnector) {
         let gossiper = new Gossiper_js_1.Gossiper(this.assetCollectionFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));

@@ -168,6 +168,13 @@ export class CSCanonizeManager {
     }
 
 
+    public async gossipChangeIssuer(apiConnector?: ApiConnector)
+    {
+        let gossiper = new Gossiper(this.changeIssuerFactory);
+        return   gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
+
+
     public async gossipCollection(apiConnector?:ApiConnector){
 
         let gossiper = new Gossiper(this.assetCollectionFactory);
