@@ -19,6 +19,8 @@ const KusamaBlockchain_1 = require("./Substrate/Kusama/KusamaBlockchain");
 const RmrkContractStandard_js_1 = require("./Interfaces/RmrkContractStandard.js");
 const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
 const ChangeIssuerFactory_1 = require("./ChangeIssuerFactory");
+const BinanceBlockchain_1 = require("./Binance/BinanceBlockchain");
+const EthereumBlockchain_1 = require("./Ethereum/EthereumBlockchain");
 class CSCanonizeManager {
     constructor(options, sandra = new SandraManager_js_1.SandraManager()) {
         this.loadedBlockchains = [];
@@ -116,6 +118,10 @@ class CSCanonizeManager {
         let gossiper = new Gossiper_js_1.Gossiper(blockchain.eventFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
     }
+    async gossipBlockchainSuperTransaction(blockchain, apiConnector) {
+        let gossiper = new Gossiper_js_1.Gossiper(blockchain.transactionFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
     async gossipBlockchainOrder(blockchain, apiConnector) {
         const gossiper = new Gossiper_js_1.Gossiper(blockchain.orderFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
@@ -146,6 +152,14 @@ class CSCanonizeManager {
                 blockchain = new KusamaBlockchain_1.KusamaBlockchain(this.getSandra());
                 this.loadedBlockchains.push(blockchain);
                 return new KusamaBlockchain_1.KusamaBlockchain(this.getSandra());
+            case CompatibleBlockchains.binance:
+                blockchain = new BinanceBlockchain_1.BinanceBlockchain(this.getSandra());
+                this.loadedBlockchains.push(blockchain);
+                return blockchain;
+            case CompatibleBlockchains.ethereum:
+                blockchain = new EthereumBlockchain_1.EthereumBlockchain(this.getSandra());
+                this.loadedBlockchains.push(blockchain);
+                return blockchain;
         }
         throw new Error("Blockchain not found" + name);
     }
@@ -167,5 +181,7 @@ CSCanonizeManager.mintIssuerAddressString = '0x000000000000000000000000000000000
 var CompatibleBlockchains;
 (function (CompatibleBlockchains) {
     CompatibleBlockchains["kusama"] = "kusama";
+    CompatibleBlockchains["binance"] = "binance";
+    CompatibleBlockchains["ethereum"] = "ethereum";
 })(CompatibleBlockchains = exports.CompatibleBlockchains || (exports.CompatibleBlockchains = {}));
 //# sourceMappingURL=CSCanonizeManager.js.map

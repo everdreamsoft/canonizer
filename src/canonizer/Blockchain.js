@@ -9,6 +9,7 @@ const BlockchainBlock_js_1 = require("./BlockchainBlock.js");
 const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
 const BlockchainOrderFactory_1 = require("./BlockchainOrderFactory");
 const ChangeIssuerFactory_1 = require("./ChangeIssuerFactory");
+const BlockchainTransactionFactory_1 = require("./BlockchainTransactionFactory");
 class Blockchain {
     constructor(sandra, name = 'genericBlockchain') {
         this.name = 'genericBlockchain';
@@ -20,6 +21,7 @@ class Blockchain {
         this.emoteFactory = new BlockchainEmoteFactory_1.BlockchainEmoteFactory(sandra);
         this.orderFactory = new BlockchainOrderFactory_1.BlockchainOrderFactory(sandra);
         this.changeIssuerFactory = new ChangeIssuerFactory_1.ChangeIssuerFactory(sandra);
+        this.transactionFactory = new BlockchainTransactionFactory_1.BlockchainTransactionFactory(sandra);
     }
     getName() {
         return this.name;
