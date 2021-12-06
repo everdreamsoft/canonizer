@@ -77,14 +77,11 @@ export class BlockchainEvent extends Entity {
 
         if (token){
             //we need to get the tokenpath data and add it as reference on the event
-           let specifierMap = token.getSpecifierArray()
+            let specifierMap = token.getSpecifierArray()
 
             for (let specifier of specifierMap) {
-                console.log(specifier[0]);
                  refArray.push(new Reference(specifier[0],specifier[1]));
             }
-
-
 
         }
 
