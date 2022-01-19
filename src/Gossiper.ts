@@ -199,22 +199,19 @@ export class Gossiper {
 
     public async gossipToUrl(connector: ApiConnector, flush?: boolean): Promise<any> {
 
-
         return new Promise((resolve: any, reject: any) => {
             const xmlhttp = new XMLHttpRequest();
             let flushData = '';
             if (flush) flushData = '&flush=true';
 
             xmlhttp.open("POST", connector.gossipUrl + '?jwt=' + connector.jwt + flushData);
-            console.log(connector.gossipUrl + '?jwt=' + connector.jwt + flushData);
+            //console.log(connector.gossipUrl + '?jwt=' + connector.jwt + flushData);
             xmlhttp.setRequestHeader("Content-Type", "application/json");
 
             xmlhttp.send(JSON.stringify(this.exposeGossip(true)))
             //console.log(JSON.stringify(this.exposeGossip(true)));
 
-
             xmlhttp.onreadystatechange = function () {
-
                 if (this.readyState == 4 && this.status == 200) {
                     let response = this.responseText;
 
@@ -222,11 +219,11 @@ export class Gossiper {
                     resolve(response);
                 } else if (this.readyState == 4)
                     reject('Bad request :' + this.status);
-
             }
         });
 
     }
+
 
     public async flushDatagraph(connector: ApiConnector): Promise<any> {
 
