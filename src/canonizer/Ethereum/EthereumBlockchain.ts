@@ -6,7 +6,7 @@ import {BlockchainBlock} from "../BlockchainBlock";
 
 export class EthereumBlockchain extends Blockchain {
 
-    public static blockchainName: string = 'ethereum';
+    public  name: string = 'ethereum';
 
     public constructor(sandra: SandraManager) {
 

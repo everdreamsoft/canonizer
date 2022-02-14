@@ -7,6 +7,7 @@ const BlockchainBlock_1 = require("../BlockchainBlock");
 class EthereumBlockchain extends Blockchain_js_1.Blockchain {
     constructor(sandra) {
         super(sandra);
+        this.name = 'ethereum';
         this.addressFactory.is_a = 'ethAddress';
         this.addressFactory.contained_in_file = 'ethAddressFile';
         this.addressFactory.onBlockchain = this.name;
@@ -16,5 +17,4 @@ class EthereumBlockchain extends Blockchain_js_1.Blockchain {
     }
 }
 exports.EthereumBlockchain = EthereumBlockchain;
-EthereumBlockchain.blockchainName = 'ethereum';
 //# sourceMappingURL=EthereumBlockchain.js.map
