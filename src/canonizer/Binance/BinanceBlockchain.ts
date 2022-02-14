@@ -5,7 +5,7 @@ import {BlockchainBlock} from "../BlockchainBlock.js";
 
 export class BinanceBlockchain extends Blockchain
 {
-    
+
     public  name: string = 'binance';
 
     public constructor(sandra: SandraManager) {
@@ -22,5 +22,5 @@ export class BinanceBlockchain extends Blockchain
       this.blockFactory = new EntityFactory(this.getName()+"Block","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
 
     }
-    
+
 }

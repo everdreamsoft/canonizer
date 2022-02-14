@@ -1,6 +1,7 @@
 import {EntityFactory} from "../EntityFactory.js";
 import {SandraManager} from "../SandraManager.js";
 import {BlockchainContract} from "./BlockchainContract.js";
+import {Blockchain} from "./Blockchain";
 
 export class BlockchainContractFactory extends EntityFactory{
 
@@ -10,7 +11,9 @@ export class BlockchainContractFactory extends EntityFactory{
     public  static JOIN_COLLECTION = 'inCollection';
     public  static  EXPLICIT_TOKEN_LISTING_SHORTNAME = 'explicitListing';
     public  static CONTRACT_STANDARD = 'contractStandard';
+    public  static ON_BLOCKCHAIN_VERB = 'onBlockchain';
 
+    //public blockchain?:Blockchain;
 
     public constructor(sandra:SandraManager) {
 
