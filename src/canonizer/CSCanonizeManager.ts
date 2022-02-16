@@ -21,6 +21,7 @@ import {ChangeIssuerFactory} from "./ChangeIssuerFactory";
 
 import {BinanceBlockchain} from "./Binance/BinanceBlockchain";
 import {EthereumBlockchain} from "./Ethereum/EthereumBlockchain";
+import {JetskiProcessEntity} from "./tools/JetskiWebInterface/JetskiProcessEntity";
 
 interface CanonizeOptions {
     default?: string
@@ -146,12 +147,10 @@ export class CSCanonizeManager {
         return this.assetSolverFactory;
     }
 
-
     public async gossipChangeIssuer(apiConnector?: ApiConnector) {
         let gossiper = new Gossiper(this.changeIssuerFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
-
 
     public async gossipCollection(apiConnector?: ApiConnector) {
 
@@ -177,9 +176,13 @@ export class CSCanonizeManager {
 
     }
 
-
     public async gossipBlockchainContract(blockchain: Blockchain, apiConnector?: ApiConnector) {
         const gossiper = new Gossiper(blockchain.contractFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
+
+    public async gossipJetskiProcess(jetskiProcessEntity: JetskiProcessEntity, apiConnector?: ApiConnector) {
+        const gossiper = new Gossiper(jetskiProcessEntity.factory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
@@ -254,7 +257,6 @@ export class CSCanonizeManager {
         throw new Error("Blockchain not found" + name);
 
     }
-
 
     private registerCompatibleStandards() {
 
