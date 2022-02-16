@@ -14,7 +14,7 @@ let ethereum = canonizeManager.getOrInitBlockchain(CompatibleBlockchains.ethereu
 let res = bootstrap();
 
 async function bootstrap() {
-    //await flushDatagraph();
+    await flushDatagraph();
     await addJetskiProcess();
 }
 
@@ -36,7 +36,12 @@ async function addJetskiProcess() {
     let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({
         processID: "9999",
         lastStartTime: "12/12/2022 10:00",
-        processTitle: "jetski_bsc"
+        processTitle: "jetski_bsc",
+        processDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor mauris quis consequat sodales. Donec id mi sit amet mauris sodales mollis ac vel neque. Praesent venenatis consectetur mollis. Aenean sed tincidunt mi. Nullam ut mauris vulputate, suscipit ante a, mattis lectus. Vivamus pretium vulputate lacus, in interdum orci pellentesque vel. Sed condimentum felis id felis tempor, quis gravida dolor aliquam. ",
+        jetskiName: "EVMJetski",
+        lastStopTime: "16/12/2022 10:00",
+        jetskiPath: "C:/JETSKI",
+        id:"001"
     }, sandra);
 
     jetskiProcess.setBlockchain(blockchain);
