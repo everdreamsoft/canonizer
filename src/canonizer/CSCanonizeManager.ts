@@ -222,8 +222,17 @@ export class CSCanonizeManager {
 
     }
 
-    public getBlockchainByName(name: CompatibleBlockchains) {
-
+    public getCompatibleBlockchain(name: string) {
+        switch (name.toLowerCase())
+        {
+            case 'binance':
+                return CompatibleBlockchains.binance;
+            case 'ethereum':
+                return CompatibleBlockchains.ethereum;
+            case 'kusama':
+                return CompatibleBlockchains.kusama;
+        }
+        return;
     }
 
     public getOrInitBlockchain(name: CompatibleBlockchains): Blockchain {
