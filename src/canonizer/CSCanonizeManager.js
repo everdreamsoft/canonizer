@@ -148,7 +148,17 @@ class CSCanonizeManager {
         }
         throw new Error("No API connector set pass it into this function or on the constructor");
     }
-    getBlockchainByName(name) {
+    getCompatibleBlockchain(name) {
+        switch (name.toLowerCase()) {
+            case 'binance':
+                return CompatibleBlockchains.binance;
+            case 'ethereum':
+                return CompatibleBlockchains.ethereum;
+            case 'kusama':
+                return CompatibleBlockchains.kusama;
+            default:
+                return CompatibleBlockchains.ethereum;
+        }
     }
     getOrInitBlockchain(name) {
         const found = this.loadedBlockchains.find(blockchain => blockchain.getName() == name);

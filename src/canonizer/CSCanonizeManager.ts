@@ -222,7 +222,8 @@ export class CSCanonizeManager {
 
     }
 
-    public getCompatibleBlockchain(name: string) {
+    public getCompatibleBlockchain(name: string):CompatibleBlockchains {
+
         switch (name.toLowerCase())
         {
             case 'binance':
@@ -231,8 +232,10 @@ export class CSCanonizeManager {
                 return CompatibleBlockchains.ethereum;
             case 'kusama':
                 return CompatibleBlockchains.kusama;
+            default:
+                return CompatibleBlockchains.ethereum;
         }
-        return;
+
     }
 
     public getOrInitBlockchain(name: CompatibleBlockchains): Blockchain {
