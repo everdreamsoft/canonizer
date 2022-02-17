@@ -18,8 +18,34 @@ async function bootstrap() {
     await addJetskiProcess();
 }
 
-
 async function addJetskiProcess() {
+
+
+    let jetski = canonizeManager.getJetskiAppInstance("");
+    let blockchain = canonizeManager.getOrInitBlockchain(CompatibleBlockchains.binance);
+
+    let jetskiProcessFactory = jetski.getProcessFactory();
+    let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({
+        processID: "",
+        lastStartTime: "",
+        processTitle: "",
+        processDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor mauris quis consequat sodales. Donec id mi sit amet mauris sodales mollis ac vel neque. Praesent venenatis consectetur mollis. Aenean sed tincidunt mi. Nullam ut mauris vulputate, suscipit ante a, mattis lectus. Vivamus pretium vulputate lacus, in interdum orci pellentesque vel. Sed condimentum felis id felis tempor, quis gravida dolor aliquam. ",
+        jetskiName: "",
+        lastStopTime: "",
+        jetskiPath: "C:/JETSKI",
+        id: "001"
+    }, sandra);
+
+    jetskiProcess.setBlockchain(blockchain);
+    jetskiProcess.setStatus("");
+
+    let res = await canonizeManager.gossipJetskiProcess(jetskiProcess);
+
+    console.log(res);
+
+}
+
+async function addJetskiProcessFullData() {
 
     let jetski = new JetskiApp(canonizeManager, "EVM Jetski");
     let jetskiProcessFactory = jetski.getProcessFactory();
@@ -41,7 +67,7 @@ async function addJetskiProcess() {
         jetskiName: "EVMJetski",
         lastStopTime: "16/12/2022 10:00",
         jetskiPath: "C:/JETSKI",
-        id:"001"
+        id: "001"
     }, sandra);
 
     jetskiProcess.setBlockchain(blockchain);

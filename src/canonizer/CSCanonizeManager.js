@@ -21,6 +21,7 @@ const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
 const ChangeIssuerFactory_1 = require("./ChangeIssuerFactory");
 const BinanceBlockchain_1 = require("./Binance/BinanceBlockchain");
 const EthereumBlockchain_1 = require("./Ethereum/EthereumBlockchain");
+const JetskiApp_1 = require("./tools/JetskiWebInterface/JetskiApp");
 class CSCanonizeManager {
     constructor(options, sandra = new SandraManager_js_1.SandraManager()) {
         this.loadedBlockchains = [];
@@ -182,6 +183,9 @@ class CSCanonizeManager {
         if (!standard)
             return null;
         return standard;
+    }
+    getJetskiAppInstance(name) {
+        return new JetskiApp_1.JetskiApp(this, name);
     }
 }
 exports.CSCanonizeManager = CSCanonizeManager;

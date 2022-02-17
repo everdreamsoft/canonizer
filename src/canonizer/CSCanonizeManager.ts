@@ -22,6 +22,7 @@ import {ChangeIssuerFactory} from "./ChangeIssuerFactory";
 import {BinanceBlockchain} from "./Binance/BinanceBlockchain";
 import {EthereumBlockchain} from "./Ethereum/EthereumBlockchain";
 import {JetskiProcessEntity} from "./tools/JetskiWebInterface/JetskiProcessEntity";
+import {JetskiApp} from "./tools/JetskiWebInterface/JetskiApp";
 
 interface CanonizeOptions {
     default?: string
@@ -273,6 +274,10 @@ export class CSCanonizeManager {
         return standard;
     }
 
+    public getJetskiAppInstance(name:string)
+    {
+        return new JetskiApp(this, name);
+    }
 }
 
 export enum CompatibleBlockchains {
