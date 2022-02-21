@@ -15,7 +15,32 @@ let res = bootstrap();
 
 async function bootstrap() {
     await flushDatagraph();
-    await addJetskiProcess();
+    await addJetskiProcessFullData();
+}
+
+async function updateJetskiProcess() {
+
+    let jetski = canonizeManager.getJetskiAppInstance("");
+    let blockchain = canonizeManager.getOrInitBlockchain(CompatibleBlockchains.binance);
+
+    let jetskiProcessFactory = jetski.getProcessFactory();
+    let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({
+        processID: "",
+        lastStartTime: "",
+        processTitle: "",
+        processDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor mauris quis consequat sodales. Donec id mi sit amet mauris sodales mollis ac vel neque. Praesent venenatis consectetur mollis. Aenean sed tincidunt mi. Nullam ut mauris vulputate, suscipit ante a, mattis lectus. Vivamus pretium vulputate lacus, in interdum orci pellentesque vel. Sed condimentum felis id felis tempor, quis gravida dolor aliquam. ",
+        jetskiName: "",
+        lastStopTime: "",
+        jetskiPath: "C:/JETSKI",
+        id: "001"
+    }, sandra);
+
+    jetskiProcess.setBlockchain(blockchain);
+    jetskiProcess.setStatus("");
+
+    let res = await canonizeManager.gossipJetskiProcess(jetskiProcess);
+
+
 }
 
 async function addJetskiProcess() {
@@ -33,7 +58,7 @@ async function addJetskiProcess() {
         jetskiName: "",
         lastStopTime: "",
         jetskiPath: "C:/JETSKI",
-        id: "001"
+        id: "1"
     }, sandra);
 
     jetskiProcess.setBlockchain(blockchain);
@@ -67,7 +92,7 @@ async function addJetskiProcessFullData() {
         jetskiName: "EVMJetski",
         lastStopTime: "16/12/2022 10:00",
         jetskiPath: "C:/JETSKI",
-        id: "001"
+        id: "1"
     }, sandra);
 
     jetskiProcess.setBlockchain(blockchain);

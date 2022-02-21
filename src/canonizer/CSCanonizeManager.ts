@@ -298,5 +298,5 @@ export enum CompatibleBlockchains {
 }
 
 export enum RunnableJetskis {
-    EVM = 1
+    EVM = "EVMJetski"
 }

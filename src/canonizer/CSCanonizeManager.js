@@ -208,6 +208,6 @@ var CompatibleBlockchains;
 })(CompatibleBlockchains = exports.CompatibleBlockchains || (exports.CompatibleBlockchains = {}));
 var RunnableJetskis;
 (function (RunnableJetskis) {
-    RunnableJetskis[RunnableJetskis["EVM"] = 1] = "EVM";
+    RunnableJetskis["EVM"] = "EVMJetski";
 })(RunnableJetskis = exports.RunnableJetskis || (exports.RunnableJetskis = {}));
 //# sourceMappingURL=CSCanonizeManager.js.map
