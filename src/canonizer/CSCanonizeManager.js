@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompatibleBlockchains = exports.CSCanonizeManager = void 0;
+exports.RunnableJetskis = exports.CompatibleBlockchains = exports.CSCanonizeManager = void 0;
 const SandraManager_js_1 = require("../SandraManager.js");
 const AssetCollectionFactory_js_1 = require("./AssetCollectionFactory.js");
 const AssetCollection_js_1 = require("./AssetCollection.js");
@@ -206,4 +206,8 @@ var CompatibleBlockchains;
     CompatibleBlockchains["binance"] = "binance";
     CompatibleBlockchains["ethereum"] = "ethereum";
 })(CompatibleBlockchains = exports.CompatibleBlockchains || (exports.CompatibleBlockchains = {}));
+var RunnableJetskis;
+(function (RunnableJetskis) {
+    RunnableJetskis[RunnableJetskis["EVM"] = 1] = "EVM";
+})(RunnableJetskis = exports.RunnableJetskis || (exports.RunnableJetskis = {}));
 //# sourceMappingURL=CSCanonizeManager.js.map

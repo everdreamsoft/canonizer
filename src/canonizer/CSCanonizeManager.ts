@@ -222,10 +222,9 @@ export class CSCanonizeManager {
 
     }
 
-    public getCompatibleBlockchain(name: string):CompatibleBlockchains {
+    public getCompatibleBlockchain(name: string): CompatibleBlockchains {
 
-        switch (name.toLowerCase())
-        {
+        switch (name.toLowerCase()) {
             case 'binance':
                 return CompatibleBlockchains.binance;
             case 'ethereum':
@@ -286,14 +285,18 @@ export class CSCanonizeManager {
         return standard;
     }
 
-    public getJetskiAppInstance(name:string)
-    {
+    public getJetskiAppInstance(name: string) {
         return new JetskiApp(this, name);
     }
+
 }
 
 export enum CompatibleBlockchains {
     kusama = 'kusama',
     binance = 'binance',
     ethereum = 'ethereum'
+}
+
+export enum RunnableJetskis {
+    EVM = 1
 }
