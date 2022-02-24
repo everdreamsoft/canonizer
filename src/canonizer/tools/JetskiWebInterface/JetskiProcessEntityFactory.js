@@ -14,6 +14,9 @@ class JetskiProcessEntityFactory extends EntityFactory_js_1.EntityFactory {
             jetskiProcessObj = new JetskiProcessEntity_1.JetskiProcessEntity(this, sandra, jetskiProcessData);
         return jetskiProcessObj;
     }
+    getJetskiProcess(id, sandra) {
+        return this.getEntitiesWithRefValue(JetskiProcessEntityFactory.ID, id);
+    }
 }
 exports.JetskiProcessEntityFactory = JetskiProcessEntityFactory;
 JetskiProcessEntityFactory.is_a = 'jetskiProcess';

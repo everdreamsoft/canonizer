@@ -13,6 +13,10 @@ export class JetskiAddressEntityFactory extends EntityFactory {
     static readonly LAST_BLOCK_SAVED = 'lastBlockSaved';
     static readonly LAST_BLOCK_PROCESSED = 'lastBlockProcessed';
     static readonly LAST_UPDATE_TIME = 'lastUpdateTime';
+    static readonly START_BLOCK = 'startBlock';
+    static readonly END_BLOCK = 'endBlock';
+    static readonly STANDARD = 'standard';
+    static readonly BLOCK_RANGE = 'blockRange';
 
     static readonly JOINED_COLLECTION = 'joinedCollection';
 

@@ -1,4 +1,4 @@
-import {CompatibleBlockchains, CSCanonizeManager} from "../src/canonizer/CSCanonizeManager.js";
+import {CompatibleBlockchains, CSCanonizeManager, RunnableJetskis} from "../src/canonizer/CSCanonizeManager.js";
 import {JetskiApp} from "../src/canonizer/tools/JetskiWebInterface/JetskiApp";
 
 const jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbnYiOiJic2MiLCJmbHVzaCI6dHJ1ZSwiZXhwIjoxMDYwODE2MjQyMDk2MDAwfQ.X0MLqtaUtCrgfN_sWO0IhybOtftWE4Lltex2Hh0k0u4';
@@ -83,6 +83,12 @@ async function addJetskiProcessFullData() {
         description: "chainbabe desc",
         imageUrl: "",
     }, canonizeManager.getLocalSolver());
+    const collectionObj1 = canonizeManager.createCollection({
+        id: "chainbabe1",
+        name: "chainbabe1",
+        description: "chainbabe desc1",
+        imageUrl: "",
+    }, canonizeManager.getLocalSolver());
 
     let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({
         processID: "9999",
@@ -92,7 +98,7 @@ async function addJetskiProcessFullData() {
         jetskiName: "EVMJetski",
         lastStopTime: "16/12/2022 10:00",
         jetskiPath: "C:/JETSKI",
-        id: "1"
+        id: RunnableJetskis.EVM.toLowerCase() + "_" + "binance"
     }, sandra);
 
     jetskiProcess.setBlockchain(blockchain);
@@ -103,17 +109,27 @@ async function addJetskiProcessFullData() {
         status: "active",
         lastUpdateTime: "10/12/2022",
         lastBlockSaved: "33333",
-        hash: "0xD4793c2A8991F9A8D2F4714E113194C2DdEbFA51"
+        hash: "0xD4793c2A8991F9A8D2F4714E113194C2DdEbFA51",
+        startBlock: "111111234",
+        blockRange: "2000",
+        standard: "erc721",
+        endBlock: ""
     }, sandra);
 
+
     jetAddress.bindJetskiCollection(collectionObj);
+    jetAddress.bindJetskiCollection(collectionObj1);
 
     let jetAddress1 = jetskiProcess.getAddressFactory().getOrCreateJetskiAddress({
         lastBlockProcessed: "3124243",
         status: "inactive",
         lastUpdateTime: "10/12/2022",
         lastBlockSaved: "33333",
-        hash: "0xD4793c2A8991F9A8D2F4714E113194C2DdEbFAe1"
+        hash: "0xD4793c2A8991F9A8D2F4714E113194C2DdEbFAe1",
+        endBlock: "",
+        blockRange: "",
+        startBlock: "",
+        standard: ""
     }, sandra);
 
 

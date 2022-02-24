@@ -40,5 +40,8 @@ export class JetskiProcessEntityFactory extends EntityFactory {
 
     }
 
+    public getJetskiProcess(id: string, sandra: SandraManager): JetskiProcessEntity {
+        return this.getEntitiesWithRefValue(JetskiProcessEntityFactory.ID, id)
+    }
 
 }

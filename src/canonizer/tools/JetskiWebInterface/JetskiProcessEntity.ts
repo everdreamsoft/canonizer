@@ -14,7 +14,8 @@ export interface JetskiProcessInterface {
     jetskiName: string,
     lastStartTime: string,
     lastStopTime: string,
-    jetskiPath:string
+    jetskiPath:string,
+
 }
 
 export class JetskiProcessEntity extends Entity {
