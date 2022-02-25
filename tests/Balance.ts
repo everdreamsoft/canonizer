@@ -31,17 +31,28 @@ async function addBalance() {
         binanceContract.setBlockchain(binance.getName());
 
         let addressFactory = binance.addressFactory;
+        let balanceFact = new BalanceFactory(sandra)
 
-        let address = addressFactory.getOrCreate("0x3asd3wesar56565dvd43543312");
+        let address1 = addressFactory.getOrCreate("0xdsfsdfsdfsdfsffdsfds2");
 
-        let balance = new BalanceEntity(new BalanceFactory(sandra), {
+        new BalanceEntity(balanceFact, {
             quantity: "2",
             specifierArray: erc721ContractStandard.getSpecifierArray(),
             contract: binanceContract,
-            address: address
+            address: address1
         });
 
-        let res = await canonizeManager.gossipBalance(balance);
+        let address2 = addressFactory.getOrCreate("0x31232312312312312313232");
+
+        erc721ContractStandard.setTokenId("8888888");
+         new BalanceEntity(balanceFact, {
+            quantity: "5",
+            specifierArray: erc721ContractStandard.getSpecifierArray(),
+            contract: binanceContract,
+            address: address2
+        });
+
+        let res = await canonizeManager.gossipBalance(balanceFact);
         console.log(res);
 
     } catch (e) {
