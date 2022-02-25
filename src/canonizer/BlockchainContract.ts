@@ -25,24 +25,22 @@ export class BlockchainContract extends Entity {
     }
 
     public bindToCollection(collection: AssetCollection): this {
-
         this.joinEntity(BlockchainContractFactory.JOIN_COLLECTION, collection, this.factory.sandraManager)
-
         return this;
-
     }
 
     public setStandard(standard: ContractStandard): this {
         this.joinEntity(BlockchainContractFactory.CONTRACT_STANDARD, standard, this.factory.sandraManager)
         return this;
-
     }
 
     public setBlockchain(name: string): this {
         this.setTriplet(BlockchainContractFactory.ON_BLOCKCHAIN_VERB, name, this.factory.sandraManager)
         return this;
-
     }
 
+    public getStandard() {
+        return this.getJoinedEntitiesOnVerb(BlockchainContractFactory.CONTRACT_STANDARD);
+    }
 
 }

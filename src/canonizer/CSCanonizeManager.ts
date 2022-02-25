@@ -23,6 +23,7 @@ import {BinanceBlockchain} from "./Binance/BinanceBlockchain";
 import {EthereumBlockchain} from "./Ethereum/EthereumBlockchain";
 import {JetskiProcessEntity} from "./tools/JetskiWebInterface/JetskiProcessEntity";
 import {JetskiApp} from "./tools/JetskiWebInterface/JetskiApp";
+import {BalanceEntity} from "./BalanceEntity";
 
 interface CanonizeOptions {
     default?: string
@@ -184,6 +185,11 @@ export class CSCanonizeManager {
 
     public async gossipJetskiProcess(jetskiProcessEntity: JetskiProcessEntity, apiConnector?: ApiConnector) {
         const gossiper = new Gossiper(jetskiProcessEntity.factory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
+
+    public async gossipBalance(balanceEntity: BalanceEntity, apiConnector?: ApiConnector) {
+        const gossiper = new Gossiper(balanceEntity.factory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
