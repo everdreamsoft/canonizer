@@ -17,19 +17,22 @@ export interface BalanceInterface {
 export class BalanceEntity extends Entity {
 
     constructor(balanceFactory: BalanceFactory, balanceData: BalanceInterface) {
-        super(balanceFactory);
 
-        this.addReference(new Reference(balanceFactory.sandraManager.get(BalanceFactory.BALANCE_ITEM_ID),
+        let refArray = [];
+        refArray.push(new Reference(balanceFactory.sandraManager.get(BalanceFactory.BALANCE_ITEM_ID),
             BalanceEntity.getBalanceUniqueId(balanceData.contract)));
-        this.addReference(new Reference(balanceFactory.sandraManager.get(BalanceFactory.QUANTITY), balanceData.quantity));
+        refArray.push(new Reference(balanceFactory.sandraManager.get(BalanceFactory.QUANTITY), balanceData.quantity))
 
         if (balanceData.specifierArray && balanceData.specifierArray.size > 0)
             balanceData.specifierArray.forEach((value, key) => {
-                this.addReference(new Reference(balanceFactory.sandraManager.get(key.shortname), value));
+                refArray.push(new Reference(balanceFactory.sandraManager.get(key.shortname), value));
             })
+
+        super(balanceFactory, refArray);
 
         this.joinEntity(BalanceFactory.ON_CONTRACT, balanceData.contract, this.factory.sandraManager);
         this.joinEntity(BalanceFactory.LINKED_ADDRESS, balanceData.address, this.factory.sandraManager);
+
     }
 
     public static getBalanceUniqueId(contract: BlockchainContract) {
