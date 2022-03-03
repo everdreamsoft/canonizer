@@ -33,10 +33,7 @@ export class BlockchainOrder extends Entity {
                        buyDestination: BlockchainAddress|string = ""
     ) {
 
-        super(factory);
-
-        this.addReference(new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid));
-
+        super(factory,[new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid)]);
 
         if ( typeof source == "string"){
             source = blockchain.addressFactory.getOrCreate(source)

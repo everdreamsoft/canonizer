@@ -12,9 +12,7 @@ export class BlockchainContract extends Entity {
 
         if (factory == null) factory = new BlockchainContractFactory(sandraManager);
 
-        super(factory);
-
-        this.addReference(new Reference(sandraManager.get('id'), id));
+        super(factory, [new Reference(sandraManager.get('id'), id)]);
 
         //if the contract has a standard we bind it
         if (standard) {

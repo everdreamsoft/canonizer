@@ -25,10 +25,10 @@ export class ChangeIssuer extends Entity
         blockchain: Blockchain,
         sandra: SandraManager
     ) {
-        super(factory);
+
+        super(factory, [new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txId)]);
 
         this.addReference(new Reference(sandra.get(ChangeIssuerFactory.COLLECTION_ID), collectionId));
-        this.addReference(new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txId));
 
         if(typeof source == "string"){
             source = blockchain.addressFactory.getOrCreate(source);

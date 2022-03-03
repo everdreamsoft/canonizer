@@ -10,7 +10,7 @@ import {ContractStandard} from "./ContractStandard.js";
 
 export class BlockchainEvent extends Entity {
 
-    public eventType:string = 'transfer';
+    public eventType: string = 'transfer';
     public static EVENT_SOURCE_ADDRESS = 'source';
     public static EVENT_DESTINATION_VERB = 'hasSingleDestination';
     public static EVENT_SOURCE_CONTRACT = 'blockchainContract';
@@ -21,75 +21,63 @@ export class BlockchainEvent extends Entity {
     public static BLOCKCHAIN_EVENT_TYPE_VERB = "blockchainEventType";
 
 
-
-
-
-
-     constructor(factory:BlockchainEventFactory,
-
-                       source:BlockchainAddress|string,
-                       destination:BlockchainAddress|string,
-                       contract:BlockchainContract|string,
-                       txid:string,
-                       timestamp:string,
-                       quantity:string,
-                       blockchain:Blockchain,
-                       blockId:number,
-                        token:ContractStandard | null,
-                        sandra:SandraManager,
-
+    constructor(factory: BlockchainEventFactory,
+                source: BlockchainAddress | string,
+                destination: BlockchainAddress | string,
+                contract: BlockchainContract | string,
+                txid: string,
+                timestamp: string,
+                quantity: string,
+                blockchain: Blockchain,
+                blockId: number,
+                token: ContractStandard | null,
+                sandra: SandraManager,
     ) {
 
+        super(factory, [new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txid)]);
 
-         super(factory);
-
-         this.addReference(  new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid));
-
-
-        if ( typeof source == "string"){
+        if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source)
         }
-        if ( typeof destination == "string"){
+        if (typeof destination == "string") {
             destination = blockchain.addressFactory.getOrCreate(destination)
         }
-        if ( typeof contract == "string"){
+        if (typeof contract == "string") {
             contract = blockchain.contractFactory.getOrCreate(contract)
         }
 
-         this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB,this.eventType,sandra);
+        this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
 
 
+        this.addReference(new Reference(sandra.get(BlockchainEvent.EVENT_BLOCK_TIME), timestamp));
+        this.addReference(new Reference(sandra.get(BlockchainEvent.QUANTITY), quantity));
 
-        this.addReference(  new Reference(sandra.get(BlockchainEvent.EVENT_BLOCK_TIME),timestamp));
-        this.addReference(  new Reference(sandra.get(BlockchainEvent.QUANTITY),quantity));
-
-        this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS,source,sandra)
-        this.joinEntity(BlockchainEvent.EVENT_DESTINATION_VERB,destination,sandra)
+        this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra)
+        this.joinEntity(BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra)
 
 
         //create the block
-       let blockchainBlock = new BlockchainBlock(blockchain.blockFactory,blockId,timestamp,sandra);
-        this.joinEntity(BlockchainEvent.EVENT_BLOCK,blockchainBlock,sandra)
+        let blockchainBlock = new BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        this.joinEntity(BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra)
 
-        this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN,blockchain.name,sandra);
+        this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
 
-        let refArray:Reference[] = [];
+        let refArray: Reference[] = [];
 
-        if (token){
+        if (token) {
             //we need to get the tokenpath data and add it as reference on the event
             let specifierMap = token.getSpecifierArray()
 
             for (let specifier of specifierMap) {
-                 refArray.push(new Reference(specifier[0],specifier[1]));
+                refArray.push(new Reference(specifier[0], specifier[1]));
             }
 
         }
 
-        this.joinEntity(BlockchainEvent.EVENT_SOURCE_CONTRACT,contract,sandra,refArray)
+        this.joinEntity(BlockchainEvent.EVENT_SOURCE_CONTRACT, contract, sandra, refArray)
 
 
     }
-
 
 
 }

@@ -15,7 +15,7 @@ async function bootstrap() {
     await addJetskiProcessFullData();
 }
 async function updateJetskiProcess() {
-    let jetski = canonizeManager.getJetskiAppInstance("");
+    let jetski = canonizeManager.getJetskiAppInstance();
     let blockchain = canonizeManager.getOrInitBlockchain(CSCanonizeManager_js_1.CompatibleBlockchains.binance);
     let jetskiProcessFactory = jetski.getProcessFactory();
     let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({
@@ -33,12 +33,11 @@ async function updateJetskiProcess() {
     let res = await canonizeManager.gossipJetskiProcess(jetskiProcess);
 }
 async function addAddContractToProcess() {
-    let jetski = canonizeManager.getJetskiAppInstance("");
+    let jetski = canonizeManager.getJetskiAppInstance();
     let jetskiAddressFactory = new JetskiAddressEntityFactory_1.JetskiAddressEntityFactory(canonizeManager.getSandra());
-    jetskiAddressFactory.getOrCreateJetskiAddress();
 }
 async function addJetskiProcess() {
-    let jetski = canonizeManager.getJetskiAppInstance("");
+    let jetski = canonizeManager.getJetskiAppInstance();
     let blockchain = canonizeManager.getOrInitBlockchain(CSCanonizeManager_js_1.CompatibleBlockchains.binance);
     let jetskiProcessFactory = jetski.getProcessFactory();
     let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({

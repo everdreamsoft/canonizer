@@ -1,21 +1,17 @@
 import {Entity} from "../../Entity.js";
-import {AssetFactory} from "../AssetFactory.js";
-import {SandraManager} from "../../SandraManager.js";
 import {Reference} from "../../Reference.js";
-import {AssetInterface} from "../Asset.js";
 import {CSCanonizeManager} from "../CSCanonizeManager.js";
 import {AssetSolverFactory} from "./AssetSolverFactory.js";
 
-export class AssetSolver extends Entity{
+export class AssetSolver extends Entity {
 
+    public constructor(canonizeManager: CSCanonizeManager, solverId: string, csCannonClass: string) {
 
-    public constructor(canonizeManager: CSCanonizeManager,solverId:string,csCannonClass:string) {
         let factory = canonizeManager.getAssetSolverFactory();
-        super(canonizeManager.getAssetSolverFactory());
 
+        super(factory, [new Reference(factory.sandraManager.get(factory.id), solverId)]);
 
-        this.createOrUpdateRef(factory.id,solverId);
-        this.createOrUpdateRef(AssetSolverFactory.CS_CANNON_CLASS_NAME,csCannonClass);
+        this.addReference(new Reference(factory.sandraManager.get(AssetSolverFactory.CS_CANNON_CLASS_NAME), csCannonClass));
 
     }
 

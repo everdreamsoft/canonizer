@@ -5,7 +5,7 @@ const EntityFactory_js_1 = require("../../../EntityFactory.js");
 const JetskiProcessEntity_1 = require("./JetskiProcessEntity");
 class JetskiProcessEntityFactory extends EntityFactory_js_1.EntityFactory {
     constructor(sandra) {
-        super(JetskiProcessEntityFactory.is_a, JetskiProcessEntityFactory.contained_in_file, sandra);
+        super(JetskiProcessEntityFactory.is_a, JetskiProcessEntityFactory.contained_in_file, sandra, sandra.get(JetskiProcessEntityFactory.ID));
         this.updateOnExistingRef = sandra.get(JetskiProcessEntityFactory.ID);
     }
     getOrCreateJetskiProcess(jetskiProcessData, sandra) {

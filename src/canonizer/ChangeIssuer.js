@@ -9,10 +9,9 @@ const BlockchainEvent_1 = require("./BlockchainEvent");
 const BlockchainBlock_1 = require("./BlockchainBlock");
 class ChangeIssuer extends Entity_1.Entity {
     constructor(factory, source, collectionId, newIssuer, txId, timestamp, blockId, blockchain, sandra) {
-        super(factory);
+        super(factory, [new Reference_1.Reference(sandra.get(Blockchain_1.Blockchain.TXID_CONCEPT_NAME), txId)]);
         this.eventType = "changeIssuer";
         this.addReference(new Reference_1.Reference(sandra.get(ChangeIssuerFactory_1.ChangeIssuerFactory.COLLECTION_ID), collectionId));
-        this.addReference(new Reference_1.Reference(sandra.get(Blockchain_1.Blockchain.TXID_CONCEPT_NAME), txId));
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source);
         }

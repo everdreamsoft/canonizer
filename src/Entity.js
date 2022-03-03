@@ -4,7 +4,7 @@ exports.Entity = void 0;
 const Reference_js_1 = require("./Reference.js");
 //does this move to the other branche ?
 class Entity {
-    constructor(factory, references = []) {
+    constructor(factory, references) {
         // TODO make private and make getters
         this.referenceArray = [];
         this.brotherEntityMap = new Map();
@@ -12,6 +12,10 @@ class Entity {
         this.factory = factory;
         factory.sandraManager.registerNewEntity(this);
         this.subjectConcept = factory.sandraManager.get('entity:subject:' + this.id);
+        // In case updateOnExistingRef is set then entity must have reference.
+        if (factory.updateOnExistingRef && ((references && references.length == 0) || !references)) {
+            throw new Error("Entity factory expects reference for updateOnExistingRef option -" + (factory.updateOnExistingRef.shortname) + ", no references provided");
+        }
         references.forEach(ref => {
             this.addReference(ref);
         });
@@ -61,7 +65,9 @@ class Entity {
             results.forEach(concept => {
                 //find corresponding entity
                 const entities = [...sandra.entityList.values()].filter((item) => item.subjectConcept === concept);
-                entities.forEach(foundEntity => { entityResult.push(foundEntity); });
+                entities.forEach(foundEntity => {
+                    entityResult.push(foundEntity);
+                });
             });
         }
         return entityResult;

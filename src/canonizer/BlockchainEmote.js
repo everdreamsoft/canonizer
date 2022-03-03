@@ -8,7 +8,11 @@ const Blockchain_1 = require("./Blockchain");
 const BlockchainBlock_1 = require("./BlockchainBlock");
 class BlockchainEmote extends Entity_1.Entity {
     constructor(factory, sandra, blockchain, source, txId, blockId, timestamp, emote, token, contract) {
-        super(factory);
+        //TODO - Entity existing reference changes not implemented here.
+        // This will show error if used. Reference for updateExisting concept should be
+        // added in super constructor call, As it uses class object to create id concept
+        // it can not be moved before super const call.
+        super(factory, []);
         this.eventType = "emoteEvent";
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source);

@@ -5,6 +5,7 @@ import {ERC1155ContractStandard} from "../src/canonizer/Contracts/ERC1155Contrac
 import {EntityFactory} from "../src/EntityFactory";
 import {Entity} from "../src/Entity";
 import {Reference} from "../src/Reference";
+import {TestEntity} from "./TestEntity";
 
 // const jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbnYiOiJmb25kdWUiLCJmbHVzaCI6dHJ1ZSwiZXhwIjoxMDYxMTY0NzQ0OTIwMDAwfQ.TX0Xcy7OeHv6oE3iTxKe-TNbMaIefjViCUGvqpFAG3Q';
 // const gossipUrl = "http://debug.everdreamsoft.com/fondue/alex/gossip"
@@ -32,27 +33,14 @@ async function addTestEntity() {
     let sandra = canonizeManager.getSandra();
     let is_a = "testEntity";
     let containedIn = "testFile";
-    let firstNameConcept = sandra.get("firstName");
-    let secondNameConcept = sandra.get("secondName");
+    let idConcept = sandra.get("id");
 
     // Factory rule on first name
-    let entityFactory = new EntityFactory(is_a, containedIn, sandra, firstNameConcept);
+    let entityFactory = new EntityFactory(is_a, containedIn, sandra, idConcept);
 
-    let firstNameRef = new Reference(firstNameConcept, "Ranjit");
-    let secondNameRef = new Reference(secondNameConcept, "Singh");
+    let testEntity = new TestEntity(entityFactory, {id: "1", data: "DATA1"})
 
-    let ranjitSingh = new Entity(entityFactory, [firstNameRef, secondNameRef]);
-
-    firstNameRef = new Reference(firstNameConcept, "Shaban");
-    secondNameRef = new Reference(secondNameConcept, "Singh");
-
-    let shabanSingh = new Entity(entityFactory, [firstNameRef, secondNameRef]);
-
-
-    firstNameRef = new Reference(firstNameConcept, "Ranjit");
-    secondNameRef = new Reference(secondNameConcept, "Shaban");
-
-    let ranjitShaban = new Entity(entityFactory, [firstNameRef, secondNameRef]);
+    let testEntity2 = new TestEntity(entityFactory, {id: "1", data: "DATA2"})
 
     console.log(entityFactory.entityArray.length);
 

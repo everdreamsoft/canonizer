@@ -6,9 +6,8 @@ const AssetFactory_js_1 = require("./AssetFactory.js");
 const Reference_js_1 = require("../Reference.js");
 class Asset extends Entity_js_1.Entity {
     constructor(factory, assetInterface, sandra) {
-        super(factory);
+        super(factory, [new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.ID), assetInterface.assetId)]);
         this.sandra = sandra;
-        this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.ID), assetInterface.assetId));
         assetInterface.imageUrl ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.imageUrl), assetInterface.imageUrl)) : null;
         assetInterface.metadataUrl ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.metaDataUrl), assetInterface.metadataUrl)) : null;
         assetInterface.description ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.description), assetInterface.description)) : null;

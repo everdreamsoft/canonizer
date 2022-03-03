@@ -6,8 +6,7 @@ const Reference_js_1 = require("../Reference.js");
 const BlockchainBlock_1 = require("./BlockchainBlock");
 class BlockchainTransaction extends Entity_js_1.Entity {
     constructor(factory, txId, timestamp, blockId, blockchainEvents, blockchain, sandra) {
-        super(factory);
-        this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainTransaction.TX_ID), txId));
+        super(factory, [new Reference_js_1.Reference(sandra.get(BlockchainTransaction.TX_ID), txId)]);
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainTransaction.EVENT_BLOCK_TIME), timestamp));
         let blockchainBlock = new BlockchainBlock_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
         this.joinEntity(BlockchainTransaction.EVENT_BLOCK, blockchainBlock, sandra);

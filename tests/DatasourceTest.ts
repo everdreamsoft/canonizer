@@ -1,7 +1,14 @@
 import {KusamaBlockchain} from "../src/canonizer/Substrate/Kusama/KusamaBlockchain.js";
 import {CSCanonizeManager} from "../src/canonizer/CSCanonizeManager.js";
 
-const canonizeManager = new CSCanonizeManager({connector:{gossipUrl:'http://arkam.everdreamsoft.com/alex/gossip',jwt:jwt}});
+
+let jwt = "";
+const canonizeManager = new CSCanonizeManager({
+    connector: {
+        gossipUrl: 'http://arkam.everdreamsoft.com/alex/gossip',
+        jwt: jwt
+    }
+});
 const sandra = canonizeManager.getSandra();
 const chain = new KusamaBlockchain(sandra);
 

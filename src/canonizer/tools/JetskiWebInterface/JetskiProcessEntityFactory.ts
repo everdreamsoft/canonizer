@@ -26,7 +26,7 @@ export class JetskiProcessEntityFactory extends EntityFactory {
     static readonly HAS_STATUS = 'hasStatus';
 
     public constructor(sandra: SandraManager) {
-        super(JetskiProcessEntityFactory.is_a, JetskiProcessEntityFactory.contained_in_file, sandra);
+        super(JetskiProcessEntityFactory.is_a, JetskiProcessEntityFactory.contained_in_file, sandra,sandra.get(JetskiProcessEntityFactory.ID));
         this.updateOnExistingRef = sandra.get(JetskiProcessEntityFactory.ID);
     }
 

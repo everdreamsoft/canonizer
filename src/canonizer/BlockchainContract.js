@@ -8,8 +8,7 @@ class BlockchainContract extends Entity_js_1.Entity {
     constructor(factory, id, sandraManager, standard = null) {
         if (factory == null)
             factory = new BlockchainContractFactory_js_1.BlockchainContractFactory(sandraManager);
-        super(factory);
-        this.addReference(new Reference_js_1.Reference(sandraManager.get('id'), id));
+        super(factory, [new Reference_js_1.Reference(sandraManager.get('id'), id)]);
         //if the contract has a standard we bind it
         if (standard) {
             this.joinEntity('contractStandard', standard, sandraManager);

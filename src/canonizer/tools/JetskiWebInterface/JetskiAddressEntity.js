@@ -6,9 +6,7 @@ const Reference_1 = require("../../../Reference");
 const JetskiAddressEntityFactory_1 = require("./JetskiAddressEntityFactory");
 class JetskiAddressEntity extends Entity_js_1.Entity {
     constructor(factory, sandra, jetskiAddressData) {
-        super(factory);
-        this.sandra = sandra;
-        this.addReference(new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.HASH), jetskiAddressData.hash));
+        super(factory, [new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.HASH), jetskiAddressData.hash)]);
         this.addReference(new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.STATUS), jetskiAddressData.status));
         this.addReference(new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.LAST_BLOCK_PROCESSED), jetskiAddressData.lastBlockProcessed));
         this.addReference(new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.LAST_BLOCK_SAVED), jetskiAddressData.lastBlockSaved));
@@ -19,7 +17,7 @@ class JetskiAddressEntity extends Entity_js_1.Entity {
         this.addReference(new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.BLOCK_RANGE), jetskiAddressData.blockRange));
     }
     bindJetskiCollection(collection) {
-        this.joinEntity(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.JOINED_COLLECTION, collection, this.sandra);
+        this.joinEntity(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.JOINED_COLLECTION, collection, this.factory.sandraManager);
     }
 }
 exports.JetskiAddressEntity = JetskiAddressEntity;

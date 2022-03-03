@@ -13,17 +13,9 @@ export class AssetSolverFactory extends EntityFactory
     public static CS_CANNON_CLASS_NAME = 'class_name';
     public static COLLECTION_JOIN_VERB = 'has';
 
-
-
     public constructor(manager: CSCanonizeManager) {
         super('assetSolver', 'assetSolverFile', manager.getSandra());
         this.updateOnExistingRef  = manager.getSandra().get(this.id);
-        let factory = manager.getAssetSolverFactory();
-
-
-
-
-
     }
 
 }

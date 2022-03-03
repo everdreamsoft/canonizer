@@ -1,12 +1,11 @@
 import {Entity} from "../Entity.js";
 import {AssetCollectionFactory} from "./AssetCollectionFactory.js";
-import {Reference} from "../Reference.js";
 import {SandraManager} from "../SandraManager.js";
-import {AssetFactory} from "./AssetFactory.js";
 import {BlockchainAddress} from "./BlockchainAddress.js";
+import {Reference} from "../Reference";
 
 
-export interface AssetCollectionInterface{
+export interface AssetCollectionInterface {
 
     id: string,
     name?: string,
@@ -15,57 +14,44 @@ export interface AssetCollectionInterface{
 
 }
 
-export class AssetCollection extends Entity
-{
+export class AssetCollection extends Entity {
 
 
+    public constructor(factory: AssetCollectionFactory, collectionInterface: AssetCollectionInterface, sandra: SandraManager) {
 
-    //canonical vocabulary
-    public COLLECTION_ID:string = 'collectionId';
-    public NAME:string = 'name';
-    public MAIN_IMAGE:string = 'imageUrl';
-    public MAIN_NAME:string = 'name';
-    public DESCRIPTION:string = 'description';
+        super(factory, [new Reference(sandra.get(AssetCollectionFactory.COLLECTION_ID), collectionInterface.id )]);
 
-
-    public constructor(factory: AssetCollectionFactory, collectionInterface:AssetCollectionInterface, sandra: SandraManager) {
-        super(factory);
-
-
-        this.addReference(new Reference(sandra.get(this.COLLECTION_ID), collectionInterface.id ));
-        collectionInterface.name ? this.addReference(new Reference(sandra.get(this.NAME), collectionInterface.name )) : null;
-        collectionInterface.imageUrl ? this.addReference(new Reference(sandra.get(this.MAIN_IMAGE), collectionInterface.imageUrl )): null;
-        collectionInterface.description ? this.addReference(new Reference(sandra.get(this.DESCRIPTION), collectionInterface.description )): null;
-    }
-
-    public getImageUrl():string
-    {
-        return this.getRefValue(this.MAIN_IMAGE) ? this.getRefValue(this.MAIN_IMAGE) : '' ;
+        collectionInterface.name ? this.addReference(new Reference(sandra.get(AssetCollectionFactory.MAIN_NAME), collectionInterface.name )) : null;
+        collectionInterface.imageUrl ? this.addReference(new Reference(sandra.get(AssetCollectionFactory.MAIN_IMAGE), collectionInterface.imageUrl )): null;
+        collectionInterface.description ? this.addReference(new Reference(sandra.get(AssetCollectionFactory.DESCRIPTION), collectionInterface.description )): null;
 
     }
 
-    public getName():string
-    {
-        return this.getRefValue(this.NAME) ? this.getRefValue(this.NAME) : '' ;
+
+    public getImageUrl(): string {
+        return this.getRefValue(AssetCollectionFactory.MAIN_IMAGE) ? this.getRefValue(AssetCollectionFactory.MAIN_IMAGE) : '';
 
     }
 
-    public getDescription():string
-    {
-        return this.getRefValue(this.DESCRIPTION) ? this.getRefValue(this.DESCRIPTION) : '' ;
+    public getName(): string {
+        return this.getRefValue(AssetCollectionFactory.MAIN_NAME) ? this.getRefValue(AssetCollectionFactory.MAIN_NAME) : '';
 
     }
 
-    public getId():string
-    {
-        return this.getRefValue(this.COLLECTION_ID) ? this.getRefValue(this.COLLECTION_ID) : '' ;
+    public getDescription(): string {
+        return this.getRefValue(AssetCollectionFactory.DESCRIPTION) ? this.getRefValue(AssetCollectionFactory.DESCRIPTION) : '';
 
     }
 
-    public setOwner(owner:BlockchainAddress){
+    public getId(): string {
+        return this.getRefValue(AssetCollectionFactory.COLLECTION_ID) ? this.getRefValue(AssetCollectionFactory.COLLECTION_ID) : '';
 
-        this.joinEntity(AssetCollectionFactory.COLLECTION_OWNER,owner,this.factory.sandraManager);
+    }
 
-}
+    public setOwner(owner: BlockchainAddress) {
+
+        this.joinEntity(AssetCollectionFactory.COLLECTION_OWNER, owner, this.factory.sandraManager);
+
+    }
 
 }

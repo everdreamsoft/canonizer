@@ -11,6 +11,7 @@ export class AssetCollectionFactory extends EntityFactory
 
     public id: string = 'collectionId';
 
+    public static COLLECTION_ID: string = 'collectionId';
     public static IMAGE_EXTENSION: string = 'imageExtension';
     public static MAIN_IMAGE: string = 'imageUrl';
     public static MAIN_NAME: string = 'name';

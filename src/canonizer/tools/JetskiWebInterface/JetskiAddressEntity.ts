@@ -11,19 +11,18 @@ export interface JetskiAddressInterface {
     lastBlockProcessed: string,
     lastUpdateTime: string,
     startBlock: string,
-    endBlock:string,
+    endBlock: string,
     standard: string,
     blockRange: string
 }
 
 export class JetskiAddressEntity extends Entity {
 
-    sandra: SandraManager;
 
     public constructor(factory: JetskiAddressEntityFactory, sandra: SandraManager, jetskiAddressData: JetskiAddressInterface) {
-        super(factory);
-        this.sandra = sandra;
-        this.addReference(new Reference(sandra.get(JetskiAddressEntityFactory.HASH), jetskiAddressData.hash));
+
+        super(factory, [new Reference(sandra.get(JetskiAddressEntityFactory.HASH), jetskiAddressData.hash)]);
+
         this.addReference(new Reference(sandra.get(JetskiAddressEntityFactory.STATUS), jetskiAddressData.status));
         this.addReference(new Reference(sandra.get(JetskiAddressEntityFactory.LAST_BLOCK_PROCESSED), jetskiAddressData.lastBlockProcessed));
         this.addReference(new Reference(sandra.get(JetskiAddressEntityFactory.LAST_BLOCK_SAVED), jetskiAddressData.lastBlockSaved));
@@ -37,7 +36,7 @@ export class JetskiAddressEntity extends Entity {
     }
 
     public bindJetskiCollection(collection: AssetCollection) {
-        this.joinEntity(JetskiAddressEntityFactory.JOINED_COLLECTION, collection, this.sandra)
+        this.joinEntity(JetskiAddressEntityFactory.JOINED_COLLECTION, collection, this.factory.sandraManager)
     }
 
 }

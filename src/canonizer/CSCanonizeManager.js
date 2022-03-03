@@ -187,19 +187,21 @@ class CSCanonizeManager {
         throw new Error("Blockchain not found" + name);
     }
     registerCompatibleStandards() {
+        var _a;
         // add compatible standards here
         const standard = new RmrkContractStandard_js_1.RmrkContractStandard(this);
-        this.contractStandardMap.set(standard.getName(), standard);
+        (_a = this.contractStandardMap) === null || _a === void 0 ? void 0 : _a.set(standard.getName(), standard);
         return this.contractStandardMap;
     }
     getStandardFromName(name) {
-        const standard = this.contractStandardMap.get(name);
+        var _a;
+        const standard = (_a = this.contractStandardMap) === null || _a === void 0 ? void 0 : _a.get(name);
         if (!standard)
             return null;
         return standard;
     }
-    getJetskiAppInstance(name) {
-        return new JetskiApp_1.JetskiApp(this, name);
+    getJetskiAppInstance() {
+        return new JetskiApp_1.JetskiApp(this);
     }
 }
 exports.CSCanonizeManager = CSCanonizeManager;

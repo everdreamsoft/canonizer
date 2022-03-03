@@ -45,7 +45,7 @@ export class CSCanonizeManager {
     private localSolver: LocalSolver;
     private loadedBlockchains: Blockchain[] = [];
     public static mintIssuerAddressString: string = '0x0000000000000000000000000000000000000000';
-    private contractStandardMap: Map<string, ContractStandard>;
+    private contractStandardMap: Map<string, ContractStandard> | undefined;
 
     constructor(options?: CanonizeOptions, sandra: SandraManager = new SandraManager()) {
 
@@ -280,19 +280,19 @@ export class CSCanonizeManager {
 
         // add compatible standards here
         const standard = new RmrkContractStandard(this);
-        this.contractStandardMap.set(standard.getName(), standard);
+        this.contractStandardMap?.set(standard.getName(), standard);
         return this.contractStandardMap;
 
     }
 
     public getStandardFromName(name: string) {
-        const standard = this.contractStandardMap.get(name);
+        const standard = this.contractStandardMap?.get(name);
         if (!standard) return null;
         return standard;
     }
 
-    public getJetskiAppInstance(name: string) {
-        return new JetskiApp(this, name);
+    public getJetskiAppInstance() {
+        return new JetskiApp(this);
     }
 
 }
