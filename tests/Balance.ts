@@ -1,7 +1,13 @@
 import {CompatibleBlockchains, CSCanonizeManager} from "../src/canonizer/CSCanonizeManager.js";
 import {BalanceEntity} from "../src/canonizer/BalanceEntity";
 import {BalanceFactory} from "../src/canonizer/BalanceFactory";
-import {ERC721ContractStandard} from "../src/canonizer/Contracts/ERC721ContractStandard";
+import {ERC1155ContractStandard} from "../src/canonizer/Contracts/ERC1155ContractStandard";
+import {EntityFactory} from "../src/EntityFactory";
+import {Entity} from "../src/Entity";
+import {Reference} from "../src/Reference";
+
+// const jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbnYiOiJmb25kdWUiLCJmbHVzaCI6dHJ1ZSwiZXhwIjoxMDYxMTY0NzQ0OTIwMDAwfQ.TX0Xcy7OeHv6oE3iTxKe-TNbMaIefjViCUGvqpFAG3Q';
+// const gossipUrl = "http://debug.everdreamsoft.com/fondue/alex/gossip"
 
 const jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbnYiOiJic2MiLCJmbHVzaCI6dHJ1ZSwiZXhwIjoxMDYwODE2MjQyMDk2MDAwfQ.X0MLqtaUtCrgfN_sWO0IhybOtftWE4Lltex2Hh0k0u4';
 const gossipUrl = "http://localhost:8000/alex/gossip";
@@ -16,43 +22,84 @@ let ethereum = canonizeManager.getOrInitBlockchain(CompatibleBlockchains.ethereu
 let res = bootstrap();
 
 async function bootstrap() {
-    await flushDatagraph();
-    await addBalance();
+    //await flushDatagraph();
+    //await addBalance();
+    await addTestEntity();
+}
+
+async function addTestEntity() {
+
+    let sandra = canonizeManager.getSandra();
+    let is_a = "testEntity";
+    let containedIn = "testFile";
+    let firstNameConcept = sandra.get("firstName");
+    let secondNameConcept = sandra.get("secondName");
+
+    // Factory rule on first name
+    let entityFactory = new EntityFactory(is_a, containedIn, sandra, firstNameConcept);
+
+    let firstNameRef = new Reference(firstNameConcept, "Ranjit");
+    let secondNameRef = new Reference(secondNameConcept, "Singh");
+
+    let ranjitSingh = new Entity(entityFactory, [firstNameRef, secondNameRef]);
+
+    firstNameRef = new Reference(firstNameConcept, "Shaban");
+    secondNameRef = new Reference(secondNameConcept, "Singh");
+
+    let shabanSingh = new Entity(entityFactory, [firstNameRef, secondNameRef]);
+
+
+    firstNameRef = new Reference(firstNameConcept, "Ranjit");
+    secondNameRef = new Reference(secondNameConcept, "Shaban");
+
+    let ranjitShaban = new Entity(entityFactory, [firstNameRef, secondNameRef]);
+
+    console.log(entityFactory.entityArray.length);
+
 }
 
 async function addBalance() {
 
     try {
 
-        let binanceContract = binance.contractFactory.getOrCreate('241B8516516F381A-BINANCE');
-        let erc721ContractStandard = new ERC721ContractStandard(canonizeManager);
-        erc721ContractStandard.setTokenId("123454");
-        binanceContract.setStandard(erc721ContractStandard);
+        let contractString = '0x728cB1069397Ca3E2c268946eED59200Aa0D494A'.toLowerCase();
+        let binanceContract = binance.contractFactory.getOrCreate(contractString);
+
+        let erc1155ContractStandard = new ERC1155ContractStandard(canonizeManager);
+        erc1155ContractStandard.setTokenId("69");
+
+        binanceContract.setStandard(erc1155ContractStandard);
         binanceContract.setBlockchain(binance.getName());
+
+        erc1155ContractStandard.setTokenId("69");
+
+        let token = erc1155ContractStandard.generateTokenPathEntity(canonizeManager);
+        erc1155ContractStandard.setTokenId("69");
 
         let addressFactory = binance.addressFactory;
         let balanceFact = new BalanceFactory(sandra)
 
-        let address1 = addressFactory.getOrCreate("0xdsfsdfsdfsdfsffdsfds2");
+        let addressString = '0x7127F8d90DFAE48b2209F6C98bF51a96591F23f9'.toLowerCase();
+        let address1 = addressFactory.getOrCreate(addressString);
 
         new BalanceEntity(balanceFact, {
-            quantity: "2",
-            specifierArray: erc721ContractStandard.getSpecifierArray(),
+            quantity: "1",
+            specifierArray: erc1155ContractStandard.getSpecifierArray(),
             contract: binanceContract,
             address: address1
         });
 
-        let address2 = addressFactory.getOrCreate("0x31232312312312312313232");
-
-        erc721ContractStandard.setTokenId("8888888");
-         new BalanceEntity(balanceFact, {
-            quantity: "5",
-            specifierArray: erc721ContractStandard.getSpecifierArray(),
-            contract: binanceContract,
-            address: address2
-        });
+        // let address2 = addressFactory.getOrCreate("0x31232312312312312313232");
+        // erc721ContractStandard.setTokenId("8888888");
+        //  new BalanceEntity(balanceFact, {
+        //     quantity: "5",
+        //     specifierArray: erc721ContractStandard.getSpecifierArray(),
+        //     contract: binanceContract,
+        //     address: address2
+        // });
 
         let res = await canonizeManager.gossipBalance(balanceFact);
+
         console.log(res);
 
     } catch (e) {

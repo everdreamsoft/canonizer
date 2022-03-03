@@ -19,6 +19,7 @@ export class Entity{
     public constructor(factory:EntityFactory, references:Array<Reference>=[]) {
 
         this.id = 0 ;
+        this.factory = factory ;
 
         factory.sandraManager.registerNewEntity(this);
 
@@ -30,8 +31,12 @@ export class Entity{
 
         })
 
-        factory.addEntity(this);
-        this.factory = factory ;
+        if (factory.updateOnExistingRef) {
+            factory.addOrUpdateEntity(this,factory.updateOnExistingRef);
+        } else
+            factory.addEntity(this);
+
+
 
     }
 

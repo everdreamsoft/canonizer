@@ -9,13 +9,17 @@ class Entity {
         this.referenceArray = [];
         this.brotherEntityMap = new Map();
         this.id = 0;
+        this.factory = factory;
         factory.sandraManager.registerNewEntity(this);
         this.subjectConcept = factory.sandraManager.get('entity:subject:' + this.id);
         references.forEach(ref => {
             this.addReference(ref);
         });
-        factory.addEntity(this);
-        this.factory = factory;
+        if (factory.updateOnExistingRef) {
+            factory.addOrUpdateEntity(this, factory.updateOnExistingRef);
+        }
+        else
+            factory.addEntity(this);
     }
     addReference(ref) {
         this.referenceArray.push(ref);
