@@ -8,11 +8,13 @@ import {BlockchainAddress} from "./BlockchainAddress";
 import {BlockchainBlock} from "./BlockchainBlock";
 import {BlockchainToken} from "./BlockchainToken";
 import {BlockchainTokenFactory} from "./BlockchainTokenFactory";
+import {ContractStandard} from "./ContractStandard";
+import {BlockchainOrder} from "./BlockchainOrder";
 
 export class BlockchainEmote extends Entity
 {
 
-    public static eventType = "emoteEvent";
+    public eventType = "emoteEvent";
 
     constructor(
         factory: BlockchainEmoteFactory,
@@ -23,7 +25,7 @@ export class BlockchainEmote extends Entity
         blockId: number,
         timestamp: string,
         emote: string,
-        token: BlockchainToken,
+        token: ContractStandard,
         contract: BlockchainContract
     ) {
         super(factory);
@@ -35,7 +37,7 @@ export class BlockchainEmote extends Entity
 
         // Create emoteId for updateOnExistingRef
         const contractId = contract.getRefValue(sandra.get("id"));
-        const sn = token.getRefValue(sandra.get(BlockchainTokenFactory.ID));
+        const sn = token.getDisplayStructure();
         const emoteId = source.getAddress() +"_"+ emote +"_"+ contractId +"-"+ sn;
 
         // Add generic on refs data (tx, block etc)
@@ -53,15 +55,32 @@ export class BlockchainEmote extends Entity
         this.setTriplet(BlockchainEmoteFactory.ON_BLOCKCHAIN, blockchain.getName(), sandra);
 
         // Add owner Blockchain "Event" verb ?
-        this.setTriplet(BlockchainEmoteFactory.BLOCKCHAIN_EVENT_TYPE_VERB, BlockchainEmote.eventType, sandra);
+        this.setTriplet(BlockchainEmoteFactory.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
 
         // Add emote data
         this.joinEntity(BlockchainEmoteFactory.EMOTE_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(BlockchainEmoteFactory.TARGET_CONTRACT, contract, sandra);
-        this.joinEntity(BlockchainEmoteFactory.TARGET_TOKEN, token, sandra);
+        this.joinEntity(BlockchainEmoteFactory.TARGET_TOKEN, token, sandra, BlockchainEmote.getRefArray(token));
+
+    }
 
 
+    private static getRefArray(token: ContractStandard|null): Array<Reference>|[]
+    {
+        let refArray:Reference[] = [];
 
+        if (token){
+            //we need to get the tokenpath data and add it as reference on the event
+            let specifierMap = token.getSpecifierArray()
+
+            for (let specifier of specifierMap) {
+                // console.log(specifier[0]);
+                refArray.push(new Reference(specifier[0],specifier[1]));
+            }
+
+        }
+
+        return refArray;
     }
 
 }

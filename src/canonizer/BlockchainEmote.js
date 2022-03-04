@@ -6,16 +6,16 @@ const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
 const Reference_1 = require("../Reference");
 const Blockchain_1 = require("./Blockchain");
 const BlockchainBlock_1 = require("./BlockchainBlock");
-const BlockchainTokenFactory_1 = require("./BlockchainTokenFactory");
 class BlockchainEmote extends Entity_1.Entity {
     constructor(factory, sandra, blockchain, source, txId, blockId, timestamp, emote, token, contract) {
         super(factory);
+        this.eventType = "emoteEvent";
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source);
         }
         // Create emoteId for updateOnExistingRef
         const contractId = contract.getRefValue(sandra.get("id"));
-        const sn = token.getRefValue(sandra.get(BlockchainTokenFactory_1.BlockchainTokenFactory.ID));
+        const sn = token.getDisplayStructure();
         const emoteId = source.getAddress() + "_" + emote + "_" + contractId + "-" + sn;
         // Add generic on refs data (tx, block etc)
         this.addReference(new Reference_1.Reference(sandra.get(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_ID), emoteId));
@@ -28,13 +28,24 @@ class BlockchainEmote extends Entity_1.Entity {
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEmoteFactory_1.BlockchainEmoteFactory.ON_BLOCKCHAIN, blockchain.getName(), sandra);
         // Add owner Blockchain "Event" verb ?
-        this.setTriplet(BlockchainEmoteFactory_1.BlockchainEmoteFactory.BLOCKCHAIN_EVENT_TYPE_VERB, BlockchainEmote.eventType, sandra);
+        this.setTriplet(BlockchainEmoteFactory_1.BlockchainEmoteFactory.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
         // Add emote data
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.TARGET_CONTRACT, contract, sandra);
-        this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.TARGET_TOKEN, token, sandra);
+        this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.TARGET_TOKEN, token, sandra, BlockchainEmote.getRefArray(token));
+    }
+    static getRefArray(token) {
+        let refArray = [];
+        if (token) {
+            //we need to get the tokenpath data and add it as reference on the event
+            let specifierMap = token.getSpecifierArray();
+            for (let specifier of specifierMap) {
+                // console.log(specifier[0]);
+                refArray.push(new Reference_1.Reference(specifier[0], specifier[1]));
+            }
+        }
+        return refArray;
     }
 }
 exports.BlockchainEmote = BlockchainEmote;
-BlockchainEmote.eventType = "emoteEvent";
 //# sourceMappingURL=BlockchainEmote.js.map

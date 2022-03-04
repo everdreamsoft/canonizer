@@ -17,6 +17,8 @@ import {BlockchainEventFactory} from "./BlockchainEventFactory.js";
 import {KusamaBlockchain} from "./Substrate/Kusama/KusamaBlockchain";
 import {RmrkContractStandard} from "./Interfaces/RmrkContractStandard.js";
 import {ContractStandard} from "./ContractStandard.js";
+import {BlockchainEmoteFactory} from "./BlockchainEmoteFactory";
+import {ChangeIssuerFactory} from "./ChangeIssuerFactory";
 
 
 interface CanonizeOptions{
@@ -32,6 +34,8 @@ export class CSCanonizeManager {
     private assetCollectionFactory:AssetCollectionFactory ;
     private assetFactory:AssetFactory ;
     private tokenFactory: BlockchainTokenFactory;
+    private emoteFactory: BlockchainEmoteFactory;
+    private changeIssuerFactory: ChangeIssuerFactory;
     private contractStandardFactory: ContractStandardFactory;
     private activeBlockchainFactory:EntityFactory;
     private apiConnector?:ApiConnector;
@@ -48,6 +52,8 @@ export class CSCanonizeManager {
         this.assetFactory = new AssetFactory(sandra);
         this.tokenFactory = new BlockchainTokenFactory(this);
         this.contractStandardFactory = new ContractStandardFactory(sandra);
+        this.emoteFactory = new BlockchainEmoteFactory(sandra);
+        this.changeIssuerFactory = new ChangeIssuerFactory(sandra)
 
         this.assetSolverFactory = new AssetSolverFactory(this);
         this.localSolver = new LocalSolver(this);
@@ -106,6 +112,16 @@ export class CSCanonizeManager {
 
     }
 
+    public getEmoteFactory(): BlockchainEmoteFactory
+    {
+        return this.emoteFactory;
+    }
+
+    public getChangeIssuerFactory(): ChangeIssuerFactory
+    {
+        return this.changeIssuerFactory;
+    }
+
     public getSandra():SandraManager{
 
         return this.sandra ;
@@ -149,6 +165,13 @@ export class CSCanonizeManager {
 
         return this.assetSolverFactory ;
 
+    }
+
+
+    public async gossipChangeIssuer(apiConnector?: ApiConnector)
+    {
+        let gossiper = new Gossiper(this.changeIssuerFactory);
+        return   gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
 

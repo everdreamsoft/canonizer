@@ -17,6 +17,8 @@ const AssetSolverFactory_js_1 = require("./AssetSolvers/AssetSolverFactory.js");
 const LocalSolver_js_1 = require("./AssetSolvers/LocalSolver.js");
 const KusamaBlockchain_1 = require("./Substrate/Kusama/KusamaBlockchain");
 const RmrkContractStandard_js_1 = require("./Interfaces/RmrkContractStandard.js");
+const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
+const ChangeIssuerFactory_1 = require("./ChangeIssuerFactory");
 class CSCanonizeManager {
     constructor(options, sandra = new SandraManager_js_1.SandraManager()) {
         this.loadedBlockchains = [];
@@ -25,6 +27,8 @@ class CSCanonizeManager {
         this.assetFactory = new AssetFactory_js_1.AssetFactory(sandra);
         this.tokenFactory = new BlockchainTokenFactory_js_1.BlockchainTokenFactory(this);
         this.contractStandardFactory = new ContractStandardFactory_js_1.ContractStandardFactory(sandra);
+        this.emoteFactory = new BlockchainEmoteFactory_1.BlockchainEmoteFactory(sandra);
+        this.changeIssuerFactory = new ChangeIssuerFactory_1.ChangeIssuerFactory(sandra);
         this.assetSolverFactory = new AssetSolverFactory_js_1.AssetSolverFactory(this);
         this.localSolver = new LocalSolver_js_1.LocalSolver(this);
         this.activeBlockchainFactory = new EntityFactory_js_1.EntityFactory('activeBlockchain', 'activeBlockchainFile', this.sandra, this.sandra.get('blockchain'));
@@ -54,6 +58,12 @@ class CSCanonizeManager {
     getAssetCollectionFactory() {
         return this.assetCollectionFactory;
     }
+    getEmoteFactory() {
+        return this.emoteFactory;
+    }
+    getChangeIssuerFactory() {
+        return this.changeIssuerFactory;
+    }
     getSandra() {
         return this.sandra;
     }
@@ -80,6 +90,10 @@ class CSCanonizeManager {
     }
     getAssetSolverFactory() {
         return this.assetSolverFactory;
+    }
+    async gossipChangeIssuer(apiConnector) {
+        let gossiper = new Gossiper_js_1.Gossiper(this.changeIssuerFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
     }
     async gossipCollection(apiConnector) {
         let gossiper = new Gossiper_js_1.Gossiper(this.assetCollectionFactory);

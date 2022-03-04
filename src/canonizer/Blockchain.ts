@@ -6,6 +6,7 @@ import {EntityFactory} from "../EntityFactory.js";
 import {BlockchainBlock} from "./BlockchainBlock.js";
 import {BlockchainEmoteFactory} from "./BlockchainEmoteFactory";
 import {BlockchainOrderFactory} from "./BlockchainOrderFactory";
+import {ChangeIssuerFactory} from "./ChangeIssuerFactory";
 
 export class Blockchain {
 
@@ -18,6 +19,7 @@ export class Blockchain {
     public blockFactory: EntityFactory;
     public emoteFactory: BlockchainEmoteFactory;
     public orderFactory: BlockchainOrderFactory;
+    public changeIssuerFactory: ChangeIssuerFactory;
 
     public constructor(sandra:SandraManager,name:string = 'genericBlockchain') {
 
@@ -28,6 +30,7 @@ export class Blockchain {
         this.blockFactory = new EntityFactory(this.getName()+"Block","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
         this.emoteFactory = new BlockchainEmoteFactory(sandra);
         this.orderFactory = new BlockchainOrderFactory(sandra);
+        this.changeIssuerFactory = new ChangeIssuerFactory(sandra);
     }
 
     public getName(){

@@ -3,6 +3,8 @@ import {SandraManager} from "../../../SandraManager";
 import {Blockchain} from "../../Blockchain.js";
 import {EntityFactory} from "../../../EntityFactory.js";
 import {BlockchainBlock} from "../../BlockchainBlock.js";
+import {BlockchainEmoteFactory} from "../../BlockchainEmoteFactory";
+import {BlockchainOrderFactory} from "../../BlockchainOrderFactory";
 
 export class KusamaBlockchain extends Blockchain
 {
@@ -24,8 +26,6 @@ export class KusamaBlockchain extends Blockchain
         this.contractFactory.contained_in_file = 'blockchainContractFile';
 
         this.blockFactory = new EntityFactory(this.getName()+"Block","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
-
-
 
     }
 
