@@ -32,17 +32,17 @@ interface CanonizeOptions {
 
 export class CSCanonizeManager {
 
-    private sandra: SandraManager;
-    private assetCollectionFactory: AssetCollectionFactory;
-    private assetFactory: AssetFactory;
-    private tokenFactory: BlockchainTokenFactory;
-    private emoteFactory: BlockchainEmoteFactory;
-    private changeIssuerFactory: ChangeIssuerFactory;
-    private contractStandardFactory: ContractStandardFactory;
-    private activeBlockchainFactory: EntityFactory;
-    private apiConnector?: ApiConnector;
-    private assetSolverFactory: AssetSolverFactory;
-    private localSolver: LocalSolver;
+    private readonly sandra: SandraManager;
+    private readonly assetCollectionFactory: AssetCollectionFactory;
+    private readonly assetFactory: AssetFactory;
+    private readonly tokenFactory: BlockchainTokenFactory;
+    private readonly emoteFactory: BlockchainEmoteFactory;
+    private readonly changeIssuerFactory: ChangeIssuerFactory;
+    private readonly contractStandardFactory: ContractStandardFactory;
+    private readonly activeBlockchainFactory: EntityFactory;
+    private readonly apiConnector?: ApiConnector;
+    private readonly assetSolverFactory: AssetSolverFactory;
+    private readonly localSolver: LocalSolver;
     private loadedBlockchains: Blockchain[] = [];
     public static mintIssuerAddressString: string = '0x0000000000000000000000000000000000000000';
     private contractStandardMap: Map<string, ContractStandard> | undefined;
@@ -68,13 +68,10 @@ export class CSCanonizeManager {
     }
 
     public createCollection(collectionInterface: AssetCollectionInterface, solver?: AssetSolver): AssetCollection {
-
         let assetSolver = solver ? solver : this.localSolver;
         let collection = new AssetCollection(this.assetCollectionFactory, collectionInterface, this.sandra);
         collection.joinEntity(AssetSolverFactory.COLLECTION_JOIN_VERB, assetSolver, this.sandra);
-
-        return new AssetCollection(this.assetCollectionFactory, collectionInterface, this.sandra);
-
+        return collection;
     }
 
     public createAsset(assetInterface: AssetInterface): Asset {
@@ -258,7 +255,7 @@ export class CSCanonizeManager {
             case CompatibleBlockchains.kusama:
                 blockchain = new KusamaBlockchain(this.getSandra());
                 this.loadedBlockchains.push(blockchain)
-                return new KusamaBlockchain(this.getSandra());
+                return blockchain;
 
             case CompatibleBlockchains.binance:
                 blockchain = new BinanceBlockchain(this.getSandra());

@@ -41,7 +41,7 @@ class CSCanonizeManager {
         let assetSolver = solver ? solver : this.localSolver;
         let collection = new AssetCollection_js_1.AssetCollection(this.assetCollectionFactory, collectionInterface, this.sandra);
         collection.joinEntity(AssetSolverFactory_js_1.AssetSolverFactory.COLLECTION_JOIN_VERB, assetSolver, this.sandra);
-        return new AssetCollection_js_1.AssetCollection(this.assetCollectionFactory, collectionInterface, this.sandra);
+        return collection;
     }
     createAsset(assetInterface) {
         return new Asset_js_1.Asset(this.assetFactory, assetInterface, this.sandra);
@@ -174,7 +174,7 @@ class CSCanonizeManager {
             case CompatibleBlockchains.kusama:
                 blockchain = new KusamaBlockchain_1.KusamaBlockchain(this.getSandra());
                 this.loadedBlockchains.push(blockchain);
-                return new KusamaBlockchain_1.KusamaBlockchain(this.getSandra());
+                return blockchain;
             case CompatibleBlockchains.binance:
                 blockchain = new BinanceBlockchain_1.BinanceBlockchain(this.getSandra());
                 this.loadedBlockchains.push(blockchain);

@@ -5,8 +5,8 @@ import {AssetSolverFactory} from "./AssetSolverFactory.js";
 
 export class AssetSolver extends Entity {
 
-    public constructor(canonizeManager: CSCanonizeManager, solverId: string, csCannonClass: string) {
 
+    public constructor(canonizeManager: CSCanonizeManager, solverId: string, csCannonClass: string) {
         let factory = canonizeManager.getAssetSolverFactory();
 
         super(factory, [new Reference(factory.sandraManager.get(factory.id), solverId)]);

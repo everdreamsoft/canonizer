@@ -86,6 +86,31 @@ export class EntityFactory {
 
         // Update the existing entity wih new one.
         if (indexOfExistingEntity >= 0) {
+            entity.referenceArray.forEach(element => {
+
+                this.sandraManager.registerNewReference(element);
+                this.refMap.set(element.concept.unid, element.concept.shortname);
+
+                let refMapByConcept: Map<string, Entity[]>;
+
+                if (!this.entityByRevValMap.has(element.concept)) {
+
+                    refMapByConcept = new Map<string, Entity[]>();
+                    this.entityByRevValMap.set(element.concept, refMapByConcept);
+                } else {
+                    // @ts-ignore
+                    refMapByConcept = this.entityByRevValMap.get(element.concept);
+                }
+
+                if (refMapByConcept.has(element.value)) {
+                    let existingElement = refMapByConcept.get(element.value);
+                    // @ts-ignore
+                    existingElement.push(entity);
+                } else {
+                    refMapByConcept.set(element.value, [entity]);
+                }
+
+            });
             this.entityArray[indexOfExistingEntity] = entity;
             return this;
         }
