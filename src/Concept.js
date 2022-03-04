@@ -1,16 +1,17 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.Concept = void 0;
-class Concept {
-    constructor(unid, shortname) {
+var Concept = /** @class */ (function () {
+    function Concept(unid, shortname) {
         this.isPureShortname = false;
         this.unid = unid;
         this.shortname = shortname;
         this.triplets = new Map();
         this.tripletsReferences = new Map();
     }
-    setTriplet(verb, target, notEntity = false, refs) {
-        let verbExist = false;
+    Concept.prototype.setTriplet = function (verb, target, notEntity, refs) {
+        if (notEntity === void 0) { notEntity = false; }
+        var verbExist = false;
         if (this.triplets.get(verb)) {
             // @ts-ignore
             this.triplets.get(verb).push(target);
@@ -31,9 +32,10 @@ class Concept {
                 this.tripletsReferences.set(verb, [{ concept: target, refs: refs }]);
             }
         }
-    }
-    getTriplets(verb, target, notEntity = false, refs) {
-        let verbExist = false;
+    };
+    Concept.prototype.getTriplets = function (verb, target, notEntity, refs) {
+        if (notEntity === void 0) { notEntity = false; }
+        var verbExist = false;
         if (this.triplets.get(verb)) {
             // @ts-ignore
             this.triplets.get(verb).push(target);
@@ -54,7 +56,7 @@ class Concept {
                 this.tripletsReferences.set(verb, [{ concept: target, refs: refs }]);
             }
         }
-    }
-}
+    };
+    return Concept;
+}());
 exports.Concept = Concept;
-//# sourceMappingURL=Concept.js.map

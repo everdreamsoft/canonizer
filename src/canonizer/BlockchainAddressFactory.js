@@ -1,20 +1,35 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
 exports.BlockchainAddressFactory = void 0;
-const EntityFactory_js_1 = require("../EntityFactory.js");
-const BlockchainAddress_js_1 = require("./BlockchainAddress.js");
-class BlockchainAddressFactory extends EntityFactory_js_1.EntityFactory {
-    constructor(sandra) {
-        super('blockchainAddress', 'blockchainAddressFile', sandra);
-        this.is_a = 'blockchainAddress';
-        this.contained_in_file = 'blockchainAddressFile';
-        this.onBlockchain = 'genericBlockchain';
-        this.sandra = sandra;
-        this.updateOnExistingRef = sandra.get('address');
+var EntityFactory_js_1 = require("../EntityFactory.js");
+var BlockchainAddress_js_1 = require("./BlockchainAddress.js");
+var BlockchainAddressFactory = /** @class */ (function (_super) {
+    __extends(BlockchainAddressFactory, _super);
+    function BlockchainAddressFactory(sandra) {
+        var _this = _super.call(this, 'blockchainAddress', 'blockchainAddressFile', sandra) || this;
+        _this.is_a = 'blockchainAddress';
+        _this.contained_in_file = 'blockchainAddressFile';
+        _this.onBlockchain = 'genericBlockchain';
+        _this.sandra = sandra;
+        _this.updateOnExistingRef = sandra.get('address');
+        return _this;
     }
-    getOrCreate(address) {
+    BlockchainAddressFactory.prototype.getOrCreate = function (address) {
         if (this.entityByRevValMap.has(this.sandra.get('address'))) {
-            let addressRefMap = this.entityByRevValMap.get(this.sandra.get('address'));
+            var addressRefMap = this.entityByRevValMap.get(this.sandra.get('address'));
             // @ts-ignore
             if (addressRefMap.has(address)) {
                 //address exists in factory
@@ -23,8 +38,8 @@ class BlockchainAddressFactory extends EntityFactory_js_1.EntityFactory {
             }
         }
         return new BlockchainAddress_js_1.BlockchainAddress(this, address, this.sandra);
-    }
-}
+    };
+    BlockchainAddressFactory.ON_BLOCKCHAIN = 'onBlockchain';
+    return BlockchainAddressFactory;
+}(EntityFactory_js_1.EntityFactory));
 exports.BlockchainAddressFactory = BlockchainAddressFactory;
-BlockchainAddressFactory.ON_BLOCKCHAIN = 'onBlockchain';
-//# sourceMappingURL=BlockchainAddressFactory.js.map
