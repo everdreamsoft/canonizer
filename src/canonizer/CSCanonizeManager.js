@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompatibleBlockchains = exports.CSCanonizeManager = void 0;
+exports.RunnableJetskis = exports.CompatibleBlockchains = exports.CSCanonizeManager = void 0;
 const SandraManager_js_1 = require("../SandraManager.js");
 const AssetCollectionFactory_js_1 = require("./AssetCollectionFactory.js");
 const AssetCollection_js_1 = require("./AssetCollection.js");
@@ -19,6 +19,9 @@ const KusamaBlockchain_1 = require("./Substrate/Kusama/KusamaBlockchain");
 const RmrkContractStandard_js_1 = require("./Interfaces/RmrkContractStandard.js");
 const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
 const ChangeIssuerFactory_1 = require("./ChangeIssuerFactory");
+const BinanceBlockchain_1 = require("./Binance/BinanceBlockchain");
+const EthereumBlockchain_1 = require("./Ethereum/EthereumBlockchain");
+const JetskiApp_1 = require("./tools/JetskiWebInterface/JetskiApp");
 class CSCanonizeManager {
     constructor(options, sandra = new SandraManager_js_1.SandraManager()) {
         this.loadedBlockchains = [];
@@ -38,7 +41,7 @@ class CSCanonizeManager {
         let assetSolver = solver ? solver : this.localSolver;
         let collection = new AssetCollection_js_1.AssetCollection(this.assetCollectionFactory, collectionInterface, this.sandra);
         collection.joinEntity(AssetSolverFactory_js_1.AssetSolverFactory.COLLECTION_JOIN_VERB, assetSolver, this.sandra);
-        return new AssetCollection_js_1.AssetCollection(this.assetCollectionFactory, collectionInterface, this.sandra);
+        return collection;
     }
     createAsset(assetInterface) {
         return new Asset_js_1.Asset(this.assetFactory, assetInterface, this.sandra);
@@ -112,8 +115,24 @@ class CSCanonizeManager {
         }
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
     }
+    async gossipBlockchainContract(blockchain, apiConnector) {
+        const gossiper = new Gossiper_js_1.Gossiper(blockchain.contractFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
+    async gossipJetskiProcess(jetskiProcessEntity, apiConnector) {
+        const gossiper = new Gossiper_js_1.Gossiper(jetskiProcessEntity.factory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
+    async gossipBalance(balanceFactory, apiConnector) {
+        const gossiper = new Gossiper_js_1.Gossiper(balanceFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
     async gossipBlockchainEvents(blockchain, apiConnector) {
         let gossiper = new Gossiper_js_1.Gossiper(blockchain.eventFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
+    async gossipBlockchainSuperTransaction(blockchain, apiConnector) {
+        let gossiper = new Gossiper_js_1.Gossiper(blockchain.transactionFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
     }
     async gossipBlockchainOrder(blockchain, apiConnector) {
@@ -133,7 +152,17 @@ class CSCanonizeManager {
         }
         throw new Error("No API connector set pass it into this function or on the constructor");
     }
-    getBlockchainByName(name) {
+    getCompatibleBlockchain(name) {
+        switch (name.toLowerCase()) {
+            case 'binance':
+                return CompatibleBlockchains.binance;
+            case 'ethereum':
+                return CompatibleBlockchains.ethereum;
+            case 'kusama':
+                return CompatibleBlockchains.kusama;
+            default:
+                return CompatibleBlockchains.ethereum;
+        }
     }
     getOrInitBlockchain(name) {
         const found = this.loadedBlockchains.find(blockchain => blockchain.getName() == name);
@@ -145,21 +174,34 @@ class CSCanonizeManager {
             case CompatibleBlockchains.kusama:
                 blockchain = new KusamaBlockchain_1.KusamaBlockchain(this.getSandra());
                 this.loadedBlockchains.push(blockchain);
-                return new KusamaBlockchain_1.KusamaBlockchain(this.getSandra());
+                return blockchain;
+            case CompatibleBlockchains.binance:
+                blockchain = new BinanceBlockchain_1.BinanceBlockchain(this.getSandra());
+                this.loadedBlockchains.push(blockchain);
+                return blockchain;
+            case CompatibleBlockchains.ethereum:
+                blockchain = new EthereumBlockchain_1.EthereumBlockchain(this.getSandra());
+                this.loadedBlockchains.push(blockchain);
+                return blockchain;
         }
         throw new Error("Blockchain not found" + name);
     }
     registerCompatibleStandards() {
+        var _a;
         // add compatible standards here
         const standard = new RmrkContractStandard_js_1.RmrkContractStandard(this);
-        this.contractStandardMap.set(standard.getName(), standard);
+        (_a = this.contractStandardMap) === null || _a === void 0 ? void 0 : _a.set(standard.getName(), standard);
         return this.contractStandardMap;
     }
     getStandardFromName(name) {
-        const standard = this.contractStandardMap.get(name);
+        var _a;
+        const standard = (_a = this.contractStandardMap) === null || _a === void 0 ? void 0 : _a.get(name);
         if (!standard)
             return null;
         return standard;
+    }
+    getJetskiAppInstance() {
+        return new JetskiApp_1.JetskiApp(this);
     }
 }
 exports.CSCanonizeManager = CSCanonizeManager;
@@ -167,5 +209,11 @@ CSCanonizeManager.mintIssuerAddressString = '0x000000000000000000000000000000000
 var CompatibleBlockchains;
 (function (CompatibleBlockchains) {
     CompatibleBlockchains["kusama"] = "kusama";
+    CompatibleBlockchains["binance"] = "binance";
+    CompatibleBlockchains["ethereum"] = "ethereum";
 })(CompatibleBlockchains = exports.CompatibleBlockchains || (exports.CompatibleBlockchains = {}));
+var RunnableJetskis;
+(function (RunnableJetskis) {
+    RunnableJetskis["EVM"] = "EVMJetski";
+})(RunnableJetskis = exports.RunnableJetskis || (exports.RunnableJetskis = {}));
 //# sourceMappingURL=CSCanonizeManager.js.map

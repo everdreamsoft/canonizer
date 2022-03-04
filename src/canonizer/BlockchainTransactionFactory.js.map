@@ -1,0 +1,1 @@
+{"version":3,"file":"BlockchainTransactionFactory.js","sourceRoot":"","sources":["BlockchainTransactionFactory.ts"],"names":[],"mappings":";;;AAAA,0DAAkD;AAElD,mDAA2C;AAE3C,MAAa,4BAA6B,SAAQ,gCAAa;IAE3D,YAAmB,MAAqB;QACpC,KAAK,CAAC,uBAAuB,EAAE,2BAA2B,EAAE,MAAM,CAAC,CAAC;QACpE,IAAI,CAAC,mBAAmB,GAAG,MAAM,CAAC,GAAG,CAAC,0BAAU,CAAC,iBAAiB,CAAC,CAAC;IACxE,CAAC;CAEJ;AAPD,oEAOC"}

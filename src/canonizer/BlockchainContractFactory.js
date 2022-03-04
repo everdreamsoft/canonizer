@@ -4,6 +4,7 @@ exports.BlockchainContractFactory = void 0;
 const EntityFactory_js_1 = require("../EntityFactory.js");
 const BlockchainContract_js_1 = require("./BlockchainContract.js");
 class BlockchainContractFactory extends EntityFactory_js_1.EntityFactory {
+    //public blockchain?:Blockchain;
     constructor(sandra) {
         super('blockchainContract', 'blockchainContractFile', sandra);
         this.contained_in_file = 'blockchainContractFile';
@@ -26,4 +27,5 @@ exports.BlockchainContractFactory = BlockchainContractFactory;
 BlockchainContractFactory.JOIN_COLLECTION = 'inCollection';
 BlockchainContractFactory.EXPLICIT_TOKEN_LISTING_SHORTNAME = 'explicitListing';
 BlockchainContractFactory.CONTRACT_STANDARD = 'contractStandard';
+BlockchainContractFactory.ON_BLOCKCHAIN_VERB = 'onBlockchain';
 //# sourceMappingURL=BlockchainContractFactory.js.map

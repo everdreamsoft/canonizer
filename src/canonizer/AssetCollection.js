@@ -3,32 +3,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetCollection = void 0;
 const Entity_js_1 = require("../Entity.js");
 const AssetCollectionFactory_js_1 = require("./AssetCollectionFactory.js");
-const Reference_js_1 = require("../Reference.js");
+const Reference_1 = require("../Reference");
 class AssetCollection extends Entity_js_1.Entity {
     constructor(factory, collectionInterface, sandra) {
-        super(factory);
-        //canonical vocabulary
-        this.COLLECTION_ID = 'collectionId';
-        this.NAME = 'name';
-        this.MAIN_IMAGE = 'imageUrl';
-        this.MAIN_NAME = 'name';
-        this.DESCRIPTION = 'description';
-        this.addReference(new Reference_js_1.Reference(sandra.get(this.COLLECTION_ID), collectionInterface.id));
-        collectionInterface.name ? this.addReference(new Reference_js_1.Reference(sandra.get(this.NAME), collectionInterface.name)) : null;
-        collectionInterface.imageUrl ? this.addReference(new Reference_js_1.Reference(sandra.get(this.MAIN_IMAGE), collectionInterface.imageUrl)) : null;
-        collectionInterface.description ? this.addReference(new Reference_js_1.Reference(sandra.get(this.DESCRIPTION), collectionInterface.description)) : null;
+        super(factory, [new Reference_1.Reference(sandra.get(AssetCollectionFactory_js_1.AssetCollectionFactory.COLLECTION_ID), collectionInterface.id)]);
+        collectionInterface.name ? this.addReference(new Reference_1.Reference(sandra.get(AssetCollectionFactory_js_1.AssetCollectionFactory.MAIN_NAME), collectionInterface.name)) : null;
+        collectionInterface.imageUrl ? this.addReference(new Reference_1.Reference(sandra.get(AssetCollectionFactory_js_1.AssetCollectionFactory.MAIN_IMAGE), collectionInterface.imageUrl)) : null;
+        collectionInterface.description ? this.addReference(new Reference_1.Reference(sandra.get(AssetCollectionFactory_js_1.AssetCollectionFactory.DESCRIPTION), collectionInterface.description)) : null;
     }
     getImageUrl() {
-        return this.getRefValue(this.MAIN_IMAGE) ? this.getRefValue(this.MAIN_IMAGE) : '';
+        return this.getRefValue(AssetCollectionFactory_js_1.AssetCollectionFactory.MAIN_IMAGE) ? this.getRefValue(AssetCollectionFactory_js_1.AssetCollectionFactory.MAIN_IMAGE) : '';
     }
     getName() {
-        return this.getRefValue(this.NAME) ? this.getRefValue(this.NAME) : '';
+        return this.getRefValue(AssetCollectionFactory_js_1.AssetCollectionFactory.MAIN_NAME) ? this.getRefValue(AssetCollectionFactory_js_1.AssetCollectionFactory.MAIN_NAME) : '';
     }
     getDescription() {
-        return this.getRefValue(this.DESCRIPTION) ? this.getRefValue(this.DESCRIPTION) : '';
+        return this.getRefValue(AssetCollectionFactory_js_1.AssetCollectionFactory.DESCRIPTION) ? this.getRefValue(AssetCollectionFactory_js_1.AssetCollectionFactory.DESCRIPTION) : '';
     }
     getId() {
-        return this.getRefValue(this.COLLECTION_ID) ? this.getRefValue(this.COLLECTION_ID) : '';
+        return this.getRefValue(AssetCollectionFactory_js_1.AssetCollectionFactory.COLLECTION_ID) ? this.getRefValue(AssetCollectionFactory_js_1.AssetCollectionFactory.COLLECTION_ID) : '';
     }
     setOwner(owner) {
         this.joinEntity(AssetCollectionFactory_js_1.AssetCollectionFactory.COLLECTION_OWNER, owner, this.factory.sandraManager);

@@ -1,6 +1,5 @@
 import {CompatibleBlockchains, CSCanonizeManager} from "../src/canonizer/CSCanonizeManager";
-import {RmrkAssetCollection} from "../src/canonizer/Interfaces/Rmrk/RmrkAssetCollection";
-import {RmrkCanonizerWrapper} from "../src/canonizer/Interfaces/Rmrk/RmrkCanonizer";
+import {RmrkCanonizerWrapper} from "../src/canonizer/Interfaces/Rmrk/RmrkCanonizerWrapper";
 
 // Gossip
 let jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbnYiOiJnb3NzaXAiLCJmbHVzaCI6dHJ1ZSwiZXhwIjoxMDQ0NDE5MjUyMDQwMDAwfQ.i3MRmP56AEvIvWGdnj1TKuLZNaqLYaqzXaWijtT-Cc8';

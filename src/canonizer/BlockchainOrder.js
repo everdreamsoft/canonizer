@@ -9,9 +9,8 @@ const BlockchainEvent_js_1 = require("./BlockchainEvent.js");
 const BlockchainOrderFactory_1 = require("./BlockchainOrderFactory");
 class BlockchainOrder extends Entity_js_1.Entity {
     constructor(factory, source, buyContract, sellContract, buyAmount, sellPrice, buyTotal, txid, timestamp, blockchain, blockId, tokenBuy, tokenSell, sandra, buyDestination = "") {
-        super(factory);
+        super(factory, [new Reference_js_1.Reference(sandra.get(Blockchain_js_1.Blockchain.TXID_CONCEPT_NAME), txid)]);
         this.eventType = 'order';
-        this.addReference(new Reference_js_1.Reference(sandra.get(Blockchain_js_1.Blockchain.TXID_CONCEPT_NAME), txid));
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source);
         }

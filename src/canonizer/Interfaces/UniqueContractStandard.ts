@@ -15,17 +15,15 @@ export class UniqueContractStandard extends ContractStandard{
     sandra:SandraManager
 
     constructor(canonizeManager:CSCanonizeManager,tokenTokenId?:string) {
+
         let factory = canonizeManager.getContractStandardFactory();
-        super(factory);
+
+        super(factory,[new Reference(canonizeManager.getSandra().get('class_name'),"CsCannon\\\Blockchains\\\Substrate\\\Unique\\\UniqueContractStandard")]);
 
         this.sandra = canonizeManager.getSandra() ;
 
-        //we need to bind the the standard to the canonizer class
-        this.addReference(new Reference(canonizeManager.getSandra().get('class_name'),"CsCannon\\\Blockchains\\\Substrate\\\Unique\\\UniqueContractStandard"));
-
         if (tokenTokenId) {
             this.setTokenId(tokenTokenId);
-
         }
 
     }

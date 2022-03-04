@@ -12,6 +12,7 @@ class AssetCollectionFactory extends EntityFactory_js_1.EntityFactory {
     }
 }
 exports.AssetCollectionFactory = AssetCollectionFactory;
+AssetCollectionFactory.COLLECTION_ID = 'collectionId';
 AssetCollectionFactory.IMAGE_EXTENSION = 'imageExtension';
 AssetCollectionFactory.MAIN_IMAGE = 'imageUrl';
 AssetCollectionFactory.MAIN_NAME = 'name';

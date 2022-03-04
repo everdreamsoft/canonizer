@@ -1,28 +1,23 @@
 import {SandraManager} from "../SandraManager.js";
 import {EntityFactory} from "../EntityFactory.js";
-import {BlockchainAddress} from "./BlockchainAddress.js";
 
-export class BalanceFactory extends EntityFactory{
-    private sandra: SandraManager;
+export class BalanceFactory extends EntityFactory {
 
-    //private address:BlockchainAddress ;
+    static readonly is_a = 'balanceItem';
+    static readonly contained_in_file = 'balanceFile';
 
+    //Reference
+    public static BALANCE_ITEM_ID = 'id';
+    public static QUANTITY = 'quantity';
 
-    public constructor(sandra:SandraManager) {
+    // Joined Entities
+    public static LINKED_ADDRESS = 'belongsToAddress';
+    public static ON_CONTRACT = 'onContract';
 
-        super('balanceItem','balanceFile',sandra);
+    public static LAST_BLOCK_UPDATE = 'lastBlockUpdate';
 
-        this.sandra = sandra ;
-
+    public constructor(sandra: SandraManager, updateOnExistingRef?: boolean) {
+        super(BalanceFactory.is_a, BalanceFactory.contained_in_file, sandra, updateOnExistingRef ? sandra.get(BalanceFactory.BALANCE_ITEM_ID) : undefined);
+        // this.updateOnExistingRef = sandra.get(BalanceFactory.BALANCE_ITEM_ID);
     }
-
-    public getBalanceForAddress(){
-
-
-
-    }
-
-
-
-
 }

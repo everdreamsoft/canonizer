@@ -13,41 +13,43 @@ import {Reference} from "../Reference.js";
 import {AssetSolverFactory} from "./AssetSolvers/AssetSolverFactory.js";
 import {LocalSolver} from "./AssetSolvers/LocalSolver.js";
 import {AssetSolver} from "./AssetSolvers/AssetSolver.js";
-import {BlockchainEventFactory} from "./BlockchainEventFactory.js";
 import {KusamaBlockchain} from "./Substrate/Kusama/KusamaBlockchain";
 import {RmrkContractStandard} from "./Interfaces/RmrkContractStandard.js";
 import {ContractStandard} from "./ContractStandard.js";
 import {BlockchainEmoteFactory} from "./BlockchainEmoteFactory";
 import {ChangeIssuerFactory} from "./ChangeIssuerFactory";
 
+import {BinanceBlockchain} from "./Binance/BinanceBlockchain";
+import {EthereumBlockchain} from "./Ethereum/EthereumBlockchain";
+import {JetskiProcessEntity} from "./tools/JetskiWebInterface/JetskiProcessEntity";
+import {JetskiApp} from "./tools/JetskiWebInterface/JetskiApp";
+import {BalanceFactory} from "./BalanceFactory";
 
-interface CanonizeOptions{
-
-    default?:string
-    connector?:ApiConnector
-
+interface CanonizeOptions {
+    default?: string
+    connector?: ApiConnector
 }
 
 export class CSCanonizeManager {
 
-    private sandra: SandraManager;
-    private assetCollectionFactory:AssetCollectionFactory ;
-    private assetFactory:AssetFactory ;
-    private tokenFactory: BlockchainTokenFactory;
-    private emoteFactory: BlockchainEmoteFactory;
-    private changeIssuerFactory: ChangeIssuerFactory;
-    private contractStandardFactory: ContractStandardFactory;
-    private activeBlockchainFactory:EntityFactory;
-    private apiConnector?:ApiConnector;
-    private assetSolverFactory:AssetSolverFactory;
-    private localSolver:LocalSolver ;
-    private loadedBlockchains:Blockchain[] = [];
-    public static  mintIssuerAddressString:string = '0x0000000000000000000000000000000000000000' ;
-    private contractStandardMap:Map<string,ContractStandard>  ;
+    private readonly sandra: SandraManager;
+    private readonly assetCollectionFactory: AssetCollectionFactory;
+    private readonly assetFactory: AssetFactory;
+    private readonly tokenFactory: BlockchainTokenFactory;
+    private readonly emoteFactory: BlockchainEmoteFactory;
+    private readonly changeIssuerFactory: ChangeIssuerFactory;
+    private readonly contractStandardFactory: ContractStandardFactory;
+    private readonly activeBlockchainFactory: EntityFactory;
+    private readonly apiConnector?: ApiConnector;
+    private readonly assetSolverFactory: AssetSolverFactory;
+    private readonly localSolver: LocalSolver;
+    private loadedBlockchains: Blockchain[] = [];
+    public static mintIssuerAddressString: string = '0x0000000000000000000000000000000000000000';
+    private contractStandardMap: Map<string, ContractStandard> | undefined;
 
-    constructor(options?:CanonizeOptions,sandra:SandraManager = new SandraManager()) {
+    constructor(options?: CanonizeOptions, sandra: SandraManager = new SandraManager()) {
 
-        this.sandra = sandra ;
+        this.sandra = sandra;
         this.assetCollectionFactory = new AssetCollectionFactory(sandra);
         this.assetFactory = new AssetFactory(sandra);
         this.tokenFactory = new BlockchainTokenFactory(this);
@@ -58,247 +60,246 @@ export class CSCanonizeManager {
         this.assetSolverFactory = new AssetSolverFactory(this);
         this.localSolver = new LocalSolver(this);
 
-        this.activeBlockchainFactory = new EntityFactory('activeBlockchain','activeBlockchainFile',
-            this.sandra,this.sandra.get('blockchain'));
+        this.activeBlockchainFactory = new EntityFactory('activeBlockchain', 'activeBlockchainFile',
+            this.sandra, this.sandra.get('blockchain'));
 
-        this.apiConnector = options?.connector ? options.connector : undefined ;
-
-    }
-
-    public createCollection(collectionInterface:AssetCollectionInterface,solver?:AssetSolver):AssetCollection{
-
-        let assetSolver = solver ? solver : this.localSolver ;
-        let collection = new AssetCollection(this.assetCollectionFactory,collectionInterface,this.sandra);
-        collection.joinEntity(AssetSolverFactory.COLLECTION_JOIN_VERB,assetSolver,this.sandra);
-
-       return new AssetCollection(this.assetCollectionFactory,collectionInterface,this.sandra);
+        this.apiConnector = options?.connector ? options.connector : undefined;
 
     }
 
-    public createAsset(assetInterface:AssetInterface):Asset{
-
-        return new Asset(this.assetFactory,assetInterface,this.sandra);
-
+    public createCollection(collectionInterface: AssetCollectionInterface, solver?: AssetSolver): AssetCollection {
+        let assetSolver = solver ? solver : this.localSolver;
+        let collection = new AssetCollection(this.assetCollectionFactory, collectionInterface, this.sandra);
+        collection.joinEntity(AssetSolverFactory.COLLECTION_JOIN_VERB, assetSolver, this.sandra);
+        return collection;
     }
 
-    public getLocalSolver():AssetSolver{
-
-        return this.localSolver ;
-
+    public createAsset(assetInterface: AssetInterface): Asset {
+        return new Asset(this.assetFactory, assetInterface, this.sandra);
     }
 
-    public getAssetFactory():AssetFactory{
-
-        return this.assetFactory ;
-
+    public getLocalSolver(): AssetSolver {
+        return this.localSolver;
     }
 
-    public getContractStandardFactory():ContractStandardFactory{
-
-        return this.contractStandardFactory ;
-
+    public getAssetFactory(): AssetFactory {
+        return this.assetFactory;
     }
 
-    public getTokenFactory():BlockchainTokenFactory{
+    public getContractStandardFactory(): ContractStandardFactory {
+        return this.contractStandardFactory;
+    }
 
-        return this.tokenFactory ;
-
+    public getTokenFactory(): BlockchainTokenFactory {
+        return this.tokenFactory;
     }
 
 
-    public getAssetCollectionFactory():AssetCollectionFactory{
-
-        return this.assetCollectionFactory ;
-
+    public getAssetCollectionFactory(): AssetCollectionFactory {
+        return this.assetCollectionFactory;
     }
 
-    public getEmoteFactory(): BlockchainEmoteFactory
-    {
+    public getEmoteFactory(): BlockchainEmoteFactory {
         return this.emoteFactory;
     }
 
-    public getChangeIssuerFactory(): ChangeIssuerFactory
-    {
+    public getChangeIssuerFactory(): ChangeIssuerFactory {
         return this.changeIssuerFactory;
     }
 
-    public getSandra():SandraManager{
-
-        return this.sandra ;
-
+    public getSandra(): SandraManager {
+        return this.sandra;
     }
 
-    public async gossipActiveBlockchain(apiConnector?:ApiConnector,flush?:boolean):Promise<any>{
+    public async gossipActiveBlockchain(apiConnector?: ApiConnector, flush?: boolean): Promise<any> {
 
-      if (apiConnector !== undefined){
-          let gossiper = new Gossiper(this.activeBlockchainFactory,this.sandra.get('blockchain'));
-          let flushCall = await flush ? await gossiper.flushDatagraph(apiConnector) : null;
-          return await gossiper.gossipToUrl(apiConnector);
-      }
+        if (apiConnector !== undefined) {
+            let gossiper = new Gossiper(this.activeBlockchainFactory, this.sandra.get('blockchain'));
+            let flushCall = await flush ? await gossiper.flushDatagraph(apiConnector) : null;
+            return await gossiper.gossipToUrl(apiConnector);
+        }
 
-        if (this.apiConnector !== undefined){
-            let gossiper = new Gossiper(this.activeBlockchainFactory,this.sandra.get('blockchain'));
+        if (this.apiConnector !== undefined) {
+            let gossiper = new Gossiper(this.activeBlockchainFactory, this.sandra.get('blockchain'));
             let flushCall = await flush ? await gossiper.flushDatagraph(this.apiConnector) : null;
             return await gossiper.gossipToUrl(this.apiConnector);
         }
 
-      throw new Error("No API connector set pass it into this function or on the constructor");
+        throw new Error("No API connector set pass it into this function or on the constructor");
 
     }
 
-
-
-    public async flushWithBlockchainSupport(blockchains:Blockchain[],apiConnector?:ApiConnector):Promise<any>{
+    public async flushWithBlockchainSupport(blockchains: Blockchain[], apiConnector?: ApiConnector): Promise<any> {
 
         const result = await blockchains.forEach(blockchain => {
-            let entity = new Entity(this.activeBlockchainFactory,[new Reference(this.sandra.get('blockchain'),blockchain.getName())]);
-            entity.setTriplet('onBlockchain',blockchain.getName(),this.sandra);
+            let entity = new Entity(this.activeBlockchainFactory, [new Reference(this.sandra.get('blockchain'), blockchain.getName())]);
+            entity.setTriplet('onBlockchain', blockchain.getName(), this.sandra);
             this.activeBlockchainFactory.addOrUpdateEntity(entity);
 
         })
 
-        return this.gossipActiveBlockchain(apiConnector,true)
+        return this.gossipActiveBlockchain(apiConnector, true)
 
     }
 
-    public getAssetSolverFactory(){
-
-        return this.assetSolverFactory ;
-
+    public getAssetSolverFactory() {
+        return this.assetSolverFactory;
     }
 
-
-    public async gossipChangeIssuer(apiConnector?: ApiConnector)
-    {
+    public async gossipChangeIssuer(apiConnector?: ApiConnector) {
         let gossiper = new Gossiper(this.changeIssuerFactory);
-        return   gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
-
-    public async gossipCollection(apiConnector?:ApiConnector){
+    public async gossipCollection(apiConnector?: ApiConnector) {
 
         let gossiper = new Gossiper(this.assetCollectionFactory);
-        return   gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
 
     }
 
-    public async gossipOrbsBindings(apiConnector?:ApiConnector){
+    public async gossipOrbsBindings(apiConnector?: ApiConnector) {
 
-        let gossiper = null ;
+        let gossiper = null;
         //if the asset are bound directely to token we are going to dispatch that.
-        if (this.tokenFactory.entityArray.length > 0){
+        if (this.tokenFactory.entityArray.length > 0) {
             console.log("There are token binding so we are publishing token binding")
-             gossiper = new Gossiper(this.tokenFactory);
-        }
-        else{
+            gossiper = new Gossiper(this.tokenFactory);
+        } else {
             console.log("No token binding assets may be bound directely to contract")
-             gossiper = new Gossiper(this.assetFactory);
+            gossiper = new Gossiper(this.assetFactory);
         }
 
 
-        return   gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
 
     }
 
-    public async gossipBlockchainEvents(blockchain:Blockchain ,apiConnector?:ApiConnector){
+    public async gossipBlockchainContract(blockchain: Blockchain, apiConnector?: ApiConnector) {
+        const gossiper = new Gossiper(blockchain.contractFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
+
+    public async gossipJetskiProcess(jetskiProcessEntity: JetskiProcessEntity, apiConnector?: ApiConnector) {
+        const gossiper = new Gossiper(jetskiProcessEntity.factory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
+
+    public async gossipBalance(balanceFactory: BalanceFactory, apiConnector?: ApiConnector) {
+        const gossiper = new Gossiper(balanceFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
+
+    public async gossipBlockchainEvents(blockchain: Blockchain, apiConnector?: ApiConnector) {
         let gossiper = new Gossiper(blockchain.eventFactory);
-        return   gossiper.gossipToUrl(this.getApiConnector(apiConnector))
-
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
+    public async gossipBlockchainSuperTransaction(blockchain: Blockchain, apiConnector?: ApiConnector) {
+        let gossiper = new Gossiper(blockchain.transactionFactory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
 
-
-    public async gossipBlockchainOrder(blockchain:Blockchain ,apiConnector?:ApiConnector)
-    {
+    public async gossipBlockchainOrder(blockchain: Blockchain, apiConnector?: ApiConnector) {
         const gossiper = new Gossiper(blockchain.orderFactory);
-        return   gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
-
-    public async gossipBlockchainEmote(blockchain: Blockchain, apiConnector?: ApiConnector)
-    {
+    public async gossipBlockchainEmote(blockchain: Blockchain, apiConnector?: ApiConnector) {
         const gossiper = new Gossiper(blockchain.emoteFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
     }
 
-    private getApiConnector(apiConnector?:ApiConnector){
+    private getApiConnector(apiConnector?: ApiConnector) {
 
 
-        if (apiConnector !== undefined){
-            return apiConnector ;
+        if (apiConnector !== undefined) {
+            return apiConnector;
         }
 
-        if (this.apiConnector !== undefined){
-            return this.apiConnector ;
+        if (this.apiConnector !== undefined) {
+            return this.apiConnector;
         }
 
         throw new Error("No API connector set pass it into this function or on the constructor");
 
+    }
 
+    public getCompatibleBlockchain(name: string): CompatibleBlockchains {
+
+        switch (name.toLowerCase()) {
+            case 'binance':
+                return CompatibleBlockchains.binance;
+            case 'ethereum':
+                return CompatibleBlockchains.ethereum;
+            case 'kusama':
+                return CompatibleBlockchains.kusama;
+            default:
+                return CompatibleBlockchains.ethereum;
+        }
 
     }
 
-    public getBlockchainByName(name:CompatibleBlockchains){
-
-
-
-    }
-
-    public getOrInitBlockchain(name:CompatibleBlockchains):Blockchain{
+    public getOrInitBlockchain(name: CompatibleBlockchains): Blockchain {
 
         const found = this.loadedBlockchains.find(blockchain => blockchain.getName() == name);
 
         if (found instanceof Blockchain) {
-
             return found;
         }
 
-        let blockchain:Blockchain|null = null ;
+        let blockchain: Blockchain | null = null;
 
         switch (name) {
+
             case CompatibleBlockchains.kusama:
                 blockchain = new KusamaBlockchain(this.getSandra());
                 this.loadedBlockchains.push(blockchain)
-                return new KusamaBlockchain(this.getSandra());
+                return blockchain;
+
+            case CompatibleBlockchains.binance:
+                blockchain = new BinanceBlockchain(this.getSandra());
+                this.loadedBlockchains.push(blockchain)
+                return blockchain;
+
+            case CompatibleBlockchains.ethereum:
+                blockchain = new EthereumBlockchain(this.getSandra());
+                this.loadedBlockchains.push(blockchain)
+                return blockchain;
 
         }
 
-
-         throw new Error("Blockchain not found"+name);
-
+        throw new Error("Blockchain not found" + name);
 
     }
 
-
-    private registerCompatibleStandards(){
+    private registerCompatibleStandards() {
 
         // add compatible standards here
         const standard = new RmrkContractStandard(this);
-
-        this.contractStandardMap.set(standard.getName(),standard);
-
-        return this.contractStandardMap ;
+        this.contractStandardMap?.set(standard.getName(), standard);
+        return this.contractStandardMap;
 
     }
 
-    public getStandardFromName(name:string){
-
-        const standard = this.contractStandardMap.get(name);
-
-        if (!standard) return null ;
-
-        return standard ;
-
-
-
+    public getStandardFromName(name: string) {
+        const standard = this.contractStandardMap?.get(name);
+        if (!standard) return null;
+        return standard;
     }
 
+    public getJetskiAppInstance() {
+        return new JetskiApp(this);
+    }
 
 }
 
 export enum CompatibleBlockchains {
     kusama = 'kusama',
+    binance = 'binance',
+    ethereum = 'ethereum'
+}
 
-
-
+export enum RunnableJetskis {
+    EVM = "EVMJetski"
 }

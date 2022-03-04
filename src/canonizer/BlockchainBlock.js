@@ -5,9 +5,10 @@ const Entity_js_1 = require("../Entity.js");
 const Reference_js_1 = require("../Reference.js");
 class BlockchainBlock extends Entity_js_1.Entity {
     constructor(factory, blockId, blockTimestamp, sandraManager) {
-        super(factory);
-        this.addReference(new Reference_js_1.Reference(sandraManager.get(BlockchainBlock.INDEX_SHORTNAME), blockId.toString()));
-        this.addReference(new Reference_js_1.Reference(sandraManager.get(BlockchainBlock.BLOCK_TIMESTAMP), blockTimestamp));
+        super(factory, [
+            new Reference_js_1.Reference(sandraManager.get(BlockchainBlock.INDEX_SHORTNAME), blockId.toString()),
+            new Reference_js_1.Reference(sandraManager.get(BlockchainBlock.BLOCK_TIMESTAMP), blockTimestamp)
+        ]);
     }
     getBlockId() {
         return this.getRefValue(BlockchainBlock.INDEX_SHORTNAME);
