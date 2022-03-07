@@ -1,6 +1,6 @@
-import {Entity} from "../src/Entity";
-import {EntityFactory} from "../src/EntityFactory";
-import {Reference} from "../src/Reference";
+import {Entity} from "../../src/Entity";
+import {EntityFactory} from "../../src/EntityFactory";
+import {Reference} from "../../src/Reference";
 
 interface TestEntityInterface {
     id: string,

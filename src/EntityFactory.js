@@ -1,8 +1,8 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.EntityFactory = void 0;
-var EntityFactory = /** @class */ (function () {
-    function EntityFactory(isa, containedIn, sandraManager, updateOnExistingRef) {
+class EntityFactory {
+    constructor(isa, containedIn, sandraManager, updateOnExistingRef) {
         this.entityArray = [];
         this.storage = '';
         this.refMap = new Map();
@@ -17,24 +17,23 @@ var EntityFactory = /** @class */ (function () {
         }
         this.updateOnExistingRef = updateOnExistingRef;
     }
-    EntityFactory.prototype.addEntity = function (entity) {
-        var _this = this;
+    addEntity(entity) {
         this.entityArray.push(entity);
-        var factory = this;
-        entity.referenceArray.forEach(function (element) {
+        let factory = this;
+        entity.referenceArray.forEach(element => {
             factory.sandraManager.registerNewReference(element);
             factory.refMap.set(element.concept.unid, element.concept.shortname);
-            var refMapByConcept;
-            if (!_this.entityByRevValMap.has(element.concept)) {
+            let refMapByConcept;
+            if (!this.entityByRevValMap.has(element.concept)) {
                 refMapByConcept = new Map();
-                _this.entityByRevValMap.set(element.concept, refMapByConcept);
+                this.entityByRevValMap.set(element.concept, refMapByConcept);
             }
             else {
                 // @ts-ignore
-                refMapByConcept = _this.entityByRevValMap.get(element.concept);
+                refMapByConcept = this.entityByRevValMap.get(element.concept);
             }
             if (refMapByConcept.has(element.value)) {
-                var existingElement = refMapByConcept.get(element.value);
+                let existingElement = refMapByConcept.get(element.value);
                 // @ts-ignore
                 existingElement.push(entity);
             }
@@ -42,33 +41,32 @@ var EntityFactory = /** @class */ (function () {
                 refMapByConcept.set(element.value, [entity]);
             }
         });
-    };
-    EntityFactory.prototype.addOrUpdateEntity = function (entity, onRefConcept) {
-        var _this = this;
-        var updateOn = onRefConcept ? onRefConcept : this.updateOnExistingRef;
-        var entityOnFactoryConstraint = this.entityArray.find(function (element) { return element.getRefValue(updateOn) == entity.getRefValue(updateOn); });
+    }
+    addOrUpdateEntity(entity, onRefConcept) {
+        const updateOn = onRefConcept ? onRefConcept : this.updateOnExistingRef;
+        let entityOnFactoryConstraint = this.entityArray.find(element => element.getRefValue(updateOn) == entity.getRefValue(updateOn));
         if (entityOnFactoryConstraint !== undefined && onRefConcept && onRefConcept != this.updateOnExistingRef) {
             //user want to update entity but the constraint provided violate factory constraint
             throw new Error("Factory integrity constraint violation entity exist with "
                 + this.updateOnExistingRef.shortname + "while checking on integrity on" + onRefConcept.shortname);
         }
-        var indexOfExistingEntity = this.entityArray.findIndex(function (element) { return element.getRefValue(updateOn) == entity.getRefValue(updateOn); });
+        let indexOfExistingEntity = this.entityArray.findIndex(element => element.getRefValue(updateOn) == entity.getRefValue(updateOn));
         // Update the existing entity wih new one.
         if (indexOfExistingEntity >= 0) {
-            entity.referenceArray.forEach(function (element) {
-                _this.sandraManager.registerNewReference(element);
-                _this.refMap.set(element.concept.unid, element.concept.shortname);
-                var refMapByConcept;
-                if (!_this.entityByRevValMap.has(element.concept)) {
+            entity.referenceArray.forEach(element => {
+                this.sandraManager.registerNewReference(element);
+                this.refMap.set(element.concept.unid, element.concept.shortname);
+                let refMapByConcept;
+                if (!this.entityByRevValMap.has(element.concept)) {
                     refMapByConcept = new Map();
-                    _this.entityByRevValMap.set(element.concept, refMapByConcept);
+                    this.entityByRevValMap.set(element.concept, refMapByConcept);
                 }
                 else {
                     // @ts-ignore
-                    refMapByConcept = _this.entityByRevValMap.get(element.concept);
+                    refMapByConcept = this.entityByRevValMap.get(element.concept);
                 }
                 if (refMapByConcept.has(element.value)) {
-                    var existingElement = refMapByConcept.get(element.value);
+                    let existingElement = refMapByConcept.get(element.value);
                     // @ts-ignore
                     existingElement.push(entity);
                 }
@@ -82,23 +80,33 @@ var EntityFactory = /** @class */ (function () {
         // Add new entity to array
         this.addEntity(entity);
         return this;
-    };
-    EntityFactory.prototype.getEntitiesWithRefValue = function (refConcept, value) {
-        var concept = this.sandraManager.somethingToConcept(refConcept);
-        var entities = this.entityArray.filter(function (element) { return element.getRefValue(concept) === value; });
+    }
+    getEntitiesWithRefValue(refConcept, value) {
+        let concept = this.sandraManager.somethingToConcept(refConcept);
+        let entities = this.entityArray.filter(element => element.getRefValue(concept) === value);
         if (entities !== undefined) {
             return entities;
         }
         return null;
-    };
-    EntityFactory.prototype.joinFactory = function (entityFactory, onVerb) {
-        if (this.joinedFactory.find(function (e) { return e.onVerb === onVerb; }))
+    }
+    joinFactory(entityFactory, onVerb) {
+        if (this.joinedFactory.find(e => e.onVerb === onVerb))
             return;
-        var createOnRef = entityFactory.updateOnExistingRef;
-        this.joinedFactory.push({ entityFactory: entityFactory, onVerb: onVerb, createOnRef: createOnRef });
-    };
-    EntityFactory.prototype.listenFromRemote = function (gossiper) {
-    };
-    return EntityFactory;
-}());
+        let createOnRef = entityFactory.updateOnExistingRef;
+        this.joinedFactory.push({ entityFactory, onVerb, createOnRef });
+    }
+    listenFromRemote(gossiper) {
+    }
+    getAllWith(referenceName, referenceValue) {
+        if (!referenceName) {
+            throw new Error("Reference name not provided");
+        }
+        let referenceConcept = this.sandraManager.somethingToConcept(referenceName);
+        let array = this.entityArray.filter(entity => {
+            return entity.getRefValue(referenceConcept) == referenceValue;
+        });
+        return array;
+    }
+}
 exports.EntityFactory = EntityFactory;
+//# sourceMappingURL=EntityFactory.js.map

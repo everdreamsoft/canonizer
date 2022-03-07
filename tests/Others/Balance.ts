@@ -1,12 +1,12 @@
-import {CompatibleBlockchains, CSCanonizeManager} from "../src/canonizer/CSCanonizeManager.js";
-import {BalanceEntity} from "../src/canonizer/BalanceEntity";
-import {BalanceFactory} from "../src/canonizer/BalanceFactory";
-import {ERC1155ContractStandard} from "../src/canonizer/Contracts/ERC1155ContractStandard";
-import {EntityFactory} from "../src/EntityFactory";
+import {CompatibleBlockchains, CSCanonizeManager} from "../../src/canonizer/CSCanonizeManager.js";
+import {BalanceEntity} from "../../src/canonizer/BalanceEntity";
+import {BalanceFactory} from "../../src/canonizer/BalanceFactory";
+import {ERC1155ContractStandard} from "../../src/canonizer/Contracts/ERC1155ContractStandard";
+import {EntityFactory} from "../../src/EntityFactory";
 import {TestEntity} from "./TestEntity";
-import {ERC721ContractStandard} from "../src/canonizer/Contracts/ERC721ContractStandard";
-import {BlockchainContractFactory} from "../src/canonizer/BlockchainContractFactory";
-import {BlockchainEvent} from "../src/canonizer/BlockchainEvent";
+import {ERC721ContractStandard} from "../../src/canonizer/Contracts/ERC721ContractStandard";
+import {BlockchainContractFactory} from "../../src/canonizer/BlockchainContractFactory";
+import {BlockchainEvent} from "../../src/canonizer/BlockchainEvent";
 
 // const jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbnYiOiJmb25kdWUiLCJmbHVzaCI6dHJ1ZSwiZXhwIjoxMDYxMTY0NzQ0OTIwMDAwfQ.TX0Xcy7OeHv6oE3iTxKe-TNbMaIefjViCUGvqpFAG3Q';
 // const gossipUrl = "http://debug.everdreamsoft.com/fondue/alex/gossip"

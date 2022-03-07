@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const KusamaBlockchain_js_1 = require("../src/canonizer/Substrate/Kusama/KusamaBlockchain.js");
-const CSCanonizeManager_js_1 = require("../src/canonizer/CSCanonizeManager.js");
+const KusamaBlockchain_js_1 = require("../../src/canonizer/Substrate/Kusama/KusamaBlockchain.js");
+const CSCanonizeManager_js_1 = require("../../src/canonizer/CSCanonizeManager.js");
 let jwt = "";
 const canonizeManager = new CSCanonizeManager_js_1.CSCanonizeManager({
     connector: {

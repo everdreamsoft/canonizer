@@ -1,5 +1,5 @@
-import {KusamaBlockchain} from "../src/canonizer/Substrate/Kusama/KusamaBlockchain.js";
-import {CSCanonizeManager} from "../src/canonizer/CSCanonizeManager.js";
+import {KusamaBlockchain} from "../../src/canonizer/Substrate/Kusama/KusamaBlockchain.js";
+import {CSCanonizeManager} from "../../src/canonizer/CSCanonizeManager.js";
 
 
 let jwt = "";

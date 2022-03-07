@@ -4,17 +4,19 @@
     "target": "es2017",
     "downlevelIteration": true,
     "sourceMap": true,
-    "strict": true                           /* Enable all strict type-checking options. */
+    "strict": true,
+    "esModuleInterop": true
+    /* Enable all strict type-checking options. */
   },
   "exclude": [
     "node_modules"
   ],
-
   "lib": [
     "dom",
     "es6",
     "scripthost",
     "es2015.promise",
     "es2015.collection"
-  ]
+  ],
+
 }

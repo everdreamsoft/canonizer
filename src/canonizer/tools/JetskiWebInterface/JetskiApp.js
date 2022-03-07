@@ -1,15 +1,15 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.JetskiApp = void 0;
-var JetskiProcessEntityFactory_1 = require("./JetskiProcessEntityFactory");
-var JetskiApp = /** @class */ (function () {
-    function JetskiApp(manager) {
+const JetskiProcessEntityFactory_1 = require("./JetskiProcessEntityFactory");
+class JetskiApp {
+    constructor(manager) {
         this.manager = manager;
         this.jetskiProcessFactory = new JetskiProcessEntityFactory_1.JetskiProcessEntityFactory(manager.getSandra());
     }
-    JetskiApp.prototype.getProcessFactory = function () {
+    getProcessFactory() {
         return this.jetskiProcessFactory;
-    };
-    return JetskiApp;
-}());
+    }
+}
 exports.JetskiApp = JetskiApp;
+//# sourceMappingURL=JetskiApp.js.map

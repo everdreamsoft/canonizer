@@ -22,7 +22,7 @@ export class Entity {
         this.subjectConcept = factory.sandraManager.get('entity:subject:' + this.id);
 
         // In case updateOnExistingRef is set then entity must have reference.
-        if (factory.updateOnExistingRef && ((references && references.length == 0) || !references)) {
+        if (factory.updateOnExistingRef.shortname != "null_concept" && ((references && references.length == 0) || !references)) {
             throw new Error("Entity factory expects reference for updateOnExistingRef option -" + (factory.updateOnExistingRef.shortname) + ", no references provided");
         }
 
@@ -30,7 +30,7 @@ export class Entity {
             this.addReference(ref);
         })
 
-        if (factory.updateOnExistingRef) {
+        if (factory.updateOnExistingRef.shortname != "null_concept") {
             factory.addOrUpdateEntity(this, factory.updateOnExistingRef);
         } else
             factory.addEntity(this);

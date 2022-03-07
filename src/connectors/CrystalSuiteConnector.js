@@ -1,19 +1,18 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.CrystalSuiteConnector = void 0;
-var CrystalSuiteConnector = /** @class */ (function () {
-    function CrystalSuiteConnector(url, env) {
+class CrystalSuiteConnector {
+    constructor(url, env) {
         this.factoryHeaderPath = 'admin/dbview/headers/';
         this.viewPath = 'alex/getViews/?json=1';
         this.gossipPath = 'alex/gossip/';
         this.url = url;
         this.env = env;
     }
-    CrystalSuiteConnector.prototype.gossip = function (gossiper) {
-        var _this = this;
-        return new Promise(function (res) {
-            $.ajax(_this.url
-                + _this.gossipPath, {
+    gossip(gossiper) {
+        return new Promise(res => {
+            $.ajax(this.url
+                + this.gossipPath, {
                 data: JSON.stringify(gossiper.exposeGossip()),
                 dataType: 'json',
                 type: 'POST'
@@ -24,7 +23,7 @@ var CrystalSuiteConnector = /** @class */ (function () {
                 console.log(data);
             });
         });
-    };
-    return CrystalSuiteConnector;
-}());
+    }
+}
 exports.CrystalSuiteConnector = CrystalSuiteConnector;
+//# sourceMappingURL=CrystalSuiteConnector.js.map

@@ -1,29 +1,14 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContractStandardFactory = void 0;
-var EntityFactory_js_1 = require("../EntityFactory.js");
-var ContractStandardFactory = /** @class */ (function (_super) {
-    __extends(ContractStandardFactory, _super);
-    function ContractStandardFactory(sandra) {
-        var _this = _super.call(this, 'blockchainContract', 'blockchainStandardFile', sandra) || this;
-        _this.is_a = 'blockchainStandard';
-        _this.contained_in_file = 'blockchainStandardFile';
-        _this.updateOnExistingRef = sandra.get('class_name');
-        return _this;
+const EntityFactory_js_1 = require("../EntityFactory.js");
+class ContractStandardFactory extends EntityFactory_js_1.EntityFactory {
+    constructor(sandra) {
+        super('blockchainContract', 'blockchainStandardFile', sandra);
+        this.is_a = 'blockchainStandard';
+        this.contained_in_file = 'blockchainStandardFile';
+        this.updateOnExistingRef = sandra.get('class_name');
     }
-    return ContractStandardFactory;
-}(EntityFactory_js_1.EntityFactory));
+}
 exports.ContractStandardFactory = ContractStandardFactory;
+//# sourceMappingURL=ContractStandardFactory.js.map

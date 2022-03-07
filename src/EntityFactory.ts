@@ -34,7 +34,6 @@ export class EntityFactory {
         }
         this.updateOnExistingRef = updateOnExistingRef;
 
-
     }
 
     public addEntity(entity: Entity) {
@@ -130,8 +129,6 @@ export class EntityFactory {
             return entities;
         }
         return null;
-
-
     }
 
     public joinFactory(entityFactory: EntityFactory, onVerb: string) {
@@ -143,10 +140,24 @@ export class EntityFactory {
     }
 
     public listenFromRemote(gossiper: Gossiper) {
-
-
     }
 
+    public getAllWith(referenceName:string, referenceValue:string):Entity[]
+    {
+        if(!referenceName)
+        {
+            throw new Error("Reference name not provided")
+        }
+
+        let referenceConcept = this.sandraManager.somethingToConcept(referenceName);
+
+        let array = this.entityArray.filter(entity => {
+            return entity.getRefValue(referenceConcept) == referenceValue
+        })
+
+        return array;
+
+    }
 
 }
 

@@ -1,17 +1,16 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Concept = void 0;
-var Concept = /** @class */ (function () {
-    function Concept(unid, shortname) {
+class Concept {
+    constructor(unid, shortname) {
         this.isPureShortname = false;
         this.unid = unid;
         this.shortname = shortname;
         this.triplets = new Map();
         this.tripletsReferences = new Map();
     }
-    Concept.prototype.setTriplet = function (verb, target, notEntity, refs) {
-        if (notEntity === void 0) { notEntity = false; }
-        var verbExist = false;
+    setTriplet(verb, target, notEntity = false, refs) {
+        let verbExist = false;
         if (this.triplets.get(verb)) {
             // @ts-ignore
             this.triplets.get(verb).push(target);
@@ -32,10 +31,9 @@ var Concept = /** @class */ (function () {
                 this.tripletsReferences.set(verb, [{ concept: target, refs: refs }]);
             }
         }
-    };
-    Concept.prototype.getTriplets = function (verb, target, notEntity, refs) {
-        if (notEntity === void 0) { notEntity = false; }
-        var verbExist = false;
+    }
+    getTriplets(verb, target, notEntity = false, refs) {
+        let verbExist = false;
         if (this.triplets.get(verb)) {
             // @ts-ignore
             this.triplets.get(verb).push(target);
@@ -56,7 +54,7 @@ var Concept = /** @class */ (function () {
                 this.tripletsReferences.set(verb, [{ concept: target, refs: refs }]);
             }
         }
-    };
-    return Concept;
-}());
+    }
+}
 exports.Concept = Concept;
+//# sourceMappingURL=Concept.js.map

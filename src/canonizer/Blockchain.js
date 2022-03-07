@@ -1,18 +1,17 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Blockchain = void 0;
-var BlockchainAddressFactory_js_1 = require("./BlockchainAddressFactory.js");
-var BlockchainContractFactory_js_1 = require("./BlockchainContractFactory.js");
-var BlockchainEventFactory_js_1 = require("./BlockchainEventFactory.js");
-var EntityFactory_js_1 = require("../EntityFactory.js");
-var BlockchainBlock_js_1 = require("./BlockchainBlock.js");
-var BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
-var BlockchainOrderFactory_1 = require("./BlockchainOrderFactory");
-var ChangeIssuerFactory_1 = require("./ChangeIssuerFactory");
-var BlockchainTransactionFactory_1 = require("./BlockchainTransactionFactory");
-var Blockchain = /** @class */ (function () {
-    function Blockchain(sandra, name) {
-        if (name === void 0) { name = 'genericBlockchain'; }
+const BlockchainAddressFactory_js_1 = require("./BlockchainAddressFactory.js");
+const BlockchainContractFactory_js_1 = require("./BlockchainContractFactory.js");
+const BlockchainEventFactory_js_1 = require("./BlockchainEventFactory.js");
+const EntityFactory_js_1 = require("../EntityFactory.js");
+const BlockchainBlock_js_1 = require("./BlockchainBlock.js");
+const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
+const BlockchainOrderFactory_1 = require("./BlockchainOrderFactory");
+const ChangeIssuerFactory_1 = require("./ChangeIssuerFactory");
+const BlockchainTransactionFactory_1 = require("./BlockchainTransactionFactory");
+class Blockchain {
+    constructor(sandra, name = 'genericBlockchain') {
         this.name = 'genericBlockchain';
         this.name = name;
         this.addressFactory = new BlockchainAddressFactory_js_1.BlockchainAddressFactory(sandra);
@@ -24,10 +23,10 @@ var Blockchain = /** @class */ (function () {
         this.changeIssuerFactory = new ChangeIssuerFactory_1.ChangeIssuerFactory(sandra);
         this.transactionFactory = new BlockchainTransactionFactory_1.BlockchainTransactionFactory(sandra);
     }
-    Blockchain.prototype.getName = function () {
+    getName() {
         return this.name;
-    };
-    Blockchain.TXID_CONCEPT_NAME = 'txHash';
-    return Blockchain;
-}());
+    }
+}
 exports.Blockchain = Blockchain;
+Blockchain.TXID_CONCEPT_NAME = 'txHash';
+//# sourceMappingURL=Blockchain.js.map
