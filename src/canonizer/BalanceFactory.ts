@@ -8,6 +8,12 @@ export class BalanceFactory extends EntityFactory {
 
     //Reference
     public static BALANCE_ITEM_ID = 'id';
+
+    // Id that includes address reference also,
+    // BalanceItemId does not give a unique id for balance item
+    // so address is added in this longId
+    public static BALANCE_ITEM_LONG_ID = 'longId';
+
     public static QUANTITY = 'quantity';
 
     // Joined Entities

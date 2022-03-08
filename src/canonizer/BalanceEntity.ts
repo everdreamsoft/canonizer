@@ -5,6 +5,7 @@ import {BlockchainAddress} from "./BlockchainAddress";
 import {Reference} from "../Reference";
 import {ContractStandard} from "./ContractStandard";
 import {Concept} from "../Concept";
+import {SandraManager} from "../SandraManager";
 
 export interface BalanceInterface {
     quantity: string
@@ -18,9 +19,11 @@ export class BalanceEntity extends Entity {
 
     constructor(balanceFactory: BalanceFactory, balanceData: BalanceInterface) {
 
-        super(balanceFactory, [new Reference(balanceFactory.sandraManager.get(BalanceFactory.BALANCE_ITEM_ID),
-            BalanceEntity.getBalanceUniqueId(balanceData.contract))]);
+        super(balanceFactory, [new Reference(balanceFactory.sandraManager.get(BalanceFactory.BALANCE_ITEM_LONG_ID),
+            BalanceEntity.getBalanceUniqueLongId(balanceData.contract, balanceData.address, balanceFactory.sandraManager))]);
 
+        this.addReference(new Reference(balanceFactory.sandraManager.get(BalanceFactory.BALANCE_ITEM_ID),
+            BalanceEntity.getBalanceId(balanceData.contract)))
         this.addReference(new Reference(balanceFactory.sandraManager.get(BalanceFactory.QUANTITY), balanceData.quantity))
 
         if (balanceData.specifierArray && balanceData.specifierArray.size > 0)
@@ -33,7 +36,18 @@ export class BalanceEntity extends Entity {
 
     }
 
-    public static getBalanceUniqueId(contract: BlockchainContract) {
+    public static getBalanceUniqueLongId(contract: BlockchainContract, address: BlockchainAddress, sandra: SandraManager) {
+        let standardArray = contract.getStandard();
+
+        let ret = contract.getRefValue("id") + "-" + address.getRefValue(sandra.get("address")) + "-" + (standardArray[0] as ContractStandard).getDisplayStructure();
+
+        if (standardArray && standardArray.length > 0)
+            return contract.getRefValue("id") + "-" + address.getRefValue(sandra.get("address")) + "-" + (standardArray[0] as ContractStandard).getDisplayStructure();
+
+        return contract.getRefValue("id") + "-" + address.getRefValue(sandra.get("address")) + "-" + "NULL";
+    }
+
+    public static getBalanceId(contract: BlockchainContract) {
         let standardArray = contract.getStandard();
 
         if (standardArray && standardArray.length > 0)
