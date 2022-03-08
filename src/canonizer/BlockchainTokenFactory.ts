@@ -11,9 +11,8 @@ export class BlockchainTokenFactory extends EntityFactory{
 
     constructor(canonizeManager:CSCanonizeManager) {
 
-        super('tokenPath','tokenPathFile',canonizeManager.getSandra());
+        super('tokenPath','tokenPathFile',canonizeManager.getSandra(),canonizeManager.getSandra().get(BlockchainTokenFactory.ID));
 
-        this.updateOnExistingRef = canonizeManager.getSandra().get(BlockchainTokenFactory.ID);
     }
 
 
