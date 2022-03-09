@@ -23,7 +23,7 @@ export class BalanceFactory extends EntityFactory {
     public static LAST_BLOCK_UPDATE = 'lastBlockUpdate';
 
     public constructor(sandra: SandraManager, updateOnExistingRef?: boolean) {
-        super(BalanceFactory.is_a, BalanceFactory.contained_in_file, sandra, updateOnExistingRef ? sandra.get(BalanceFactory.BALANCE_ITEM_ID) : undefined);
+        super(BalanceFactory.is_a, BalanceFactory.contained_in_file, sandra, updateOnExistingRef ? sandra.get(BalanceFactory.BALANCE_ITEM_LONG_ID) : undefined);
         // this.updateOnExistingRef = sandra.get(BalanceFactory.BALANCE_ITEM_ID);
     }
 }

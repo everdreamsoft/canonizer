@@ -4,7 +4,7 @@ exports.BalanceFactory = void 0;
 const EntityFactory_js_1 = require("../EntityFactory.js");
 class BalanceFactory extends EntityFactory_js_1.EntityFactory {
     constructor(sandra, updateOnExistingRef) {
-        super(BalanceFactory.is_a, BalanceFactory.contained_in_file, sandra, updateOnExistingRef ? sandra.get(BalanceFactory.BALANCE_ITEM_ID) : undefined);
+        super(BalanceFactory.is_a, BalanceFactory.contained_in_file, sandra, updateOnExistingRef ? sandra.get(BalanceFactory.BALANCE_ITEM_LONG_ID) : undefined);
         // this.updateOnExistingRef = sandra.get(BalanceFactory.BALANCE_ITEM_ID);
     }
 }

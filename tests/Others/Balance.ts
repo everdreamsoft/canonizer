@@ -26,7 +26,7 @@ let res = bootstrap();
 async function bootstrap() {
 
     await flushDatagraph();
-    await bootstrapEventsBinance();
+    await addBalance();
 }
 
 async function addTestEntity() {

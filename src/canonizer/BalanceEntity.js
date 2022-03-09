@@ -6,7 +6,9 @@ const Entity_1 = require("../Entity");
 const Reference_1 = require("../Reference");
 class BalanceEntity extends Entity_1.Entity {
     constructor(balanceFactory, balanceData) {
+        //Long item id added for ERC1155 case that includes address also in item id
         super(balanceFactory, [new Reference_1.Reference(balanceFactory.sandraManager.get(BalanceFactory_1.BalanceFactory.BALANCE_ITEM_LONG_ID), BalanceEntity.getBalanceUniqueLongId(balanceData.contract, balanceData.address, balanceFactory.sandraManager))]);
+        //This is still kept for code compatibility
         this.addReference(new Reference_1.Reference(balanceFactory.sandraManager.get(BalanceFactory_1.BalanceFactory.BALANCE_ITEM_ID), BalanceEntity.getBalanceId(balanceData.contract)));
         this.addReference(new Reference_1.Reference(balanceFactory.sandraManager.get(BalanceFactory_1.BalanceFactory.QUANTITY), balanceData.quantity));
         if (balanceData.specifierArray && balanceData.specifierArray.size > 0)
@@ -18,7 +20,6 @@ class BalanceEntity extends Entity_1.Entity {
     }
     static getBalanceUniqueLongId(contract, address, sandra) {
         let standardArray = contract.getStandard();
-        let ret = contract.getRefValue("id") + "-" + address.getRefValue(sandra.get("address")) + "-" + standardArray[0].getDisplayStructure();
         if (standardArray && standardArray.length > 0)
             return contract.getRefValue("id") + "-" + address.getRefValue(sandra.get("address")) + "-" + standardArray[0].getDisplayStructure();
         return contract.getRefValue("id") + "-" + address.getRefValue(sandra.get("address")) + "-" + "NULL";

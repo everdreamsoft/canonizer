@@ -20,7 +20,7 @@ let ethereum = canonizeManager.getOrInitBlockchain(CSCanonizeManager_js_1.Compat
 let res = bootstrap();
 async function bootstrap() {
     await flushDatagraph();
-    await bootstrapEventsBinance();
+    await addBalance();
 }
 async function addTestEntity() {
     let sandra = canonizeManager.getSandra();
