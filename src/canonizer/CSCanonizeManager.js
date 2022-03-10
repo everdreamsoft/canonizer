@@ -122,6 +122,10 @@ class CSCanonizeManager {
         const gossiper = new Gossiper_js_1.Gossiper(factory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
     }
+    async gossip(factory, apiConnector) {
+        const gossiper = new Gossiper_js_1.Gossiper(factory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
     async gossipBalance(balanceFactory, apiConnector) {
         const gossiper = new Gossiper_js_1.Gossiper(balanceFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));

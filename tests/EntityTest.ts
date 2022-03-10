@@ -23,9 +23,10 @@ export class EntityTest {
         let sandra = new SandraManager();
 
         // Creating factory without updateExistingReference
-        let planetFactory = new EntityFactory("planet", "atlasFile", sandra);
-
+        let planetFactory = new EntityFactory("planet", "atlasFile", sandra, sandra.get("name"));
         let jupiterEntity = new Entity(planetFactory, [new Reference(sandra.get("name"), "jupiter")]);
+
+        //CanonManager.getInstance().getCSCanonizeManager().gossip(planetFactory).then(res => {});
 
         describe("Entity Instance and References without updateExistingReference ", () => {
 

@@ -8,7 +8,7 @@ export class JetskiProcessEntityFactory extends EntityFactory {
     static readonly is_a = 'jwiProcess';
     static readonly contained_in_file = 'jwiProcessFile';
 
-    static readonly ID = 'ID';
+    static readonly ID = 'jwiId';
     static readonly PROCESS_ID = 'processID';
     static readonly PROCESS_TITLE = 'processTitle';
     static readonly PROCESS_DESCRIPTION = 'processDescription';
@@ -27,7 +27,7 @@ export class JetskiProcessEntityFactory extends EntityFactory {
 
     public constructor(sandra: SandraManager) {
         super(JetskiProcessEntityFactory.is_a, JetskiProcessEntityFactory.contained_in_file, sandra,sandra.get(JetskiProcessEntityFactory.ID));
-        this.updateOnExistingRef = sandra.get(JetskiProcessEntityFactory.ID);
+        //this.updateOnExistingRef = sandra.get(JetskiProcessEntityFactory.ID);
     }
 
     public getOrCreateJetskiProcess(jetskiProcessData: JetskiProcessInterface): JetskiProcessEntity {

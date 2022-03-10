@@ -185,6 +185,12 @@ export class CSCanonizeManager {
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
+    public async gossip(factory:EntityFactory, apiConnector?: ApiConnector) {
+        const gossiper = new Gossiper(factory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
+
+
     public async gossipBalance(balanceFactory: BalanceFactory, apiConnector?: ApiConnector) {
         const gossiper = new Gossiper(balanceFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector))

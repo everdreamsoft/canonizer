@@ -18,8 +18,9 @@ class EntityTest {
     static testWithoutUpdateReference() {
         let sandra = new SandraManager_1.SandraManager();
         // Creating factory without updateExistingReference
-        let planetFactory = new EntityFactory_1.EntityFactory("planet", "atlasFile", sandra);
+        let planetFactory = new EntityFactory_1.EntityFactory("planet", "atlasFile", sandra, sandra.get("name"));
         let jupiterEntity = new Entity_1.Entity(planetFactory, [new Reference_1.Reference(sandra.get("name"), "jupiter")]);
+        //CanonManager.getInstance().getCSCanonizeManager().gossip(planetFactory).then(res => {});
         describe("Entity Instance and References without updateExistingReference ", () => {
             let radiusRef = jupiterEntity.createOrUpdateRef(sandra.get("radius[km]"), "69911");
             jupiterEntity.createOrUpdateRef(sandra.get("radius[km]"), "70000");

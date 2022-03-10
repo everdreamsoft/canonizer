@@ -16,7 +16,7 @@ class JetskiWebInterface {
     constructor() {
     }
     static async test() {
-        await JetskiWebInterface.testProcessEntity();
+        await JetskiWebInterface.addContractToProcess();
     }
     static async testProcessEntity() {
         let sandra = new SandraManager_1.SandraManager();
@@ -92,7 +92,7 @@ class JetskiWebInterface {
             lastStopTime: "12323",
             lastStartTime: "123456",
             jetskiName: "jetski1",
-            id: "1"
+            id: "2"
         });
         let jetskiAddress1 = new JetskiAddressEntity_1.JetskiAddressEntity(jetskiAddressFactory, sandra, {
             hash: "12345",
@@ -116,10 +116,10 @@ class JetskiWebInterface {
             status: 'active',
             lastBlockSaved: '',
         });
-        processEntity.bindJetskiAddress(jetskiAddress1);
-        processEntity.bindJetskiAddress(jetskiAddress2);
-        processEntity.setStatus("ACTIVE");
-        processEntity.setBlockchain(blockchain);
+        //processEntity.bindJetskiAddress(jetskiAddress1);
+        // processEntity.bindJetskiAddress(jetskiAddress2);
+        //processEntity.setStatus("ACTIVE");
+        //processEntity.setBlockchain(blockchain);
         // Gossip
         let res = await CanonManager_1.CanonManager.getInstance().getCSCanonizeManager().gossipJetskiProcess(processEntityFactory);
         console.log(res);
