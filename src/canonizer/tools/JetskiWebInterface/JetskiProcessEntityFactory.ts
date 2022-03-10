@@ -1,7 +1,6 @@
 import {EntityFactory} from "../../../EntityFactory.js";
 import {SandraManager} from "../../../SandraManager.js";
 import {JetskiProcessEntity, JetskiProcessInterface} from "./JetskiProcessEntity";
-import {factory} from "ts-jest/dist/transformers/path-mapping";
 
 
 export class JetskiProcessEntityFactory extends EntityFactory {
