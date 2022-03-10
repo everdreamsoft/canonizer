@@ -1,9 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const EntityTest_1 = require("./EntityTest");
+const JetskiWebInterface_1 = require("./JetskiWebInterface");
 startUnitTesting();
 function startUnitTesting() {
-    EntityTest_1.EntityTest.test();
+    //EntityTest.test();
+    JetskiWebInterface_1.JetskiWebInterface.test().then(res => {
+        console.log("JWI test completed");
+    }).catch(err => {
+        console.log("Error testing JWI");
+    });
 }
 // Mocha and Chai testing framework examples
 /*

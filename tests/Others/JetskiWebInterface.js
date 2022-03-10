@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const CSCanonizeManager_js_1 = require("../../src/canonizer/CSCanonizeManager.js");
-const JetskiApp_1 = require("../../src/canonizer/tools/JetskiWebInterface/JetskiApp");
 const JetskiAddressEntityFactory_1 = require("../../src/canonizer/tools/JetskiWebInterface/JetskiAddressEntityFactory");
+const JetskiProcessEntityFactory_1 = require("../../src/canonizer/tools/JetskiWebInterface/JetskiProcessEntityFactory");
 const jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbnYiOiJic2MiLCJmbHVzaCI6dHJ1ZSwiZXhwIjoxMDYwODE2MjQyMDk2MDAwfQ.X0MLqtaUtCrgfN_sWO0IhybOtftWE4Lltex2Hh0k0u4';
 const gossipUrl = "http://localhost:8000/alex/gossip";
 const canonizeManager = new CSCanonizeManager_js_1.CSCanonizeManager({ connector: { gossipUrl: gossipUrl, jwt: jwt } });
@@ -15,9 +15,8 @@ async function bootstrap() {
     await addJetskiProcessFullData();
 }
 async function updateJetskiProcess() {
-    let jetski = canonizeManager.getJetskiAppInstance();
     let blockchain = canonizeManager.getOrInitBlockchain(CSCanonizeManager_js_1.CompatibleBlockchains.binance);
-    let jetskiProcessFactory = jetski.getProcessFactory();
+    let jetskiProcessFactory = new JetskiProcessEntityFactory_1.JetskiProcessEntityFactory(sandra);
     let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({
         processID: "",
         lastStartTime: "",
@@ -27,19 +26,17 @@ async function updateJetskiProcess() {
         lastStopTime: "",
         jetskiPath: "C:/JETSKIasdasd",
         id: "001"
-    }, sandra);
+    });
     jetskiProcess.setBlockchain(blockchain);
     jetskiProcess.setStatus("");
-    let res = await canonizeManager.gossipJetskiProcess(jetskiProcess);
+    let res = await canonizeManager.gossipJetskiProcess(jetskiProcessFactory);
 }
 async function addAddContractToProcess() {
-    let jetski = canonizeManager.getJetskiAppInstance();
     let jetskiAddressFactory = new JetskiAddressEntityFactory_1.JetskiAddressEntityFactory(canonizeManager.getSandra());
 }
 async function addJetskiProcess() {
-    let jetski = canonizeManager.getJetskiAppInstance();
     let blockchain = canonizeManager.getOrInitBlockchain(CSCanonizeManager_js_1.CompatibleBlockchains.binance);
-    let jetskiProcessFactory = jetski.getProcessFactory();
+    let jetskiProcessFactory = new JetskiProcessEntityFactory_1.JetskiProcessEntityFactory(sandra);
     let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({
         processID: "",
         lastStartTime: "",
@@ -49,15 +46,14 @@ async function addJetskiProcess() {
         lastStopTime: "",
         jetskiPath: "C:/JETSKI",
         id: "1"
-    }, sandra);
+    });
     jetskiProcess.setBlockchain(blockchain);
     jetskiProcess.setStatus("");
-    let res = await canonizeManager.gossipJetskiProcess(jetskiProcess);
+    let res = await canonizeManager.gossipJetskiProcess(jetskiProcessFactory);
     console.log(res);
 }
 async function addJetskiProcessFullData() {
-    let jetski = new JetskiApp_1.JetskiApp(canonizeManager);
-    let jetskiProcessFactory = jetski.getProcessFactory();
+    let jetskiProcessFactory = new JetskiProcessEntityFactory_1.JetskiProcessEntityFactory(sandra);
     let blockchain = canonizeManager.getOrInitBlockchain(CSCanonizeManager_js_1.CompatibleBlockchains.binance);
     // const collectionObj = canonizeManager.createCollection({
     //     id: "chainbabe",
@@ -80,7 +76,7 @@ async function addJetskiProcessFullData() {
         lastStopTime: "16/12/2022 10:00",
         jetskiPath: "C:/sadsad",
         id: CSCanonizeManager_js_1.RunnableJetskis.EVM.toLowerCase() + "_" + "binance"
-    }, sandra);
+    });
     jetskiProcess.setBlockchain(blockchain);
     jetskiProcess.setStatus("running");
     // let jetAddress = jetskiProcess.getAddressFactory().getOrCreateJetskiAddress({
@@ -109,7 +105,7 @@ async function addJetskiProcessFullData() {
     // }, sandra);
     // jetskiProcess.bindJetskiAddress(jetAddress)
     // jetskiProcess.bindJetskiAddress(jetAddress1)
-    let res = await canonizeManager.gossipJetskiProcess(jetskiProcess);
+    let res = await canonizeManager.gossipJetskiProcess(jetskiProcessFactory);
     console.log(res);
 }
 async function flushDatagraph() {

@@ -8,10 +8,10 @@ class JetskiProcessEntityFactory extends EntityFactory_js_1.EntityFactory {
         super(JetskiProcessEntityFactory.is_a, JetskiProcessEntityFactory.contained_in_file, sandra, sandra.get(JetskiProcessEntityFactory.ID));
         this.updateOnExistingRef = sandra.get(JetskiProcessEntityFactory.ID);
     }
-    getOrCreateJetskiProcess(jetskiProcessData, sandra) {
+    getOrCreateJetskiProcess(jetskiProcessData) {
         let jetskiProcessObj = this.getEntitiesWithRefValue(JetskiProcessEntityFactory.ID, jetskiProcessData.id);
         if (!(jetskiProcessObj instanceof JetskiProcessEntity_1.JetskiProcessEntity))
-            jetskiProcessObj = new JetskiProcessEntity_1.JetskiProcessEntity(this, sandra, jetskiProcessData);
+            jetskiProcessObj = new JetskiProcessEntity_1.JetskiProcessEntity(this, this.sandraManager, jetskiProcessData);
         return jetskiProcessObj;
     }
     getJetskiProcess(id, sandra) {
@@ -19,8 +19,8 @@ class JetskiProcessEntityFactory extends EntityFactory_js_1.EntityFactory {
     }
 }
 exports.JetskiProcessEntityFactory = JetskiProcessEntityFactory;
-JetskiProcessEntityFactory.is_a = 'jetskiProcess';
-JetskiProcessEntityFactory.contained_in_file = 'jetskiProcessFile';
+JetskiProcessEntityFactory.is_a = 'jwiProcess';
+JetskiProcessEntityFactory.contained_in_file = 'jwiProcessFile';
 JetskiProcessEntityFactory.ID = 'ID';
 JetskiProcessEntityFactory.PROCESS_ID = 'processID';
 JetskiProcessEntityFactory.PROCESS_TITLE = 'processTitle';

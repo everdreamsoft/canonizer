@@ -1,6 +1,6 @@
 import {CompatibleBlockchains, CSCanonizeManager, RunnableJetskis} from "../../src/canonizer/CSCanonizeManager.js";
-import {JetskiApp} from "../../src/canonizer/tools/JetskiWebInterface/JetskiApp";
 import {JetskiAddressEntityFactory} from "../../src/canonizer/tools/JetskiWebInterface/JetskiAddressEntityFactory";
+import {JetskiProcessEntityFactory} from "../../src/canonizer/tools/JetskiWebInterface/JetskiProcessEntityFactory";
 
 const jwt = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbnYiOiJic2MiLCJmbHVzaCI6dHJ1ZSwiZXhwIjoxMDYwODE2MjQyMDk2MDAwfQ.X0MLqtaUtCrgfN_sWO0IhybOtftWE4Lltex2Hh0k0u4';
 const gossipUrl = "http://localhost:8000/alex/gossip";
@@ -21,10 +21,9 @@ async function bootstrap() {
 
 async function updateJetskiProcess() {
 
-    let jetski = canonizeManager.getJetskiAppInstance();
     let blockchain = canonizeManager.getOrInitBlockchain(CompatibleBlockchains.binance);
 
-    let jetskiProcessFactory = jetski.getProcessFactory();
+    let jetskiProcessFactory = new JetskiProcessEntityFactory(sandra)
     let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({
         processID: "",
         lastStartTime: "",
@@ -34,33 +33,26 @@ async function updateJetskiProcess() {
         lastStopTime: "",
         jetskiPath: "C:/JETSKIasdasd",
         id: "001"
-    }, sandra);
+    });
 
     jetskiProcess.setBlockchain(blockchain);
     jetskiProcess.setStatus("");
 
-    let res = await canonizeManager.gossipJetskiProcess(jetskiProcess);
+    let res = await canonizeManager.gossipJetskiProcess(jetskiProcessFactory);
 
 
 }
 
-async function addAddContractToProcess()
-{
-
-    let jetski = canonizeManager.getJetskiAppInstance();
+async function addAddContractToProcess() {
 
     let jetskiAddressFactory = new JetskiAddressEntityFactory(canonizeManager.getSandra());
-
 
 }
 
 async function addJetskiProcess() {
 
-
-    let jetski = canonizeManager.getJetskiAppInstance();
     let blockchain = canonizeManager.getOrInitBlockchain(CompatibleBlockchains.binance);
-
-    let jetskiProcessFactory = jetski.getProcessFactory();
+    let jetskiProcessFactory = new JetskiProcessEntityFactory(sandra);
     let jetskiProcess = jetskiProcessFactory.getOrCreateJetskiProcess({
         processID: "",
         lastStartTime: "",
@@ -70,12 +62,12 @@ async function addJetskiProcess() {
         lastStopTime: "",
         jetskiPath: "C:/JETSKI",
         id: "1"
-    }, sandra);
+    });
 
     jetskiProcess.setBlockchain(blockchain);
     jetskiProcess.setStatus("");
 
-    let res = await canonizeManager.gossipJetskiProcess(jetskiProcess);
+    let res = await canonizeManager.gossipJetskiProcess(jetskiProcessFactory);
 
     console.log(res);
 
@@ -83,8 +75,7 @@ async function addJetskiProcess() {
 
 async function addJetskiProcessFullData() {
 
-    let jetski = new JetskiApp(canonizeManager);
-    let jetskiProcessFactory = jetski.getProcessFactory();
+    let jetskiProcessFactory = new JetskiProcessEntityFactory(sandra);
 
     let blockchain = canonizeManager.getOrInitBlockchain(CompatibleBlockchains.binance);
 
@@ -110,7 +101,7 @@ async function addJetskiProcessFullData() {
         lastStopTime: "16/12/2022 10:00",
         jetskiPath: "C:/sadsad",
         id: RunnableJetskis.EVM.toLowerCase() + "_" + "binance"
-    }, sandra);
+    });
 
     jetskiProcess.setBlockchain(blockchain);
     jetskiProcess.setStatus("running");
@@ -147,7 +138,7 @@ async function addJetskiProcessFullData() {
     // jetskiProcess.bindJetskiAddress(jetAddress)
     // jetskiProcess.bindJetskiAddress(jetAddress1)
 
-    let res = await canonizeManager.gossipJetskiProcess(jetskiProcess);
+    let res = await canonizeManager.gossipJetskiProcess(jetskiProcessFactory);
 
     console.log(res);
 

@@ -3,7 +3,6 @@ import {SandraManager} from "../../../SandraManager";
 import {Reference} from "../../../Reference";
 import {JetskiProcessEntityFactory} from "./JetskiProcessEntityFactory";
 import {JetskiAddressEntity} from "./JetskiAddressEntity";
-import {JetskiAddressEntityFactory} from "./JetskiAddressEntityFactory";
 import {Blockchain} from "../../Blockchain";
 
 export interface JetskiProcessInterface {
@@ -20,7 +19,6 @@ export interface JetskiProcessInterface {
 
 export class JetskiProcessEntity extends Entity {
 
-    readonly jetskiAddressFactory?: JetskiAddressEntityFactory;
 
     public constructor(factory: JetskiProcessEntityFactory, sandra: SandraManager, jetskiProcessData: JetskiProcessInterface) {
         super(factory, [new Reference(sandra.get(JetskiProcessEntityFactory.ID), jetskiProcessData.id)]);
@@ -32,11 +30,6 @@ export class JetskiProcessEntity extends Entity {
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.LAST_STOP_TIME), jetskiProcessData.lastStopTime));
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.JETSKI_PATH), jetskiProcessData.jetskiPath));
 
-        //this.jetskiAddressFactory = new JetskiAddressEntityFactory(sandra);
-    }
-
-    public getAddressFactory() {
-        return this.jetskiAddressFactory;
     }
 
     public bindJetskiAddress(addressEntity: JetskiAddressEntity) {

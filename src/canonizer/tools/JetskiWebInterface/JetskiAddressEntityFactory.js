@@ -6,8 +6,7 @@ const JetskiProcessEntity_1 = require("./JetskiProcessEntity");
 const JetskiAddressEntity_1 = require("./JetskiAddressEntity");
 class JetskiAddressEntityFactory extends EntityFactory_js_1.EntityFactory {
     constructor(sandra) {
-        super(JetskiAddressEntityFactory.is_a, JetskiAddressEntityFactory.contained_in_file, sandra);
-        this.updateOnExistingRef = sandra.get(JetskiAddressEntityFactory.HASH);
+        super(JetskiAddressEntityFactory.is_a, JetskiAddressEntityFactory.contained_in_file, sandra, sandra.get(JetskiAddressEntityFactory.HASH));
     }
     getOrCreateJetskiAddress(jetskiAddressData, sandra) {
         let jetskiAddressObj = this.getEntitiesWithRefValue(JetskiAddressEntityFactory.HASH, jetskiAddressData.hash);
@@ -17,9 +16,9 @@ class JetskiAddressEntityFactory extends EntityFactory_js_1.EntityFactory {
     }
 }
 exports.JetskiAddressEntityFactory = JetskiAddressEntityFactory;
-JetskiAddressEntityFactory.is_a = 'jetskiAddress';
-JetskiAddressEntityFactory.contained_in_file = 'jetskiAddressFile';
-JetskiAddressEntityFactory.HASH = 'hash';
+JetskiAddressEntityFactory.is_a = 'jwiAddress';
+JetskiAddressEntityFactory.contained_in_file = 'jwiAddressFile';
+JetskiAddressEntityFactory.HASH = 'jwiTxHash';
 JetskiAddressEntityFactory.STATUS = 'status';
 JetskiAddressEntityFactory.LAST_BLOCK_SAVED = 'lastBlockSaved';
 JetskiAddressEntityFactory.LAST_BLOCK_PROCESSED = 'lastBlockProcessed';

@@ -21,7 +21,6 @@ const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
 const ChangeIssuerFactory_1 = require("./ChangeIssuerFactory");
 const BinanceBlockchain_1 = require("./Binance/BinanceBlockchain");
 const EthereumBlockchain_1 = require("./Ethereum/EthereumBlockchain");
-const JetskiApp_1 = require("./tools/JetskiWebInterface/JetskiApp");
 class CSCanonizeManager {
     constructor(options, sandra = new SandraManager_js_1.SandraManager()) {
         this.loadedBlockchains = [];
@@ -119,8 +118,8 @@ class CSCanonizeManager {
         const gossiper = new Gossiper_js_1.Gossiper(blockchain.contractFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
     }
-    async gossipJetskiProcess(jetskiProcessEntity, apiConnector) {
-        const gossiper = new Gossiper_js_1.Gossiper(jetskiProcessEntity.factory);
+    async gossipJetskiProcess(factory, apiConnector) {
+        const gossiper = new Gossiper_js_1.Gossiper(factory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
     }
     async gossipBalance(balanceFactory, apiConnector) {
@@ -199,9 +198,6 @@ class CSCanonizeManager {
         if (!standard)
             return null;
         return standard;
-    }
-    getJetskiAppInstance() {
-        return new JetskiApp_1.JetskiApp(this);
     }
 }
 exports.CSCanonizeManager = CSCanonizeManager;
