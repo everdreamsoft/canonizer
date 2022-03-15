@@ -77,12 +77,10 @@ export class Entity {
 
     public setTriplet(verb: string, target: string, sandraManager: SandraManager, refArray?: Reference[]) {
         this.subjectConcept.setTriplet(sandraManager.get(verb), sandraManager.get(target), false, refArray);
-
     }
 
     public setPureShortnameTriplet(verb: string, target: string, sandraManager: SandraManager, refArray?: Reference[]) {
         this.subjectConcept.setTriplet(sandraManager.get(verb), sandraManager.get(target), true, refArray);
-
     }
 
     public getJoinedEntitiesOnVerb(verb: any): Entity[] {

@@ -104,25 +104,25 @@ export class JetskiWebInterface {
 
         let processEntity = new JetskiProcessEntity(processEntityFactory, sandra, {
             processID: "9999",
-            processTitle: "Process1",
+            processTitle: "",
             jetskiPath: "",
-            processDescription: "test desc",
-            lastStopTime: "12323",
-            lastStartTime: "123456",
-            jetskiName: "jetski1",
-            id: "2"
+            processDescription: "EVM Jetski for binance chain",
+            lastStopTime: Date.now().toString(),
+            lastStartTime: Date.now().toString(),
+            jetskiName: "EVMJetski",
+            id: "evmjetski_binance",
         });
 
         let jetskiAddress1 = new JetskiAddressEntity(jetskiAddressFactory, sandra, {
-            hash: "12345",
-            standard: "erc721",
-            blockRange: '500',
-            startBlock: '100',
-            endBlock: '100',
-            lastUpdateTime: '',
-            lastBlockProcessed: '',
+            hash: "0x728cb1069397ca3e2c268946eed59200aa0d494a",
+            standard: "erc1155",
+            blockRange: '5000',
+            startBlock: '9943215',
+            endBlock: '9993215',
+            lastUpdateTime: Date.now().toString(),
+            lastBlockProcessed: '9944215',
             status: 'active',
-            lastBlockSaved: '',
+            lastBlockSaved: '9943915',
         })
 
         let jetskiAddress2 = new JetskiAddressEntity(jetskiAddressFactory, sandra, {
@@ -138,15 +138,15 @@ export class JetskiWebInterface {
         });
 
         //processEntity.bindJetskiAddress(jetskiAddress1);
-       // processEntity.bindJetskiAddress(jetskiAddress2);
-        //processEntity.setStatus("ACTIVE");
-        //processEntity.setBlockchain(blockchain);
+        //processEntity.bindJetskiAddress(jetskiAddress2);
+        processEntity.setStatus("running1");
+        processEntity.setBlockchain(blockchain);
 
         // Gossip
-        let res = await CanonManager.getInstance().getCSCanonizeManager().gossipJetskiProcess(processEntityFactory);
-        console.log(res);
+       let res = await CanonManager.getInstance().getCSCanonizeManager().gossipJetskiProcess(processEntityFactory);
+       console.log(res);
 
-        let process1FromDB = await Api.getJWIProcess("1");
+        let process1FromDB = await Api.getJWIProcess("evmjetski_binance");
         console.log(process1FromDB);
 
     }

@@ -16,6 +16,6 @@ AssetCollectionFactory.COLLECTION_ID = 'collectionId';
 AssetCollectionFactory.IMAGE_EXTENSION = 'imageExtension';
 AssetCollectionFactory.MAIN_IMAGE = 'imageUrl';
 AssetCollectionFactory.MAIN_NAME = 'name';
-AssetCollectionFactory.DESCRIPTION = 'descriptiopn';
+AssetCollectionFactory.DESCRIPTION = 'description';
 AssetCollectionFactory.COLLECTION_OWNER = 'owner';
 //# sourceMappingURL=AssetCollectionFactory.js.map

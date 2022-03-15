@@ -15,7 +15,7 @@ export class AssetCollectionFactory extends EntityFactory
     public static IMAGE_EXTENSION: string = 'imageExtension';
     public static MAIN_IMAGE: string = 'imageUrl';
     public static MAIN_NAME: string = 'name';
-    public static DESCRIPTION: string = 'descriptiopn';
+    public static DESCRIPTION: string = 'description';
     public static COLLECTION_OWNER: string = 'owner';
 
     public constructor(sandra: SandraManager) {
