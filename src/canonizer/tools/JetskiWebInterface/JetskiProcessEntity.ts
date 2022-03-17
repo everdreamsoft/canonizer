@@ -14,7 +14,7 @@ export interface JetskiProcessInterface {
     lastStartTime: string,
     lastStopTime: string,
     jetskiPath: string,
-
+    status:string
 }
 
 export class JetskiProcessEntity extends Entity {
@@ -29,6 +29,7 @@ export class JetskiProcessEntity extends Entity {
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.JETSKI_NAME), jetskiProcessData.jetskiName));
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.LAST_STOP_TIME), jetskiProcessData.lastStopTime));
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.JETSKI_PATH), jetskiProcessData.jetskiPath));
+        this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.STATUS), jetskiProcessData.status));
 
     }
 

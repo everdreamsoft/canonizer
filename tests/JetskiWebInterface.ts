@@ -31,7 +31,8 @@ export class JetskiWebInterface {
             lastStopTime: "12323",
             lastStartTime: "123456",
             jetskiName: "jetski1",
-            id: "1"
+            id: "1",
+            status:"running"
         });
 
         let processEntity2 = new JetskiProcessEntity(processEntityFactory, sandra, {
@@ -42,7 +43,8 @@ export class JetskiWebInterface {
             lastStopTime: "2222",
             lastStartTime: "2222",
             jetskiName: "jetski1Updated",
-            id: "1"
+            id: "1",
+            status:"running"
         });
 
         let processEntity3 = new JetskiProcessEntity(processEntityFactory, sandra, {
@@ -53,7 +55,8 @@ export class JetskiWebInterface {
             lastStopTime: "12323",
             lastStartTime: "123456",
             jetskiName: "jetski1",
-            id: "2"
+            id: "2",
+            status:"running"
         });
 
         describe("Jetski Process Entity", () => {
@@ -111,6 +114,7 @@ export class JetskiWebInterface {
             lastStartTime: Date.now().toString(),
             jetskiName: "EVMJetski",
             id: "evmjetski_binance",
+            status:"running"
         });
 
         let jetskiAddress1 = new JetskiAddressEntity(jetskiAddressFactory, sandra, {

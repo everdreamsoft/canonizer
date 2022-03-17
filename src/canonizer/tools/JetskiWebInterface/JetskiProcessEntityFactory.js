@@ -27,6 +27,7 @@ JetskiProcessEntityFactory.PROCESS_TITLE = 'processTitle';
 JetskiProcessEntityFactory.PROCESS_DESCRIPTION = 'processDescription';
 JetskiProcessEntityFactory.JETSKI_NAME = 'jetskiName';
 JetskiProcessEntityFactory.JETSKI_PATH = 'jetskiPath';
+JetskiProcessEntityFactory.STATUS = 'status';
 JetskiProcessEntityFactory.LAST_START_TIME = 'lastStartTime';
 JetskiProcessEntityFactory.LAST_STOP_TIME = 'lastStopTime';
 // Joined Entities

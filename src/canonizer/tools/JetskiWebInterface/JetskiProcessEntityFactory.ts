@@ -14,6 +14,7 @@ export class JetskiProcessEntityFactory extends EntityFactory {
     static readonly PROCESS_DESCRIPTION = 'processDescription';
     static readonly JETSKI_NAME = 'jetskiName';
     static readonly JETSKI_PATH = 'jetskiPath';
+    static readonly STATUS = 'status';
 
     static readonly LAST_START_TIME = 'lastStartTime';
     static readonly LAST_STOP_TIME = 'lastStopTime';
