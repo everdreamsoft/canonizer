@@ -13,7 +13,7 @@ class BinanceBlockchain extends Blockchain_js_1.Blockchain {
         this.addressFactory.onBlockchain = this.name;
         this.contractFactory.is_a = 'bscContract';
         this.contractFactory.contained_in_file = 'blockchainContractFile';
-        this.blockFactory = new EntityFactory_js_1.EntityFactory(this.getName() + "Block", "blockchainBlocFile", sandra, sandra.get(BlockchainBlock_js_1.BlockchainBlock.INDEX_SHORTNAME));
+        this.blockFactory = new EntityFactory_js_1.EntityFactory(this.getName() + "Bloc", "blockchainBlocFile", sandra, sandra.get(BlockchainBlock_js_1.BlockchainBlock.INDEX_SHORTNAME));
     }
 }
 exports.BinanceBlockchain = BinanceBlockchain;

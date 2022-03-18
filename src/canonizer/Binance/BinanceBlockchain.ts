@@ -19,7 +19,7 @@ export class BinanceBlockchain extends Blockchain
       this.contractFactory.is_a = 'bscContract';
       this.contractFactory.contained_in_file = 'blockchainContractFile';
 
-      this.blockFactory = new EntityFactory(this.getName()+"Block","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
+      this.blockFactory = new EntityFactory(this.getName()+"Bloc","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
 
     }
 

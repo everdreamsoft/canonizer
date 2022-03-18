@@ -6,7 +6,7 @@ import {BlockchainBlock} from "../BlockchainBlock.js";
 
 export class KusamaBlockchain extends Blockchain
 {
-    
+
     public  name: string = 'kusama';
 
 
@@ -21,11 +21,11 @@ export class KusamaBlockchain extends Blockchain
         this.contractFactory.is_a = 'rmrkContract';
         this.contractFactory.contained_in_file = 'blockchainContractFile';
 
-        this.blockFactory = new EntityFactory(this.getName()+"Block","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
+        this.blockFactory = new EntityFactory(this.getName()+"Bloc","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
 
 
 
 
     }
-    
+
 }
