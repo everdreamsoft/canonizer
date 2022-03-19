@@ -14,10 +14,10 @@ export class BlockchainBlockFactory extends EntityFactory {
             let addressRefMap = this.entityByRevValMap.get(this.sandraManager.get(BlockchainBlock.INDEX_SHORTNAME));
 
             // @ts-ignore
-            if (addressRefMap.has(address)) {
+            if (addressRefMap.has(blockId.toString())) {
                 //address exists in factory
                 // @ts-ignore
-                return addressRefMap.get(address)[0];
+                return addressRefMap.get(blockId.toString())[0];
             }
 
         }

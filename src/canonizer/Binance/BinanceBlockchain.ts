@@ -1,25 +1,18 @@
 import {Blockchain} from "../Blockchain.js";
 import {SandraManager} from "../../SandraManager.js";
-import {EntityFactory} from "../../EntityFactory.js";
-import {BlockchainBlock} from "../BlockchainBlock.js";
 
-export class BinanceBlockchain extends Blockchain
-{
-
-    public  name: string = 'binance';
+export class BinanceBlockchain extends Blockchain {
 
     public constructor(sandra: SandraManager) {
 
-      super(sandra);
+        super(sandra, "binance");
 
-      this.addressFactory.is_a = 'bscAddress';
-      this.addressFactory.contained_in_file = 'blockchainAddressFile';
-      this.addressFactory.onBlockchain = this.name ;
+        this.addressFactory.is_a = 'bscAddress';
+        this.addressFactory.contained_in_file = 'blockchainAddressFile';
+        this.addressFactory.onBlockchain = this.name;
 
-      this.contractFactory.is_a = 'bscContract';
-      this.contractFactory.contained_in_file = 'blockchainContractFile';
-
-      this.blockFactory = new EntityFactory(this.getName()+"Bloc","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
+        this.contractFactory.is_a = 'bscContract';
+        this.contractFactory.contained_in_file = 'blockchainContractFile';
 
     }
 

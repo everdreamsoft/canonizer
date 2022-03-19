@@ -11,10 +11,10 @@ class BlockchainBlockFactory extends EntityFactory_js_1.EntityFactory {
         if (this.entityByRevValMap.has(this.sandraManager.get(BlockchainBlock_1.BlockchainBlock.INDEX_SHORTNAME))) {
             let addressRefMap = this.entityByRevValMap.get(this.sandraManager.get(BlockchainBlock_1.BlockchainBlock.INDEX_SHORTNAME));
             // @ts-ignore
-            if (addressRefMap.has(address)) {
+            if (addressRefMap.has(blockId.toString())) {
                 //address exists in factory
                 // @ts-ignore
-                return addressRefMap.get(address)[0];
+                return addressRefMap.get(blockId.toString())[0];
             }
         }
         return new BlockchainBlock_1.BlockchainBlock(this, blockId, timestamp, this.sandraManager);
