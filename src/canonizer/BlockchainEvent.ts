@@ -5,7 +5,6 @@ import {BlockchainAddress} from "./BlockchainAddress.js";
 import {BlockchainContract} from "./BlockchainContract.js";
 import {Reference} from "../Reference.js";
 import {Blockchain} from "./Blockchain.js";
-import {BlockchainBlock} from "./BlockchainBlock.js";
 import {ContractStandard} from "./ContractStandard.js";
 
 export class BlockchainEvent extends Entity {
@@ -55,9 +54,8 @@ export class BlockchainEvent extends Entity {
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra)
         this.joinEntity(BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra)
 
-
-        //create the block
-        let blockchainBlock = new BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        //get or create the block
+        let blockchainBlock = blockchain.blockFactory.getOrCreate(blockId, timestamp);
         this.joinEntity(BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra)
 
         this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);

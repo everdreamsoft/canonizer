@@ -4,7 +4,6 @@ exports.BlockchainEvent = void 0;
 const Entity_js_1 = require("../Entity.js");
 const Reference_js_1 = require("../Reference.js");
 const Blockchain_js_1 = require("./Blockchain.js");
-const BlockchainBlock_js_1 = require("./BlockchainBlock.js");
 class BlockchainEvent extends Entity_js_1.Entity {
     constructor(factory, source, destination, contract, txid, timestamp, quantity, blockchain, blockId, token, sandra) {
         super(factory, [new Reference_js_1.Reference(sandra.get(Blockchain_js_1.Blockchain.TXID_CONCEPT_NAME), txid)]);
@@ -23,8 +22,8 @@ class BlockchainEvent extends Entity_js_1.Entity {
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainEvent.QUANTITY), quantity));
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra);
-        //create the block
-        let blockchainBlock = new BlockchainBlock_js_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        //get or create the block
+        let blockchainBlock = blockchain.blockFactory.getOrCreate(blockId, timestamp);
         this.joinEntity(BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
         let refArray = [];
