@@ -16,7 +16,7 @@ class Blockchain {
         this.addressFactory = new BlockchainAddressFactory_js_1.BlockchainAddressFactory(sandra);
         this.contractFactory = new BlockchainContractFactory_js_1.BlockchainContractFactory(sandra);
         this.eventFactory = new BlockchainEventFactory_js_1.BlockchainEventFactory(this, sandra);
-        this.blockFactory = new BlockchainBlockFactory_1.BlockchainBlockFactory(this.getName(), sandra); //new EntityFactory(this.getName()+"Block","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
+        this.blockFactory = new BlockchainBlockFactory_1.BlockchainBlockFactory(this.getName(), sandra);
         this.emoteFactory = new BlockchainEmoteFactory_1.BlockchainEmoteFactory(sandra);
         this.orderFactory = new BlockchainOrderFactory_1.BlockchainOrderFactory(sandra);
         this.changeIssuerFactory = new ChangeIssuerFactory_1.ChangeIssuerFactory(sandra);

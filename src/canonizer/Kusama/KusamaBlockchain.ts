@@ -7,12 +7,9 @@ import {BlockchainBlock} from "../BlockchainBlock.js";
 export class KusamaBlockchain extends Blockchain
 {
 
-    public  name: string = 'kusama';
-
-
     public constructor(sandra: SandraManager) {
 
-        super(sandra);
+        super(sandra,'kusama');
 
         this.addressFactory.is_a = 'kusamaAddress';
         this.addressFactory.contained_in_file = 'blockchainAddressFile';
@@ -20,11 +17,6 @@ export class KusamaBlockchain extends Blockchain
 
         this.contractFactory.is_a = 'rmrkContract';
         this.contractFactory.contained_in_file = 'blockchainContractFile';
-
-        this.blockFactory = new EntityFactory(this.getName()+"Bloc","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
-
-
-
 
     }
 
