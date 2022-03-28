@@ -1,10 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const JetskiWebInterface_1 = require("./JetskiWebInterface");
+const Contracts_1 = require("./Contracts");
 startUnitTesting();
 function startUnitTesting() {
-    //EntityTest.test();
-    JetskiWebInterface_1.JetskiWebInterface.test().then(res => {
+    // EntityTest.test();
+    //
+    // JetskiWebInterface.test().then(res => {
+    //     console.log("JWI test completed");
+    // }).catch(err => {
+    //     console.log("Error testing JWI");
+    // });
+    Contracts_1.Contracts.test().then(res => {
         console.log("JWI test completed");
     }).catch(err => {
         console.log("Error testing JWI");

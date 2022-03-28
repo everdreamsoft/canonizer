@@ -2,6 +2,7 @@ import {Concept} from "./Concept.js";
 import {SandraManager} from "./SandraManager.js";
 import {Entity} from "./Entity";
 import {Gossiper} from "./Gossiper.js";
+import {BlockchainAddress} from "./canonizer/BlockchainAddress";
 
 interface JoinedFactory {
     entityFactory: EntityFactory;
@@ -22,7 +23,6 @@ export class EntityFactory {
     public sandraManager: SandraManager;
     public updateOnExistingRef: Concept;
     public brotherEntityMap: Map<Concept, Map<Concept, Entity[]>> = new Map<Concept, Map<Concept, Entity[]>>();
-
 
     public constructor(isa: string, containedIn: string, sandraManager: SandraManager, updateOnExistingRef?: Concept) {
 

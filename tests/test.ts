@@ -1,17 +1,25 @@
 import {EntityTest} from "./EntityTest";
 import {JetskiWebInterface} from "./JetskiWebInterface";
+import {Contracts} from "./Contracts";
 
 startUnitTesting();
 
 function startUnitTesting() {
 
-    //EntityTest.test();
+    // EntityTest.test();
+    //
+    // JetskiWebInterface.test().then(res => {
+    //     console.log("JWI test completed");
+    // }).catch(err => {
+    //     console.log("Error testing JWI");
+    // });
 
-    JetskiWebInterface.test().then(res => {
+    Contracts.test().then(res => {
         console.log("JWI test completed");
     }).catch(err => {
         console.log("Error testing JWI");
     });
+
 }
 
 
