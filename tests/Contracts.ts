@@ -11,7 +11,7 @@ export class Contracts {
 
     public static async test() {
 
-        await Contracts.testBinance("erc721");
+        await Contracts.testEthereum("erc721");
     }
 
     private static async testEthereum(standard: string) {

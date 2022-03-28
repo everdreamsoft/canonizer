@@ -12,7 +12,7 @@ export class BinanceBlockchain extends Blockchain {
         this.addressFactory.onBlockchain = this.name;
 
         this.contractFactory.is_a = 'bscContract';
-        this.contractFactory.contained_in_file = 'bscContractFile';
+        this.contractFactory.contained_in_file = 'blockchainContractFile';
 
     }
 

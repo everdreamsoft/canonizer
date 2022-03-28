@@ -9,7 +9,7 @@ class EthereumBlockchain extends Blockchain_js_1.Blockchain {
         this.addressFactory.contained_in_file = 'ethAddressFile';
         this.addressFactory.onBlockchain = this.name;
         this.contractFactory.is_a = 'ethContract';
-        this.contractFactory.contained_in_file = 'ethContractFile';
+        this.contractFactory.contained_in_file = 'blockchainContractFile';
     }
 }
 exports.EthereumBlockchain = EthereumBlockchain;

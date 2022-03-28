@@ -9,7 +9,7 @@ class Contracts {
     constructor() {
     }
     static async test() {
-        await Contracts.testBinance("erc721");
+        await Contracts.testEthereum("erc721");
     }
     static async testEthereum(standard) {
         const canonizeManager = CanonManager_1.CanonManager.getInstance().getCSCanonizeManager();
