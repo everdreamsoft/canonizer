@@ -16,9 +16,19 @@ class Api {
             throw e;
         }
     }
+    static async getAssetsWithoutMeta() {
+        try {
+            const response = await axios_1.default.get(Api.ASSETS_WITHOUT_META_URL);
+            return response.data.assets;
+        }
+        catch (e) {
+            throw e;
+        }
+    }
 }
 exports.default = Api;
 _a = Api;
 Api.API_ROUTE = 'http://localhost:8000/api/v1/';
 Api.PROCESSES_URL = _a.API_ROUTE + 'jwi/process/';
+Api.ASSETS_WITHOUT_META_URL = `${_a.API_ROUTE}jetski/assetsWithoutMeta/`;
 //# sourceMappingURL=API.js.map

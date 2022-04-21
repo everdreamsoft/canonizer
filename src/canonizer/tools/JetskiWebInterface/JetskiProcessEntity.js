@@ -11,9 +11,8 @@ class JetskiProcessEntity extends Entity_js_1.Entity {
         this.addReference(new Reference_1.Reference(sandra.get(JetskiProcessEntityFactory_1.JetskiProcessEntityFactory.PROCESS_TITLE), jetskiProcessData.processTitle));
         this.addReference(new Reference_1.Reference(sandra.get(JetskiProcessEntityFactory_1.JetskiProcessEntityFactory.LAST_START_TIME), jetskiProcessData.lastStartTime));
         this.addReference(new Reference_1.Reference(sandra.get(JetskiProcessEntityFactory_1.JetskiProcessEntityFactory.PROCESS_DESCRIPTION), jetskiProcessData.processDescription));
-        this.addReference(new Reference_1.Reference(sandra.get(JetskiProcessEntityFactory_1.JetskiProcessEntityFactory.JETSKI_NAME), jetskiProcessData.jetskiName));
+        this.addReference(new Reference_1.Reference(sandra.get(JetskiProcessEntityFactory_1.JetskiProcessEntityFactory.APP_NAME), jetskiProcessData.appName));
         this.addReference(new Reference_1.Reference(sandra.get(JetskiProcessEntityFactory_1.JetskiProcessEntityFactory.LAST_STOP_TIME), jetskiProcessData.lastStopTime));
-        this.addReference(new Reference_1.Reference(sandra.get(JetskiProcessEntityFactory_1.JetskiProcessEntityFactory.JETSKI_PATH), jetskiProcessData.jetskiPath));
         this.addReference(new Reference_1.Reference(sandra.get(JetskiProcessEntityFactory_1.JetskiProcessEntityFactory.STATUS), jetskiProcessData.status));
     }
     bindJetskiAddress(addressEntity) {

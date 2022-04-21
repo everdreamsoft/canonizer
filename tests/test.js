@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Contracts_1 = require("./Contracts");
+const Assets_1 = require("./Assets");
 startUnitTesting();
 function startUnitTesting() {
+    Assets_1.Assets.test().then(res => {
+    });
     // EntityTest.test();
     //
     // JetskiWebInterface.test().then(res => {
@@ -10,31 +12,10 @@ function startUnitTesting() {
     // }).catch(err => {
     //     console.log("Error testing JWI");
     // });
-    Contracts_1.Contracts.test().then(res => {
-        console.log("JWI test completed");
-    }).catch(err => {
-        console.log("Error testing JWI");
-    });
+    // Contracts.test().then(res => {
+    //     console.log("JWI test completed");
+    // }).catch(err => {
+    //     console.log("Error testing JWI");
+    // });
 }
-// Mocha and Chai testing framework examples
-/*
-import assert from "assert"
-import { expect } from 'chai';
-
-describe('Hello function', () => {
-    it('should return hello world', () => {
-        const result = "Hello World!";
-        expect(result).to.equal('Hello World!');
-    });
-});
-
-
-describe('Array', function () {
-    describe('#indexOf()', function () {
-        it('should return -1 when the value is not present', function () {
-            assert.equal([1, 2, 3].indexOf(4), -1);
-        });
-    });
-});
-*/
 //# sourceMappingURL=test.js.map

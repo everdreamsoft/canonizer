@@ -12,8 +12,7 @@ export class JetskiProcessEntityFactory extends EntityFactory {
     static readonly PROCESS_ID = 'processID';
     static readonly PROCESS_TITLE = 'processTitle';
     static readonly PROCESS_DESCRIPTION = 'processDescription';
-    static readonly JETSKI_NAME = 'jetskiName';
-    static readonly JETSKI_PATH = 'jetskiPath';
+    static readonly APP_NAME = 'appName';
     static readonly STATUS = 'status';
 
     static readonly LAST_START_TIME = 'lastStartTime';
@@ -24,11 +23,12 @@ export class JetskiProcessEntityFactory extends EntityFactory {
 
     // Brother Entities
     static readonly ON_BLOCKCHAIN = 'onBlockchain';
+
+    // TODO - This is not used for now (brother entity issue)
     static readonly HAS_STATUS = 'hasStatus';
 
     public constructor(sandra: SandraManager) {
         super(JetskiProcessEntityFactory.is_a, JetskiProcessEntityFactory.contained_in_file, sandra,sandra.get(JetskiProcessEntityFactory.ID));
-        //this.updateOnExistingRef = sandra.get(JetskiProcessEntityFactory.ID);
     }
 
     public getOrCreateJetskiProcess(jetskiProcessData: JetskiProcessInterface): JetskiProcessEntity {

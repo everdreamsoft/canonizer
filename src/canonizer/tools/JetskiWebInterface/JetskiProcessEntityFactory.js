@@ -6,7 +6,6 @@ const JetskiProcessEntity_1 = require("./JetskiProcessEntity");
 class JetskiProcessEntityFactory extends EntityFactory_js_1.EntityFactory {
     constructor(sandra) {
         super(JetskiProcessEntityFactory.is_a, JetskiProcessEntityFactory.contained_in_file, sandra, sandra.get(JetskiProcessEntityFactory.ID));
-        //this.updateOnExistingRef = sandra.get(JetskiProcessEntityFactory.ID);
     }
     getOrCreateJetskiProcess(jetskiProcessData) {
         let jetskiProcessObj = this.getEntitiesWithRefValue(JetskiProcessEntityFactory.ID, jetskiProcessData.id);
@@ -25,8 +24,7 @@ JetskiProcessEntityFactory.ID = 'jwiId';
 JetskiProcessEntityFactory.PROCESS_ID = 'processID';
 JetskiProcessEntityFactory.PROCESS_TITLE = 'processTitle';
 JetskiProcessEntityFactory.PROCESS_DESCRIPTION = 'processDescription';
-JetskiProcessEntityFactory.JETSKI_NAME = 'jetskiName';
-JetskiProcessEntityFactory.JETSKI_PATH = 'jetskiPath';
+JetskiProcessEntityFactory.APP_NAME = 'appName';
 JetskiProcessEntityFactory.STATUS = 'status';
 JetskiProcessEntityFactory.LAST_START_TIME = 'lastStartTime';
 JetskiProcessEntityFactory.LAST_STOP_TIME = 'lastStopTime';
@@ -34,5 +32,6 @@ JetskiProcessEntityFactory.LAST_STOP_TIME = 'lastStopTime';
 JetskiProcessEntityFactory.JOINED_ADDRESS = 'joinedAddress';
 // Brother Entities
 JetskiProcessEntityFactory.ON_BLOCKCHAIN = 'onBlockchain';
+// TODO - This is not used for now (brother entity issue)
 JetskiProcessEntityFactory.HAS_STATUS = 'hasStatus';
 //# sourceMappingURL=JetskiProcessEntityFactory.js.map

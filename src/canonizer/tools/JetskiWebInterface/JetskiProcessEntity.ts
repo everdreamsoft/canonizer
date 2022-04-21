@@ -10,10 +10,9 @@ export interface JetskiProcessInterface {
     processID: string,
     processTitle: string,
     processDescription: string,
-    jetskiName: string,
+    appName: string,
     lastStartTime: string,
     lastStopTime: string,
-    jetskiPath: string,
     status:string
 }
 
@@ -26,9 +25,8 @@ export class JetskiProcessEntity extends Entity {
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.PROCESS_TITLE), jetskiProcessData.processTitle));
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.LAST_START_TIME), jetskiProcessData.lastStartTime));
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.PROCESS_DESCRIPTION), jetskiProcessData.processDescription));
-        this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.JETSKI_NAME), jetskiProcessData.jetskiName));
+        this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.APP_NAME), jetskiProcessData.appName));
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.LAST_STOP_TIME), jetskiProcessData.lastStopTime));
-        this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.JETSKI_PATH), jetskiProcessData.jetskiPath));
         this.addReference(new Reference(sandra.get(JetskiProcessEntityFactory.STATUS), jetskiProcessData.status));
 
     }

@@ -29,7 +29,7 @@ async function updateJetskiProcess() {
         lastStartTime: "",
         processTitle: "",
         processDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor mauris quis consequat sodales. Donec id mi sit amet mauris sodales mollis ac vel neque. Praesent venenatis consectetur mollis. Aenean sed tincidunt mi. Nullam ut mauris vulputate, suscipit ante a, mattis lectus. Vivamus pretium vulputate lacus, in interdum orci pellentesque vel. Sed condimentum felis id felis tempor, quis gravida dolor aliquam. ",
-        jetskiName: "",
+        appName: "",
         lastStopTime: "",
         jetskiPath: "C:/JETSKIasdasd",
         id: "001"
@@ -58,7 +58,7 @@ async function addJetskiProcess() {
         lastStartTime: "",
         processTitle: "",
         processDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor mauris quis consequat sodales. Donec id mi sit amet mauris sodales mollis ac vel neque. Praesent venenatis consectetur mollis. Aenean sed tincidunt mi. Nullam ut mauris vulputate, suscipit ante a, mattis lectus. Vivamus pretium vulputate lacus, in interdum orci pellentesque vel. Sed condimentum felis id felis tempor, quis gravida dolor aliquam. ",
-        jetskiName: "",
+        appName: "",
         lastStopTime: "",
         jetskiPath: "C:/JETSKI",
         id: "1"
@@ -97,7 +97,7 @@ async function addJetskiProcessFullData() {
         lastStartTime: "12/12/2022 10:00",
         processTitle: "jetski_bsc",
         processDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor mauris quis consequat sodales. Donec id mi sit amet mauris sodales mollis ac vel neque. Praesent venenatis consectetur mollis. Aenean sed tincidunt mi. Nullam ut mauris vulputate, suscipit ante a, mattis lectus. Vivamus pretium vulputate lacus, in interdum orci pellentesque vel. Sed condimentum felis id felis tempor, quis gravida dolor aliquam. ",
-        jetskiName: "EVMJetski",
+        appName: "EVMJetski",
         lastStopTime: "16/12/2022 10:00",
         jetskiPath: "C:/sadsad",
         id: RunnableJetskis.EVM.toLowerCase() + "_" + "binance"

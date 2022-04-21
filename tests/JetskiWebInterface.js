@@ -25,33 +25,30 @@ class JetskiWebInterface {
         let processEntity = new JetskiProcessEntity_1.JetskiProcessEntity(processEntityFactory, sandra, {
             processID: "9999",
             processTitle: "Process1",
-            jetskiPath: "",
             processDescription: "test desc",
             lastStopTime: "12323",
             lastStartTime: "123456",
-            jetskiName: "jetski1",
+            appName: "jetski1",
             id: "1",
             status: "running"
         });
         let processEntity2 = new JetskiProcessEntity_1.JetskiProcessEntity(processEntityFactory, sandra, {
             processID: "2222",
             processTitle: "Process1 Updated",
-            jetskiPath: "",
             processDescription: "test desc updated",
             lastStopTime: "2222",
             lastStartTime: "2222",
-            jetskiName: "jetski1Updated",
+            appName: "jetski1Updated",
             id: "1",
             status: "running"
         });
         let processEntity3 = new JetskiProcessEntity_1.JetskiProcessEntity(processEntityFactory, sandra, {
             processID: "3333",
             processTitle: "Process2",
-            jetskiPath: "",
             processDescription: "test desc 2",
             lastStopTime: "12323",
             lastStartTime: "123456",
-            jetskiName: "jetski1",
+            appName: "jetski1",
             id: "2",
             status: "running"
         });
@@ -90,11 +87,10 @@ class JetskiWebInterface {
         let processEntity = new JetskiProcessEntity_1.JetskiProcessEntity(processEntityFactory, sandra, {
             processID: "9999",
             processTitle: "",
-            jetskiPath: "",
             processDescription: "EVM Jetski for binance chain",
             lastStopTime: Date.now().toString(),
             lastStartTime: Date.now().toString(),
-            jetskiName: "EVMJetski",
+            appName: "EVMJetski",
             id: "evmjetski_binance",
             status: "running"
         });
