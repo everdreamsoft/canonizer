@@ -24,8 +24,8 @@ async function updateJetskiProcess() {
         processDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor mauris quis consequat sodales. Donec id mi sit amet mauris sodales mollis ac vel neque. Praesent venenatis consectetur mollis. Aenean sed tincidunt mi. Nullam ut mauris vulputate, suscipit ante a, mattis lectus. Vivamus pretium vulputate lacus, in interdum orci pellentesque vel. Sed condimentum felis id felis tempor, quis gravida dolor aliquam. ",
         appName: "",
         lastStopTime: "",
-        jetskiPath: "C:/JETSKIasdasd",
-        id: "001"
+        id: "001",
+        status: 'stopped'
     });
     jetskiProcess.setBlockchain(blockchain);
     jetskiProcess.setStatus("");
@@ -44,8 +44,8 @@ async function addJetskiProcess() {
         processDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor mauris quis consequat sodales. Donec id mi sit amet mauris sodales mollis ac vel neque. Praesent venenatis consectetur mollis. Aenean sed tincidunt mi. Nullam ut mauris vulputate, suscipit ante a, mattis lectus. Vivamus pretium vulputate lacus, in interdum orci pellentesque vel. Sed condimentum felis id felis tempor, quis gravida dolor aliquam. ",
         appName: "",
         lastStopTime: "",
-        jetskiPath: "C:/JETSKI",
-        id: "1"
+        id: "1",
+        status: 'stopped'
     });
     jetskiProcess.setBlockchain(blockchain);
     jetskiProcess.setStatus("");
@@ -74,8 +74,8 @@ async function addJetskiProcessFullData() {
         processDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor mauris quis consequat sodales. Donec id mi sit amet mauris sodales mollis ac vel neque. Praesent venenatis consectetur mollis. Aenean sed tincidunt mi. Nullam ut mauris vulputate, suscipit ante a, mattis lectus. Vivamus pretium vulputate lacus, in interdum orci pellentesque vel. Sed condimentum felis id felis tempor, quis gravida dolor aliquam. ",
         appName: "EVMJetski",
         lastStopTime: "16/12/2022 10:00",
-        jetskiPath: "C:/sadsad",
-        id: CSCanonizeManager_js_1.RunnableJetskis.EVM.toLowerCase() + "_" + "binance"
+        id: canonizeManager.getProcessIdPrefix(CSCanonizeManager_js_1.ProcessName.EVM_JETSKI) + "_" + "binance",
+        status: 'stopped'
     });
     jetskiProcess.setBlockchain(blockchain);
     jetskiProcess.setStatus("running");

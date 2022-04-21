@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RunnableJetskis = exports.CompatibleBlockchains = exports.CSCanonizeManager = void 0;
+exports.ProcessName = exports.CompatibleBlockchains = exports.CSCanonizeManager = void 0;
 const SandraManager_js_1 = require("../SandraManager.js");
 const AssetCollectionFactory_js_1 = require("./AssetCollectionFactory.js");
 const AssetCollection_js_1 = require("./AssetCollection.js");
@@ -203,6 +203,9 @@ class CSCanonizeManager {
             return null;
         return standard;
     }
+    getProcessIdPrefix(processName) {
+        return processName.toLowerCase().replace(" ", "_");
+    }
 }
 exports.CSCanonizeManager = CSCanonizeManager;
 CSCanonizeManager.mintIssuerAddressString = '0x0000000000000000000000000000000000000000';
@@ -212,8 +215,10 @@ var CompatibleBlockchains;
     CompatibleBlockchains["binance"] = "binance";
     CompatibleBlockchains["ethereum"] = "ethereum";
 })(CompatibleBlockchains = exports.CompatibleBlockchains || (exports.CompatibleBlockchains = {}));
-var RunnableJetskis;
-(function (RunnableJetskis) {
-    RunnableJetskis["EVM"] = "EVMJetski";
-})(RunnableJetskis = exports.RunnableJetskis || (exports.RunnableJetskis = {}));
+var ProcessName;
+(function (ProcessName) {
+    ProcessName["EVM_JETSKI"] = "EVM Jetski";
+    ProcessName["TIMESTAMP_DAEMON"] = "Timestamp Daemon";
+    ProcessName["METADATA_DAEMON"] = "Metadata Daemon";
+})(ProcessName = exports.ProcessName || (exports.ProcessName = {}));
 //# sourceMappingURL=CSCanonizeManager.js.map

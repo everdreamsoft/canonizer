@@ -6,7 +6,6 @@ function startUnitTesting() {
     Assets_1.Assets.test().then(res => {
     });
     // EntityTest.test();
-    //
     // JetskiWebInterface.test().then(res => {
     //     console.log("JWI test completed");
     // }).catch(err => {

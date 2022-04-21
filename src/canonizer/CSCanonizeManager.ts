@@ -21,7 +21,6 @@ import {ChangeIssuerFactory} from "./ChangeIssuerFactory";
 
 import {BinanceBlockchain} from "./Binance/BinanceBlockchain";
 import {EthereumBlockchain} from "./Ethereum/EthereumBlockchain";
-import {JetskiProcessEntity} from "./tools/JetskiWebInterface/JetskiProcessEntity";
 import {BalanceFactory} from "./BalanceFactory";
 import {JetskiProcessEntityFactory} from "./tools/JetskiWebInterface/JetskiProcessEntityFactory";
 
@@ -180,12 +179,12 @@ export class CSCanonizeManager {
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
-    public async gossipJetskiProcess(factory:JetskiProcessEntityFactory, apiConnector?: ApiConnector) {
+    public async gossipJetskiProcess(factory: JetskiProcessEntityFactory, apiConnector?: ApiConnector) {
         const gossiper = new Gossiper(factory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
-     public async gossip(factory:EntityFactory, apiConnector?: ApiConnector) {
+    public async gossip(factory: EntityFactory, apiConnector?: ApiConnector) {
         const gossiper = new Gossiper(factory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
@@ -294,6 +293,9 @@ export class CSCanonizeManager {
         return standard;
     }
 
+    public getProcessIdPrefix(processName: ProcessName) {
+        return processName.toLowerCase().replace(" ", "_");
+    }
 
 }
 
@@ -303,6 +305,9 @@ export enum CompatibleBlockchains {
     ethereum = 'ethereum'
 }
 
-export enum RunnableJetskis {
-    EVM = "EVMJetski"
+export enum ProcessName {
+    EVM_JETSKI = "EVM Jetski",
+    TIMESTAMP_DAEMON = "Timestamp Daemon",
+    METADATA_DAEMON = "Metadata Daemon",
 }
+
