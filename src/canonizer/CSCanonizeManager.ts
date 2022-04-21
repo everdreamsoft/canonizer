@@ -293,7 +293,7 @@ export class CSCanonizeManager {
         return standard;
     }
 
-    public getProcessIdPrefix(processName: ProcessName) {
+    public getProcessIdPrefix(processName: string) {
         return processName.toLowerCase().replace(" ", "_");
     }
 
