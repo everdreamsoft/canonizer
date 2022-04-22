@@ -6,7 +6,7 @@ class EthereumBlockchain extends Blockchain_js_1.Blockchain {
     constructor(sandra) {
         super(sandra, 'ethereum');
         this.addressFactory.is_a = 'ethAddress';
-        this.addressFactory.contained_in_file = 'blockchainAddressFile';
+        this.addressFactory.contained_in_file = 'ethAddressFile';
         this.addressFactory.onBlockchain = this.name;
         this.contractFactory.is_a = 'ethContract';
         this.contractFactory.contained_in_file = 'blockchainContractFile';
