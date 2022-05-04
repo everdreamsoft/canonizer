@@ -5,7 +5,7 @@ const EntityFactory_js_1 = require("../EntityFactory.js");
 const BlockchainBlock_1 = require("./BlockchainBlock");
 class BlockchainBlockFactory extends EntityFactory_js_1.EntityFactory {
     constructor(chain, sandra) {
-        super(chain + "Bloc", 'blockchainBlocFile', sandra, sandra.get(BlockchainBlock_1.BlockchainBlock.INDEX_SHORTNAME));
+        super(chain + "Bloc", chain + 'BlocFile', sandra, sandra.get(BlockchainBlock_1.BlockchainBlock.INDEX_SHORTNAME));
     }
     getOrCreate(blockId, timestamp) {
         if (this.entityByRevValMap.has(this.sandraManager.get(BlockchainBlock_1.BlockchainBlock.INDEX_SHORTNAME))) {
