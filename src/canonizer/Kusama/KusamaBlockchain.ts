@@ -2,11 +2,12 @@ import {Blockchain} from "../Blockchain.js";
 import {SandraManager} from "../../SandraManager.js";
 import {EntityFactory} from "../../EntityFactory.js";
 import {BlockchainBlock} from "../BlockchainBlock.js";
+import {BlockchainBlockFactory} from "../BlockchainBlockFactory";
 
 
 export class KusamaBlockchain extends Blockchain
 {
-    
+
     public  name: string = 'kusama';
 
 
@@ -21,11 +22,12 @@ export class KusamaBlockchain extends Blockchain
         this.contractFactory.is_a = 'rmrkContract';
         this.contractFactory.contained_in_file = 'blockchainContractFile';
 
-        this.blockFactory = new EntityFactory(this.getName()+"Block","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
+        this.blockFactory = new BlockchainBlockFactory(sandra);
+        //new EntityFactory(this.getName()+"Block","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
 
 
 
 
     }
-    
+
 }

@@ -19,6 +19,7 @@ import {RmrkContractStandard} from "./Interfaces/RmrkContractStandard.js";
 import {ContractStandard} from "./ContractStandard.js";
 import {BlockchainEmoteFactory} from "./BlockchainEmoteFactory";
 import {ChangeIssuerFactory} from "./ChangeIssuerFactory";
+import {BlockchainBlockFactory} from "./BlockchainBlockFactory";
 
 
 interface CanonizeOptions{
@@ -219,6 +220,15 @@ export class CSCanonizeManager {
     {
         const gossiper = new Gossiper(blockchain.emoteFactory);
         return gossiper.gossipToUrl(this.getApiConnector(apiConnector));
+    }
+
+    public async gossipBlock(factory: BlockchainBlockFactory, apiConnector?: ApiConnector) {
+        const gossiper = new Gossiper(factory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
+    }
+    public async gossip(factory: EntityFactory, apiConnector?: ApiConnector) {
+        const gossiper = new Gossiper(factory);
+        return gossiper.gossipToUrl(this.getApiConnector(apiConnector))
     }
 
     private getApiConnector(apiConnector?:ApiConnector){

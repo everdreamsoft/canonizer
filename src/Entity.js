@@ -9,13 +9,21 @@ class Entity {
         this.referenceArray = [];
         this.brotherEntityMap = new Map();
         this.id = 0;
+        this.factory = factory;
         factory.sandraManager.registerNewEntity(this);
         this.subjectConcept = factory.sandraManager.get('entity:subject:' + this.id);
+        // In case updateOnExistingRef is set then entity must have reference.
+        if (factory.updateOnExistingRef.shortname != "null_concept" && ((references && references.length == 0) || !references)) {
+            throw new Error("Entity factory expects reference for updateOnExistingRef option -" + (factory.updateOnExistingRef.shortname) + ", no references provided");
+        }
         references.forEach(ref => {
             this.addReference(ref);
         });
-        factory.addEntity(this);
-        this.factory = factory;
+        if (factory.updateOnExistingRef.shortname != "null_concept") {
+            factory.addOrUpdateEntity(this, factory.updateOnExistingRef);
+        }
+        else
+            factory.addEntity(this);
     }
     addReference(ref) {
         this.referenceArray.push(ref);
@@ -57,7 +65,9 @@ class Entity {
             results.forEach(concept => {
                 //find corresponding entity
                 const entities = [...sandra.entityList.values()].filter((item) => item.subjectConcept === concept);
-                entities.forEach(foundEntity => { entityResult.push(foundEntity); });
+                entities.forEach(foundEntity => {
+                    entityResult.push(foundEntity);
+                });
             });
         }
         return entityResult;

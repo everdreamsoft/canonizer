@@ -5,14 +5,9 @@ import {Reference} from "../Reference";
 import {Blockchain} from "./Blockchain";
 import {BlockchainContract} from "./BlockchainContract";
 import {BlockchainAddress} from "./BlockchainAddress";
-import {BlockchainBlock} from "./BlockchainBlock";
-import {BlockchainToken} from "./BlockchainToken";
-import {BlockchainTokenFactory} from "./BlockchainTokenFactory";
 import {ContractStandard} from "./ContractStandard";
-import {BlockchainOrder} from "./BlockchainOrder";
 
-export class BlockchainEmote extends Entity
-{
+export class BlockchainEmote extends Entity {
 
     public eventType = "emoteEvent";
 
@@ -20,7 +15,7 @@ export class BlockchainEmote extends Entity
         factory: BlockchainEmoteFactory,
         sandra: SandraManager,
         blockchain: Blockchain,
-        source: string|BlockchainAddress,
+        source: string | BlockchainAddress,
         txId: string,
         blockId: number,
         timestamp: string,
@@ -31,14 +26,14 @@ export class BlockchainEmote extends Entity
         super(factory);
 
 
-        if(typeof source == "string"){
-            source =  blockchain.addressFactory.getOrCreate(source);
+        if (typeof source == "string") {
+            source = blockchain.addressFactory.getOrCreate(source);
         }
 
         // Create emoteId for updateOnExistingRef
         const contractId = contract.getRefValue(sandra.get("id"));
         const sn = token.getDisplayStructure();
-        const emoteId = source.getAddress() +"_"+ emote +"_"+ contractId +"-"+ sn;
+        const emoteId = source.getAddress() + "_" + emote + "_" + contractId + "-" + sn;
 
         // Add generic on refs data (tx, block etc)
         this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.EMOTE_ID), emoteId));
@@ -48,7 +43,7 @@ export class BlockchainEmote extends Entity
         // add emote
         this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.EMOTE_UNICODE), emote));
 
-        const blockchainBlock = new BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        const blockchainBlock = blockchain.blockFactory.getOrCreate(blockId).addOrUpdateTimestamp(timestamp, blockchain.getName());
 
         // Add generic data as triplet and entity
         this.joinEntity(BlockchainEmoteFactory.EMOTE_BLOCK, blockchainBlock, sandra);
@@ -65,17 +60,16 @@ export class BlockchainEmote extends Entity
     }
 
 
-    private static getRefArray(token: ContractStandard|null): Array<Reference>|[]
-    {
-        let refArray:Reference[] = [];
+    private static getRefArray(token: ContractStandard | null): Array<Reference> | [] {
+        let refArray: Reference[] = [];
 
-        if (token){
+        if (token) {
             //we need to get the tokenpath data and add it as reference on the event
             let specifierMap = token.getSpecifierArray()
 
             for (let specifier of specifierMap) {
                 // console.log(specifier[0]);
-                refArray.push(new Reference(specifier[0],specifier[1]));
+                refArray.push(new Reference(specifier[0], specifier[1]));
             }
 
         }

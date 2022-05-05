@@ -5,7 +5,6 @@ const Entity_1 = require("../Entity");
 const BlockchainEmoteFactory_1 = require("./BlockchainEmoteFactory");
 const Reference_1 = require("../Reference");
 const Blockchain_1 = require("./Blockchain");
-const BlockchainBlock_1 = require("./BlockchainBlock");
 class BlockchainEmote extends Entity_1.Entity {
     constructor(factory, sandra, blockchain, source, txId, blockId, timestamp, emote, token, contract) {
         super(factory);
@@ -23,7 +22,7 @@ class BlockchainEmote extends Entity_1.Entity {
         this.addReference(new Reference_1.Reference(sandra.get(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EVENT_BLOCK_TIME), timestamp));
         // add emote
         this.addReference(new Reference_1.Reference(sandra.get(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_UNICODE), emote));
-        const blockchainBlock = new BlockchainBlock_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        const blockchainBlock = blockchain.blockFactory.getOrCreate(blockId).addOrUpdateTimestamp(timestamp, blockchain.getName());
         // Add generic data as triplet and entity
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEmoteFactory_1.BlockchainEmoteFactory.ON_BLOCKCHAIN, blockchain.getName(), sandra);

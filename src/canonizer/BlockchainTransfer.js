@@ -4,7 +4,6 @@ exports.BlockchainTransfer = void 0;
 const BlockchainEventFactory_js_1 = require("./BlockchainEventFactory.js");
 const Reference_js_1 = require("../Reference.js");
 const Blockchain_js_1 = require("./Blockchain.js");
-const BlockchainBlock_js_1 = require("./BlockchainBlock.js");
 const BlockchainEvent_js_1 = require("./BlockchainEvent.js");
 class BlockchainTransfer extends BlockchainEvent_js_1.BlockchainEvent {
     constructor(factory, source, destination, contract, txid, timestamp, quantity, blockchain, blockId, token, sandra) {
@@ -26,7 +25,7 @@ class BlockchainTransfer extends BlockchainEvent_js_1.BlockchainEvent {
         this.joinEntity(BlockchainEvent_js_1.BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(BlockchainEvent_js_1.BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra);
         //create the block
-        let blockchainBlock = new BlockchainBlock_js_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        const blockchainBlock = blockchain.blockFactory.getOrCreate(blockId).addOrUpdateTimestamp(timestamp, blockchain.getName());
         this.joinEntity(BlockchainEvent_js_1.BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEvent_js_1.BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
         let refArray = [];
