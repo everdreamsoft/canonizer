@@ -6,54 +6,37 @@ import {ApiConnector, Gossiper} from "../../../Gossiper";
 
 export class CanonizerJetski {
 
-    private manager:CSCanonizeManager ;
-    private jetskiFactory:JetskiEntityFactory ;
-    private instanceCode:string ;
+    private manager: CSCanonizeManager;
+    private jetskiFactory: JetskiEntityFactory;
+    private instanceCode: string;
 
-
-
-    public constructor(manager:CSCanonizeManager, instanceCode: string) {
-
-        this.manager = manager ;
+    public constructor(manager: CSCanonizeManager, instanceCode: string) {
+        this.manager = manager;
         this.jetskiFactory = new JetskiEntityFactory(manager.getSandra());
         this.instanceCode = instanceCode;
-
-
     }
 
-
-    public getJetskifacory()
-    {
+    public getJetskifacory() {
         return this.jetskiFactory;
     }
 
-
-    public async gossipLatestBlock(apiConnector?:ApiConnector)
-    {
+    public async gossipLatestBlock(apiConnector?: ApiConnector) {
         let gossiper = new Gossiper(this.jetskiFactory);
         return gossiper.gossipToUrl(this.manager.getApiConnector(apiConnector));
     }
 
-    public notifyRun(block:BlockchainBlock,blockchain:Blockchain){
-
-        let latestJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory.LATEST_JETSKI+blockchain.getName(), block, this.instanceCode);
-        let currentJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory.LATEST_JETSKI+blockchain.getName(), block, this.instanceCode);
-
+    public notifyRun(block: BlockchainBlock, blockchain: Blockchain) {
+        let latestJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory.LATEST_JETSKI + blockchain.getName(), block, this.instanceCode,this.manager.getSandra());
+        let currentJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory.LATEST_JETSKI + blockchain.getName(), block, this.instanceCode, this.manager.getSandra());
     }
 
-    private static buildInstanceCode():string{
-
-        return (Date.now() / 1000).toString() ;
-
+    private static buildInstanceCode(): string {
+        return (Date.now() / 1000).toString();
     }
 
-
-    public clearInstance()
-    {
+    public clearInstance() {
         this.instanceCode = "no_instance";
     }
-
-
 
 }
 

@@ -91,7 +91,6 @@ export class CSCanonizeManager {
         return this.tokenFactory;
     }
 
-
     public getAssetCollectionFactory(): AssetCollectionFactory {
         return this.assetCollectionFactory;
     }
@@ -215,7 +214,6 @@ export class CSCanonizeManager {
     }
 
     public getBlockchainByName(name: CompatibleBlockchains) {
-
     }
 
     public getOrInitBlockchain(name: CompatibleBlockchains): Blockchain {
@@ -242,14 +240,12 @@ export class CSCanonizeManager {
 
     private registerCompatibleStandards() {
         const standard = new RmrkContractStandard(this);
-        this.contractStandardMap.set(standard.getName(), standard);
+        if (this.contractStandardMap) this.contractStandardMap.set(standard.getName(), standard);
         return this.contractStandardMap;
     }
 
     public getStandardFromName(name: string) {
-        const standard = this.contractStandardMap.get(name);
-        if (!standard) return null;
-        return standard;
+        return (this.contractStandardMap) ? this.contractStandardMap.get(name) : null;
     }
 
 }

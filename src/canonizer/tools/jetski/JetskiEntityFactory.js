@@ -5,8 +5,7 @@ const EntityFactory_js_1 = require("../../../EntityFactory.js");
 const JetskiEntity_js_1 = require("./JetskiEntity.js");
 class JetskiEntityFactory extends EntityFactory_js_1.EntityFactory {
     constructor(sandra) {
-        super('jetskiRun', 'jetskiRunFile', sandra);
-        this.updateOnExistingRef = sandra.get(JetskiEntityFactory.JETSKI_INSTANCE);
+        super('jetskiRun', 'jetskiRunFile', sandra, sandra.get(JetskiEntityFactory.JETSKI_INSTANCE));
     }
     getOrCreateJetskiInstance(name, block, instance, sandra) {
         let jetski = this.getEntitiesWithRefValue(JetskiEntityFactory.JETSKI_INSTANCE, JetskiEntityFactory.LATEST_JETSKI + name);

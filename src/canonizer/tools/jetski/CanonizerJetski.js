@@ -17,8 +17,8 @@ class CanonizerJetski {
         return gossiper.gossipToUrl(this.manager.getApiConnector(apiConnector));
     }
     notifyRun(block, blockchain) {
-        let latestJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory_js_1.JetskiEntityFactory.LATEST_JETSKI + blockchain.getName(), block, this.instanceCode);
-        let currentJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory_js_1.JetskiEntityFactory.LATEST_JETSKI + blockchain.getName(), block, this.instanceCode);
+        let latestJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory_js_1.JetskiEntityFactory.LATEST_JETSKI + blockchain.getName(), block, this.instanceCode, this.manager.getSandra());
+        let currentJetski = this.jetskiFactory.getOrCreateJetskiInstance(JetskiEntityFactory_js_1.JetskiEntityFactory.LATEST_JETSKI + blockchain.getName(), block, this.instanceCode, this.manager.getSandra());
     }
     static buildInstanceCode() {
         return (Date.now() / 1000).toString();

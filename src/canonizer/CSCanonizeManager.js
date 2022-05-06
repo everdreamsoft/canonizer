@@ -159,14 +159,12 @@ class CSCanonizeManager {
     }
     registerCompatibleStandards() {
         const standard = new RmrkContractStandard_js_1.RmrkContractStandard(this);
-        this.contractStandardMap.set(standard.getName(), standard);
+        if (this.contractStandardMap)
+            this.contractStandardMap.set(standard.getName(), standard);
         return this.contractStandardMap;
     }
     getStandardFromName(name) {
-        const standard = this.contractStandardMap.get(name);
-        if (!standard)
-            return null;
-        return standard;
+        return (this.contractStandardMap) ? this.contractStandardMap.get(name) : null;
     }
 }
 exports.CSCanonizeManager = CSCanonizeManager;

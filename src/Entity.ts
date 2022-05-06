@@ -9,6 +9,7 @@ export class Entity {
 
     public subjectConcept: Concept;
     public id: number;
+
     // TODO make private and make getters
     public referenceArray: Reference[] = [];
     public factory: EntityFactory;
@@ -65,7 +66,6 @@ export class Entity {
     public createOrUpdateRef(concept: any, value: string): Reference {
 
         const foundConcept = this.factory.sandraManager.somethingToConcept(concept);
-
         let ref = this.referenceArray.find(ref => ref.concept == foundConcept);
 
         if (ref === undefined) {
@@ -111,6 +111,5 @@ export class Entity {
         return entityResult;
 
     }
-
 
 }
