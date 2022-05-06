@@ -24,11 +24,8 @@ class CsCannonApiManager {
     }
     async getCollections() {
         let response = await this.apiCall('collections?sortBy=creationTimestamp&orderBy=desc');
-        //console.log(response)
         let collections = [];
-        let toremove = 2;
         response.data.forEach((collection) => {
-            console.log(collection.id);
             if (collection.name != undefined && collection.id != '46C7F6523465F3681D-CHUNG') { //should be curator
                 // @ts-ignore
                 if (collection.image != undefined) {
@@ -52,7 +49,6 @@ class CsCannonApiManager {
                 // balanceItem.addReference(new Reference(this.canonize.getSandra().get("assetName"), orb.asset.id));
             });
         });
-        console.log(response);
         return balance;
     }
     async getCollectionAssets(collectionId) {
@@ -103,7 +99,6 @@ class CsCannonApiManager {
                     standard === null || standard === void 0 ? void 0 : standard.setSpecifierValue(this.canonize.getSandra().get(propKey), propVal);
                 }
             }
-            ;
             let canonize = this.canonize;
             const contract = new BlockchainContract_js_1.BlockchainContract(blockchainContractFactory, contractId, canonize.getSandra(), standard);
             const event = new BlockchainEvent_js_1.BlockchainEvent(eventFactory, eventData.source, eventData.destination, contract, eventData.txId, eventData.timestamp, eventData.quantity, blockchain, eventData.blockHeight, standard, this.canonize.getSandra());

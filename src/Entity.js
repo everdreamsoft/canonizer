@@ -16,10 +16,16 @@ class Entity {
         if (factory.updateOnExistingRef.shortname != "null_concept" && ((references && references.length == 0) || !references)) {
             throw new Error("Entity factory expects reference for updateOnExistingRef option -" + (factory.updateOnExistingRef.shortname) + ", no references provided");
         }
+        let providedUpdateRef = false;
         references.forEach(ref => {
+            if (factory.updateOnExistingRef.shortname == ref.concept.shortname) {
+                providedUpdateRef = true;
+            }
             this.addReference(ref);
         });
         if (factory.updateOnExistingRef.shortname != "null_concept") {
+            if (!providedUpdateRef)
+                throw new Error("Entity factory expects reference for updateOnExistingRef option -" + (factory.updateOnExistingRef.shortname) + ", no references provided");
             factory.addOrUpdateEntity(this, factory.updateOnExistingRef);
         }
         else

@@ -38,7 +38,7 @@ class CSCanonizeManager {
         let assetSolver = solver ? solver : this.localSolver;
         let collection = new AssetCollection_js_1.AssetCollection(this.assetCollectionFactory, collectionInterface, this.sandra);
         collection.joinEntity(AssetSolverFactory_js_1.AssetSolverFactory.COLLECTION_JOIN_VERB, assetSolver, this.sandra);
-        return new AssetCollection_js_1.AssetCollection(this.assetCollectionFactory, collectionInterface, this.sandra);
+        return collection;
     }
     createAsset(assetInterface) {
         return new Asset_js_1.Asset(this.assetFactory, assetInterface, this.sandra);
@@ -158,7 +158,6 @@ class CSCanonizeManager {
         throw new Error("Blockchain not found" + name);
     }
     registerCompatibleStandards() {
-        // add compatible standards here
         const standard = new RmrkContractStandard_js_1.RmrkContractStandard(this);
         this.contractStandardMap.set(standard.getName(), standard);
         return this.contractStandardMap;

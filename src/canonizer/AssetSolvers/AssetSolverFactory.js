@@ -9,7 +9,6 @@ class AssetSolverFactory extends EntityFactory_js_1.EntityFactory {
         this.contained_in_file = 'assetSolverFile';
         this.id = 'identifier';
         this.updateOnExistingRef = manager.getSandra().get(this.id);
-        let factory = manager.getAssetSolverFactory();
     }
 }
 exports.AssetSolverFactory = AssetSolverFactory;

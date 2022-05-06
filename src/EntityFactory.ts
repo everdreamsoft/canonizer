@@ -2,13 +2,11 @@ import {Concept} from "./Concept.js";
 import {SandraManager} from "./SandraManager.js";
 import {Entity} from "./Entity";
 import {Gossiper} from "./Gossiper.js";
-import {BlockchainAddress} from "./canonizer/BlockchainAddress";
 
 interface JoinedFactory {
     entityFactory: EntityFactory;
     onVerb: string
     createOnRef: Concept
-
 }
 
 export class EntityFactory {
@@ -74,6 +72,7 @@ export class EntityFactory {
         const updateOn = onRefConcept ? onRefConcept : this.updateOnExistingRef;
 
         let entityOnFactoryConstraint = this.entityArray.find(element => element.getRefValue(updateOn) == entity.getRefValue(updateOn))
+
         if (entityOnFactoryConstraint !== undefined && onRefConcept && onRefConcept != this.updateOnExistingRef) {
             //user want to update entity but the constraint provided violate factory constraint
             throw new Error("Factory integrity constraint violation entity exist with "
@@ -142,21 +141,15 @@ export class EntityFactory {
     public listenFromRemote(gossiper: Gossiper) {
     }
 
-    public getAllWith(referenceName:string, referenceValue:string):Entity[]
-    {
-        if(!referenceName)
-        {
+    public getAllWith(referenceName: string, referenceValue: string): Entity[] {
+        if (!referenceName) {
             throw new Error("Reference name not provided")
         }
-
         let referenceConcept = this.sandraManager.somethingToConcept(referenceName);
-
         let array = this.entityArray.filter(entity => {
             return entity.getRefValue(referenceConcept) == referenceValue
         })
-
         return array;
-
     }
 
 }

@@ -19,7 +19,6 @@ export class BlockchainEvent extends Entity {
     public static EVENT_BLOCK = 'onBlock';
     public static BLOCKCHAIN_EVENT_TYPE_VERB = "blockchainEventType";
 
-
     constructor(factory: BlockchainEventFactory,
                 source: BlockchainAddress | string,
                 destination: BlockchainAddress | string,
@@ -33,11 +32,7 @@ export class BlockchainEvent extends Entity {
                 sandra: SandraManager,
     ) {
 
-
-        super(factory);
-
-        this.addReference(new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txid));
-
+        super(factory, [new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txid)]);
 
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source)
@@ -51,19 +46,15 @@ export class BlockchainEvent extends Entity {
 
         this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
 
-
         this.addReference(new Reference(sandra.get(BlockchainEvent.EVENT_BLOCK_TIME), timestamp));
         this.addReference(new Reference(sandra.get(BlockchainEvent.QUANTITY), quantity));
 
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra)
         this.joinEntity(BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra)
 
-
-        //create the block
         const blockchainBlock = blockchain.blockFactory.getOrCreate(blockId).addOrUpdateTimestamp(timestamp, blockchain.getName());
 
         this.joinEntity(BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra)
-
         this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
 
         let refArray: Reference[] = [];
@@ -71,20 +62,14 @@ export class BlockchainEvent extends Entity {
         if (token) {
             //we need to get the tokenpath data and add it as reference on the event
             let specifierMap = token.getSpecifierArray()
-
             for (let specifier of specifierMap) {
-                console.log(specifier[0]);
                 refArray.push(new Reference(specifier[0], specifier[1]));
             }
-
-
         }
 
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_CONTRACT, contract, sandra, refArray)
 
-
     }
-
 
 }
 

@@ -6,9 +6,7 @@ const AssetFactory_js_1 = require("./AssetFactory.js");
 const Reference_js_1 = require("../Reference.js");
 class Asset extends Entity_js_1.Entity {
     constructor(factory, assetInterface, sandra) {
-        super(factory);
-        this.sandra = sandra;
-        this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.ID), assetInterface.assetId));
+        super(factory, [new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.ID), assetInterface.assetId)]);
         assetInterface.imageUrl ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.imageUrl), assetInterface.imageUrl)) : null;
         assetInterface.metadataUrl ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.metaDataUrl), assetInterface.metadataUrl)) : null;
         assetInterface.description ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.description), assetInterface.description)) : null;
@@ -16,18 +14,16 @@ class Asset extends Entity_js_1.Entity {
         assetInterface.emote ? this.addReference(new Reference_js_1.Reference(sandra.get(AssetFactory_js_1.AssetFactory.ASSET_EMOTE + assetInterface.emote), assetInterface.emote)) : null;
     }
     bindContract(contract) {
-        this.joinEntity(AssetFactory_js_1.AssetFactory.tokenJoinVerb, contract, this.sandra, [new Reference_js_1.Reference(this.sandra.get('sn'), 'canonizer')]);
+        this.joinEntity(AssetFactory_js_1.AssetFactory.tokenJoinVerb, contract, this.factory.sandraManager, [new Reference_js_1.Reference(this.factory.sandraManager.get('sn'), 'canonizer')]);
     }
     getJoinedContracts() {
-        // @ts-ignore
         return this.getJoinedEntitiesOnVerb(AssetFactory_js_1.AssetFactory.tokenJoinVerb);
     }
     getJoinedCollections() {
-        // @ts-ignore
         return this.getJoinedEntitiesOnVerb(AssetFactory_js_1.AssetFactory.collectionJoinVerb);
     }
     bindCollection(assetCollection) {
-        this.joinEntity(AssetFactory_js_1.AssetFactory.collectionJoinVerb, assetCollection, this.sandra);
+        this.joinEntity(AssetFactory_js_1.AssetFactory.collectionJoinVerb, assetCollection, this.factory.sandraManager);
     }
     getImageUrl() {
         return this.getRefValue(AssetFactory_js_1.AssetFactory.imageUrl);

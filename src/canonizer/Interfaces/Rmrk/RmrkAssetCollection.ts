@@ -4,22 +4,22 @@ import {SandraManager} from "../../../SandraManager";
 import {Reference} from "../../../Reference";
 import {CSCanonizeManager} from "../../CSCanonizeManager";
 
-export class RmrkAssetCollection extends AssetCollection{
+export class RmrkAssetCollection extends AssetCollection {
 
-    public MAX_SUPPLY:string = 'maxSupply';
-    public CREATION_BLOCK:string = 'creationBlock';
+    public MAX_SUPPLY: string = 'maxSupply';
+    public CREATION_BLOCK: string = 'creationBlock';
 
-    public constructor(factory: AssetCollectionFactory, collectionInterface:AssetCollectionInterface, sandra: SandraManager,maxSupply:Number,creationBlock:Number) {
-        super(factory,collectionInterface, sandra);
+    public constructor(factory: AssetCollectionFactory, collectionInterface: AssetCollectionInterface, sandra: SandraManager, maxSupply: Number, creationBlock: Number) {
+        super(factory, collectionInterface, sandra);
 
         this.addReference(new Reference(sandra.get(this.MAX_SUPPLY), maxSupply.toString()));
         this.addReference(new Reference(sandra.get(this.CREATION_BLOCK), creationBlock.toString()));
 
     }
 
-    public static createRmrkCollection(canonizeManager:CSCanonizeManager,collectionInterface:AssetCollectionInterface,maxSupply:Number,creationBlock:Number){
+    public static createRmrkCollection(canonizeManager: CSCanonizeManager, collectionInterface: AssetCollectionInterface, maxSupply: Number, creationBlock: Number) {
 
-        return new RmrkAssetCollection(canonizeManager.getAssetCollectionFactory(), collectionInterface, canonizeManager.getSandra(), maxSupply,creationBlock) ;
+        return new RmrkAssetCollection(canonizeManager.getAssetCollectionFactory(), collectionInterface, canonizeManager.getSandra(), maxSupply, creationBlock);
     }
 
 }

@@ -5,25 +5,18 @@ const EntityFactory_js_1 = require("../EntityFactory.js");
 const BlockchainContract_js_1 = require("./BlockchainContract.js");
 class BlockchainContractFactory extends EntityFactory_js_1.EntityFactory {
     constructor(sandra) {
-        super('blockchainContract', 'blockchainContractFile', sandra);
+        super('blockchainContract', 'blockchainContractFile', sandra, sandra.get(BlockchainContractFactory.ID));
         this.contained_in_file = 'blockchainContractFile';
-        this.sandra = sandra;
-        this.updateOnExistingRef = sandra.get('id');
     }
     getOrCreate(id) {
-        if (this.entityByRevValMap.has(this.sandra.get('id'))) {
-            let addressRefMap = this.entityByRevValMap.get(this.sandra.get('id'));
-            if (addressRefMap && addressRefMap.has(id)) {
-                //address exists in factory
-                // @ts-ignore
-                return addressRefMap.get(id);
-            }
-        }
-        return new BlockchainContract_js_1.BlockchainContract(this, id, this.sandra);
+        const contracts = this.getEntitiesWithRefValue(this.sandraManager.get(BlockchainContractFactory.ID), id);
+        return contracts && (contracts === null || contracts === void 0 ? void 0 : contracts.length) > 0 ? contracts[0] : new BlockchainContract_js_1.BlockchainContract(this, id, this.sandraManager);
     }
 }
 exports.BlockchainContractFactory = BlockchainContractFactory;
+BlockchainContractFactory.ID = 'id';
 BlockchainContractFactory.JOIN_COLLECTION = 'inCollection';
 BlockchainContractFactory.EXPLICIT_TOKEN_LISTING_SHORTNAME = 'explicitListing';
 BlockchainContractFactory.CONTRACT_STANDARD = 'contractStandard';
+BlockchainContractFactory.ON_BLOCKCHAIN_VERB = 'onBlockchain';
 //# sourceMappingURL=BlockchainContractFactory.js.map

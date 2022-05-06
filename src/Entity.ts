@@ -14,7 +14,7 @@ export class Entity {
     public factory: EntityFactory;
     public brotherEntityMap: Map<Concept, Map<Concept, Entity[]>> = new Map<Concept, Map<Concept, Entity[]>>();
 
-    public constructor(factory: EntityFactory, references: Array<Reference> =[]) {
+    public constructor(factory: EntityFactory, references: Array<Reference> = []) {
 
         this.id = 0;
         this.factory = factory;
@@ -26,12 +26,22 @@ export class Entity {
             throw new Error("Entity factory expects reference for updateOnExistingRef option -" + (factory.updateOnExistingRef.shortname) + ", no references provided");
         }
 
+        let providedUpdateRef = false;
+
         references.forEach(ref => {
+            if (factory.updateOnExistingRef.shortname == ref.concept.shortname) {
+                providedUpdateRef = true;
+            }
             this.addReference(ref);
         })
 
         if (factory.updateOnExistingRef.shortname != "null_concept") {
+
+            if (!providedUpdateRef)
+                throw new Error("Entity factory expects reference for updateOnExistingRef option -" + (factory.updateOnExistingRef.shortname) + ", no references provided");
+
             factory.addOrUpdateEntity(this, factory.updateOnExistingRef);
+
         } else
             factory.addEntity(this);
 
@@ -68,7 +78,6 @@ export class Entity {
 
         return <Reference>ref;
     }
-
 
     public joinEntity(verb: string, entity: Entity, sandraManager: SandraManager, refArray?: Reference[]) {
         this.subjectConcept.setTriplet(sandraManager.get(verb), entity.subjectConcept, false, refArray);

@@ -26,17 +26,14 @@ export class Blockchain {
         this.addressFactory = new BlockchainAddressFactory(sandra);
         this.contractFactory = new BlockchainContractFactory(sandra);
         this.eventFactory = new BlockchainEventFactory(this, sandra);
-        this.blockFactory = new BlockchainBlockFactory(sandra);//new EntityFactory(this.getName()+"Block","blockchainBlocFile",sandra,sandra.get(BlockchainBlock.INDEX_SHORTNAME));
+        this.blockFactory = new BlockchainBlockFactory(sandra);
         this.emoteFactory = new BlockchainEmoteFactory(sandra);
         this.orderFactory = new BlockchainOrderFactory(sandra);
         this.changeIssuerFactory = new ChangeIssuerFactory(sandra);
     }
 
     public getName() {
-
         return this.name;
-
     }
-
 
 }

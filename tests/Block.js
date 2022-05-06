@@ -9,8 +9,8 @@ class Block {
     constructor() {
     }
     static async test() {
-        // await Block.testBlockObjects();
-        await Block.testBlockGossips();
+        await Block.testBlockObjects();
+        //await Block.testBlockGossips();
     }
     static async testBlockObjects() {
         let sandra = new SandraManager_1.SandraManager();
@@ -61,8 +61,6 @@ class Block {
         console.log(res);
         describe("Block Gossip Test", () => {
             test('Factory Entity ', async () => {
-                // Gossip
-                console.log(blockFactory.updateOnExistingRef);
                 let res = await CanonManager_1.CanonManager.getInstance().getCSCanonizeManager()
                     .gossip(blockFactory);
                 console.log(res);

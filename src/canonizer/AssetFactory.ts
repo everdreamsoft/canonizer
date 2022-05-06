@@ -2,8 +2,7 @@ import {EntityFactory} from "../EntityFactory.js";
 import {SandraManager} from "../SandraManager.js";
 
 
-export class AssetFactory extends EntityFactory
-{
+export class AssetFactory extends EntityFactory {
 
     public is_a: string = 'blockchainizableAsset';
     public contained_in_file: string = 'blockchainizableAssets';
@@ -18,11 +17,7 @@ export class AssetFactory extends EntityFactory
     public static ASSET_EMOTE = 'emote_'; // add unicode of emote
 
     public constructor(sandra: SandraManager) {
-        super('blockchainAsset', 'blockchainAssetFile', sandra);
-
-        this.updateOnExistingRef  = sandra.get(AssetFactory.ID);
+        super('blockchainAsset', 'blockchainAssetFile', sandra, sandra.get(AssetFactory.ID));
     }
-
-
 
 }

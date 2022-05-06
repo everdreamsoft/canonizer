@@ -31,12 +31,12 @@ export class BlockchainTransfer extends BlockchainEvent {
                        sandra: SandraManager,
     ) {
 
-
         if (factory == null)
             factory = new BlockchainEventFactory(blockchain, sandra)
 
         let txidRef = new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txid);
 
+        // TODO - Probably incomplete implementation
         super(factory, [txidRef]);
 
         if (typeof source == "string") {
@@ -49,13 +49,11 @@ export class BlockchainTransfer extends BlockchainEvent {
             contract = blockchain.contractFactory.getOrCreate(contract)
         }
 
-
         this.addReference(new Reference(sandra.get(BlockchainEvent.EVENT_BLOCK_TIME), timestamp));
         this.addReference(new Reference(sandra.get(BlockchainEvent.QUANTITY), quantity));
 
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra)
         this.joinEntity(BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra)
-
 
         //create the block
         const blockchainBlock = blockchain.blockFactory.getOrCreate(blockId).addOrUpdateTimestamp(timestamp, blockchain.getName());
@@ -74,15 +72,11 @@ export class BlockchainTransfer extends BlockchainEvent {
                 console.log(specifier[0]);
                 refArray.push(new Reference(specifier[0], specifier[1]));
             }
-
-
         }
 
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_CONTRACT, contract, sandra, refArray)
 
-
     }
-
 
 }
 

@@ -15,7 +15,6 @@ class BlockchainToken extends Entity_js_1.Entity {
         this.joinEntity(contract.subjectConcept.shortname, asset, this.factory.sandraManager);
         //we need to specify for that contract that asset are bound not only on the contract but with explicit tokenpath
         contract.addReference(new Reference_js_1.Reference(sandra.get(BlockchainContractFactory_js_1.BlockchainContractFactory.EXPLICIT_TOKEN_LISTING_SHORTNAME), '1'));
-        //this.setTriplet(contract.subjectConcept.shortname, tokenPath, this.sandra);
     }
 }
 exports.BlockchainToken = BlockchainToken;

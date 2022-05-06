@@ -23,22 +23,21 @@ export class BlockchainEmote extends Entity {
         token: ContractStandard,
         contract: BlockchainContract
     ) {
-        super(factory);
 
+        super(factory, [new Reference(sandra.get(BlockchainEmoteFactory.EVENT_BLOCK_TIME), timestamp)]);
 
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source);
         }
 
         // Create emoteId for updateOnExistingRef
-        const contractId = contract.getRefValue(sandra.get("id"));
+        const contractId = contract.getRefValue(sandra.get(BlockchainEmoteFactory.CONTRACT_ID));
         const sn = token.getDisplayStructure();
         const emoteId = source.getAddress() + "_" + emote + "_" + contractId + "-" + sn;
 
         // Add generic on refs data (tx, block etc)
         this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.EMOTE_ID), emoteId));
         this.addReference(new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txId));
-        this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.EVENT_BLOCK_TIME), timestamp));
 
         // add emote
         this.addReference(new Reference(sandra.get(BlockchainEmoteFactory.EMOTE_UNICODE), emote));
@@ -62,18 +61,14 @@ export class BlockchainEmote extends Entity {
 
     private static getRefArray(token: ContractStandard | null): Array<Reference> | [] {
         let refArray: Reference[] = [];
-
         if (token) {
             //we need to get the tokenpath data and add it as reference on the event
             let specifierMap = token.getSpecifierArray()
-
             for (let specifier of specifierMap) {
                 // console.log(specifier[0]);
                 refArray.push(new Reference(specifier[0], specifier[1]));
             }
-
         }
-
         return refArray;
     }
 

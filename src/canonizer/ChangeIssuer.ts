@@ -6,11 +6,9 @@ import {Reference} from "../Reference";
 import {SandraManager} from "../SandraManager";
 import {BlockchainEvent} from "./BlockchainEvent";
 
-
 export class ChangeIssuer extends Entity {
 
     public eventType: string = "changeIssuer";
-
 
     public constructor(
         factory: ChangeIssuerFactory,
@@ -23,7 +21,8 @@ export class ChangeIssuer extends Entity {
         blockchain: Blockchain,
         sandra: SandraManager
     ) {
-        super(factory);
+
+        super(factory, [new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txId)]);
 
         this.addReference(new Reference(sandra.get(ChangeIssuerFactory.COLLECTION_ID), collectionId));
         this.addReference(new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txId));
@@ -44,7 +43,6 @@ export class ChangeIssuer extends Entity {
         const blockchainBlock = blockchain.blockFactory.getOrCreate(blockId).addOrUpdateTimestamp(timestamp, blockchain.getName());
 
         this.joinEntity(ChangeIssuerFactory.EVENT_BLOCK, blockchainBlock, sandra);
-
         this.joinEntity(ChangeIssuerFactory.EVENT_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(ChangeIssuerFactory.NEW_ISSUER, newIssuer, sandra);
 

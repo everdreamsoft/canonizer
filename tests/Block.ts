@@ -9,8 +9,8 @@ export class Block {
     }
 
     public static async test() {
-        // await Block.testBlockObjects();
-        await Block.testBlockGossips();
+        await Block.testBlockObjects();
+        //await Block.testBlockGossips();
     }
 
     private static async testBlockObjects() {
@@ -81,9 +81,6 @@ export class Block {
         describe("Block Gossip Test", () => {
 
             test('Factory Entity ', async () => {
-                // Gossip
-
-                console.log(blockFactory.updateOnExistingRef);
 
                 let res = await CanonManager.getInstance().getCSCanonizeManager()
                     .gossip(blockFactory);

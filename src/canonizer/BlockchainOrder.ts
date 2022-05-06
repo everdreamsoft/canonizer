@@ -10,9 +10,7 @@ import {BlockchainOrderFactory} from "./BlockchainOrderFactory";
 
 export class BlockchainOrder extends Entity {
 
-
     public eventType: string = 'order';
-
 
     public constructor(factory: BlockchainOrderFactory,
                        source: BlockchainAddress | string,
@@ -31,10 +29,7 @@ export class BlockchainOrder extends Entity {
                        buyDestination: BlockchainAddress | string = ""
     ) {
 
-        super(factory);
-
-        this.addReference(new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txid));
-
+        super(factory,[new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME),txid)]);
 
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source)
@@ -78,24 +73,18 @@ export class BlockchainOrder extends Entity {
 
     }
 
-
     private static getRefArray(token: ContractStandard | null): Array<Reference> | [] {
         let refArray: Reference[] = [];
-
         if (token) {
             //we need to get the tokenpath data and add it as reference on the event
             let specifierMap = token.getSpecifierArray()
-
             for (let specifier of specifierMap) {
                 // console.log(specifier[0]);
                 refArray.push(new Reference(specifier[0], specifier[1]));
             }
-
         }
-
         return refArray;
     }
-
 
 }
 

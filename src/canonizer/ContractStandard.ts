@@ -4,44 +4,31 @@ import {BlockchainToken} from "./BlockchainToken.js";
 import {CSCanonizeManager} from "./CSCanonizeManager.js";
 
 interface specifier {
-    concept:Concept
-    value:string
-
+    concept: Concept
+    value: string
 }
 
+export abstract class ContractStandard extends Entity {
 
+    specifierArray: Map<Concept, string> = new Map<Concept, string>()
+    name: string = 'genericStandard';
 
-export abstract class ContractStandard extends Entity{
-
-
-    specifierArray:Map<Concept,string> = new Map<Concept,string>()
-    name:string = 'genericStandard' ;
-
-    public setSpecifierValue(concept:Concept,value:string){
-
-        this.specifierArray.set(concept,value);
-
+    public setSpecifierValue(concept: Concept, value: string) {
+        this.specifierArray.set(concept, value);
     }
 
-    public getSpecifierArray():Map<Concept,string>{
-
-
-        return this.specifierArray ;
+    public getSpecifierArray(): Map<Concept, string> {
+        return this.specifierArray;
     }
 
-    public abstract getDisplayStructure():string;
+    public abstract getDisplayStructure(): string;
 
-   public generateTokenPathEntity(canonizeManager:CSCanonizeManager){
-
-       return new BlockchainToken(canonizeManager,this.getDisplayStructure());
-
-   }
-    public getName(){
-
-        return this.name ;
+    public generateTokenPathEntity(canonizeManager: CSCanonizeManager) {
+        return new BlockchainToken(canonizeManager, this.getDisplayStructure());
     }
 
-
-
+    public getName() {
+        return this.name;
+    }
 
 }

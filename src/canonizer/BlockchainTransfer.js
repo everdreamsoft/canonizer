@@ -10,6 +10,7 @@ class BlockchainTransfer extends BlockchainEvent_js_1.BlockchainEvent {
         if (factory == null)
             factory = new BlockchainEventFactory_js_1.BlockchainEventFactory(blockchain, sandra);
         let txidRef = new Reference_js_1.Reference(sandra.get(Blockchain_js_1.Blockchain.TXID_CONCEPT_NAME), txid);
+        // TODO - Probably incomplete implementation
         super(factory, [txidRef]);
         if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source);
