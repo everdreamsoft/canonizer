@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {AssetInterface} from "../src/canonizer/Asset";
 
 export default class Api {
 
@@ -7,10 +6,10 @@ export default class Api {
 
     static readonly BLOCK_URL = this.API_ROUTE + 'test/block/';
 
-    public static async getBlock(id: string): Promise<AssetInterface[]> {
+    public static async getBlock(id: string): Promise<any> {
         try {
             const response = await axios.get(Api.BLOCK_URL + id);
-            return response.data.assets;
+            return response.data;
         } catch (e) {
             throw e;
         }

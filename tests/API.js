@@ -6,7 +6,7 @@ class Api {
     static async getBlock(id) {
         try {
             const response = await axios_1.default.get(Api.BLOCK_URL + id);
-            return response.data.assets;
+            return response.data;
         }
         catch (e) {
             throw e;

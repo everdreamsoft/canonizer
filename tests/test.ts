@@ -8,6 +8,5 @@ startUnitTesting().catch(err => {
 async function startUnitTesting() {
     await EntityTest.test();
     await Block.test();
-
 }
 

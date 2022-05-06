@@ -5,12 +5,13 @@ const SandraManager_1 = require("../src/SandraManager");
 const BlockchainBlockFactory_1 = require("../src/canonizer/BlockchainBlockFactory");
 const BlockchainBlock_1 = require("../src/canonizer/BlockchainBlock");
 const CanonManager_1 = require("./CanonManager");
+const API_1 = require("./API");
 class Block {
     constructor() {
     }
     static async test() {
         await Block.testBlockObjects();
-        //await Block.testBlockGossips();
+        await Block.testBlockGossips();
     }
     static async testBlockObjects() {
         let sandra = new SandraManager_1.SandraManager();
@@ -50,20 +51,22 @@ class Block {
         block1.addOrUpdateTimestamp("11", "ethereum");
         block1.addOrUpdateTimestamp("12", "ethereum");
         block1.addOrUpdateTimestamp("11", "binance");
+        block2.addOrUpdateTimestamp("21", "");
         block2.addOrUpdateTimestamp("21", "ethereum");
         block2.addOrUpdateTimestamp("22", "ethereum");
         block2.addOrUpdateTimestamp("21", "binance");
         block3.addOrUpdateTimestamp("31", "ethereum");
         block3.addOrUpdateTimestamp("32", "ethereum");
         block3.addOrUpdateTimestamp("31", "binance");
-        let canon = await CanonManager_1.CanonManager.getInstance().getCSCanonizeManager();
-        let res = canon.gossip(blockFactory);
-        console.log(res);
         describe("Block Gossip Test", () => {
             test('Factory Entity ', async () => {
-                let res = await CanonManager_1.CanonManager.getInstance().getCSCanonizeManager()
+                await CanonManager_1.CanonManager.getInstance().getCSCanonizeManager()
                     .gossip(blockFactory);
-                console.log(res);
+                let res = await API_1.default.getBlock("1");
+                let block = res.data;
+                expect(block["" + BlockchainBlock_1.BlockchainBlock.BLOCK_TIMESTAMP]).toBe("21");
+                expect(block["ethereum-" + BlockchainBlock_1.BlockchainBlock.BLOCK_TIMESTAMP]).toBe("22");
+                expect(block["binance-" + BlockchainBlock_1.BlockchainBlock.BLOCK_TIMESTAMP]).toBe("21");
             });
         });
     }
