@@ -23,7 +23,7 @@ class BlockchainEvent extends Entity_js_1.Entity {
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra);
         //get or create the block
-        let blockchainBlock = blockchain.blockFactory.getOrCreate(blockId, timestamp);
+        let blockchainBlock = blockchain.blockFactory.getOrCreate(blockId, timestamp, blockchain);
         this.joinEntity(BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
         let refArray = [];
