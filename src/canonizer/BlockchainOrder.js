@@ -23,7 +23,7 @@ class BlockchainOrder extends Entity_js_1.Entity {
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainOrderFactory_1.BlockchainOrderFactory.EVENT_BLOCK_TIME), timestamp));
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainOrderFactory_1.BlockchainOrderFactory.BUY_TOTAL), buyTotal));
         this.joinEntity(BlockchainOrderFactory_1.BlockchainOrderFactory.EVENT_SOURCE_ADDRESS, source, sandra);
-        let blockchainBlock = new BlockchainBlock_js_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        let blockchainBlock = new BlockchainBlock_js_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, blockchain, sandra);
         this.joinEntity(BlockchainOrderFactory_1.BlockchainOrderFactory.EVENT_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainOrderFactory_1.BlockchainOrderFactory.ON_BLOCKCHAIN, blockchain.name, sandra);
         this.setTriplet(BlockchainEvent_js_1.BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);

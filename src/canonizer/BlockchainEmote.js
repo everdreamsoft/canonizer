@@ -27,7 +27,7 @@ class BlockchainEmote extends Entity_1.Entity {
         this.addReference(new Reference_1.Reference(sandra.get(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EVENT_BLOCK_TIME), timestamp));
         // add emote
         this.addReference(new Reference_1.Reference(sandra.get(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_UNICODE), emote));
-        const blockchainBlock = new BlockchainBlock_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        const blockchainBlock = new BlockchainBlock_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, blockchain, sandra);
         // Add generic data as triplet and entity
         this.joinEntity(BlockchainEmoteFactory_1.BlockchainEmoteFactory.EMOTE_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEmoteFactory_1.BlockchainEmoteFactory.ON_BLOCKCHAIN, blockchain.getName(), sandra);

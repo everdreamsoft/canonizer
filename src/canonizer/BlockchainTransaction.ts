@@ -31,7 +31,7 @@ export class BlockchainTransaction extends Entity {
 
         this.addReference(new Reference(sandra.get(BlockchainTransaction.EVENT_BLOCK_TIME), timestamp));
 
-        let blockchainBlock = new BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        let blockchainBlock = new BlockchainBlock(blockchain.blockFactory, blockId, timestamp, blockchain, sandra);
         this.joinEntity(BlockchainTransaction.EVENT_BLOCK, blockchainBlock, sandra)
 
         blockchainEvents.forEach(event => {

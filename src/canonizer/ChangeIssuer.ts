@@ -8,17 +8,16 @@ import {BlockchainEvent} from "./BlockchainEvent";
 import {BlockchainBlock} from "./BlockchainBlock";
 
 
-export class ChangeIssuer extends Entity
-{
+export class ChangeIssuer extends Entity {
 
     public eventType: string = "changeIssuer";
 
 
     public constructor(
         factory: ChangeIssuerFactory,
-        source: BlockchainAddress|string,
+        source: BlockchainAddress | string,
         collectionId: string,
-        newIssuer: BlockchainAddress|string,
+        newIssuer: BlockchainAddress | string,
         txId: string,
         timestamp: string,
         blockId: number,
@@ -30,11 +29,11 @@ export class ChangeIssuer extends Entity
 
         this.addReference(new Reference(sandra.get(ChangeIssuerFactory.COLLECTION_ID), collectionId));
 
-        if(typeof source == "string"){
+        if (typeof source == "string") {
             source = blockchain.addressFactory.getOrCreate(source);
         }
 
-        if(typeof newIssuer == "string"){
+        if (typeof newIssuer == "string") {
             newIssuer = blockchain.addressFactory.getOrCreate(newIssuer);
         }
 
@@ -43,7 +42,7 @@ export class ChangeIssuer extends Entity
         this.setTriplet(ChangeIssuerFactory.ON_BLOCKCHAIN, blockchain.name, sandra);
         this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
 
-        const blockchainBlock = new BlockchainBlock(blockchain.blockFactory,blockId,timestamp,sandra);
+        const blockchainBlock = new BlockchainBlock(blockchain.blockFactory, blockId, timestamp, blockchain, sandra);
         this.joinEntity(ChangeIssuerFactory.EVENT_BLOCK, blockchainBlock, sandra);
 
         this.joinEntity(ChangeIssuerFactory.EVENT_SOURCE_ADDRESS, source, sandra);

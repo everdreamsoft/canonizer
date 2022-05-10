@@ -1,6 +1,7 @@
 import {EntityFactory} from "../EntityFactory.js";
 import {SandraManager} from "../SandraManager.js";
 import {BlockchainBlock} from "./BlockchainBlock";
+import {Blockchain} from "./Blockchain";
 
 export class BlockchainBlockFactory extends EntityFactory {
 
@@ -8,7 +9,7 @@ export class BlockchainBlockFactory extends EntityFactory {
         super(chain + "Bloc", chain + 'BlocFile', sandra, sandra.get(BlockchainBlock.INDEX_SHORTNAME));
     }
 
-    public getOrCreate(blockId: number, timestamp: string): BlockchainBlock {
+    public getOrCreate(blockId: number, timestamp: string, blockchain: Blockchain): BlockchainBlock {
 
         if (this.entityByRevValMap.has(this.sandraManager.get(BlockchainBlock.INDEX_SHORTNAME))) {
             let addressRefMap = this.entityByRevValMap.get(this.sandraManager.get(BlockchainBlock.INDEX_SHORTNAME));
@@ -22,8 +23,9 @@ export class BlockchainBlockFactory extends EntityFactory {
 
         }
 
-        return new BlockchainBlock(this, blockId, timestamp, this.sandraManager)
+        return new BlockchainBlock(this, blockId, timestamp, blockchain, this.sandraManager)
 
     }
+
 
 }

@@ -28,7 +28,7 @@ export class Blockchain {
         this.addressFactory = new BlockchainAddressFactory(sandra);
         this.contractFactory = new BlockchainContractFactory(sandra);
         this.eventFactory = new BlockchainEventFactory(this, sandra);
-        this.blockFactory = new BlockchainBlockFactory(this.getName(), sandra);
+        this.blockFactory = new BlockchainBlockFactory("blockchain", sandra);
         this.emoteFactory = new BlockchainEmoteFactory(sandra);
         this.orderFactory = new BlockchainOrderFactory(sandra);
         this.changeIssuerFactory = new ChangeIssuerFactory(sandra);

@@ -26,7 +26,7 @@ class BlockchainTransfer extends BlockchainEvent_js_1.BlockchainEvent {
         this.joinEntity(BlockchainEvent_js_1.BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(BlockchainEvent_js_1.BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra);
         //create the block
-        let blockchainBlock = new BlockchainBlock_js_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, sandra);
+        let blockchainBlock = new BlockchainBlock_js_1.BlockchainBlock(blockchain.blockFactory, blockId, timestamp, blockchain, sandra);
         this.joinEntity(BlockchainEvent_js_1.BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEvent_js_1.BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
         let refArray = [];
