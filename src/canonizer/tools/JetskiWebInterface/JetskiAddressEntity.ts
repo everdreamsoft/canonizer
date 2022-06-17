@@ -39,4 +39,5 @@ export class JetskiAddressEntity extends Entity {
         this.joinEntity(JetskiAddressEntityFactory.JOINED_COLLECTION, collection, this.factory.sandraManager)
     }
 
+
 }
