@@ -5,7 +5,7 @@ const Entity_js_1 = require("../Entity.js");
 const Reference_js_1 = require("../Reference.js");
 const Blockchain_js_1 = require("./Blockchain.js");
 class BlockchainEvent extends Entity_js_1.Entity {
-    constructor(factory, source, destination, contract, txid, timestamp, quantity, blockchain, blockId, token, sandra, status = "pendingTokenUri" // Added for change - Moving asset creation logic to UpdateMetaData service.
+    constructor(factory, source, destination, contract, txid, timestamp, quantity, blockchain, blockId, token, sandra, status = "pending" // Added for change - Moving asset creation logic to UpdateMetaData service.
     ) {
         super(factory, [new Reference_js_1.Reference(sandra.get(Blockchain_js_1.Blockchain.TXID_CONCEPT_NAME), txid)]);
         this.eventType = 'transfer';
@@ -21,13 +21,13 @@ class BlockchainEvent extends Entity_js_1.Entity {
         this.setTriplet(BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB, this.eventType, sandra);
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainEvent.EVENT_BLOCK_TIME), timestamp));
         this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainEvent.QUANTITY), quantity));
-        this.addReference(new Reference_js_1.Reference(sandra.get(BlockchainEvent.STATUS), status));
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra);
         this.joinEntity(BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra);
         //get or create the block
         let blockchainBlock = blockchain.blockFactory.getOrCreate(blockId, timestamp, blockchain);
         this.joinEntity(BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
+        this.setTriplet(BlockchainEvent.ASSET_STATUS, status, sandra);
         let refArray = [];
         if (token) {
             //we need to get the tokenpath data and add it as reference on the event
@@ -45,7 +45,7 @@ BlockchainEvent.EVENT_DESTINATION_VERB = 'hasSingleDestination';
 BlockchainEvent.EVENT_SOURCE_CONTRACT = 'blockchainContract';
 BlockchainEvent.EVENT_BLOCK_TIME = 'timestamp';
 BlockchainEvent.QUANTITY = 'quantity';
-BlockchainEvent.STATUS = 'status';
+BlockchainEvent.ASSET_STATUS = 'assetStatus';
 BlockchainEvent.ON_BLOCKCHAIN = 'onBlockchain';
 BlockchainEvent.EVENT_BLOCK = 'onBlock';
 BlockchainEvent.BLOCKCHAIN_EVENT_TYPE_VERB = "blockchainEventType";

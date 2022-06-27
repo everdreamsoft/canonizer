@@ -13,6 +13,7 @@ export class Assets {
         await Assets.testAsset();
     }
 
+
     private static async testAsset() {
 
         let sandra = new SandraManager();

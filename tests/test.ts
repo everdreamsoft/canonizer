@@ -1,10 +1,11 @@
 import {Assets} from "./Assets";
+import {Event} from "./Event";
 
 startUnitTesting();
 
 function startUnitTesting() {
 
-    Assets.test().then(res => {
+    Event.test().then(res => {
     });
 
     // EntityTest.test();

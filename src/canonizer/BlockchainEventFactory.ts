@@ -1,18 +1,13 @@
-import {BlockchainEvent} from "./BlockchainEvent.js";
 import {EntityFactory} from "../EntityFactory.js";
 import {SandraManager} from "../SandraManager.js";
-import {BlockchainAddressFactory} from "./BlockchainAddressFactory.js";
-import {BlockchainContractFactory} from "./BlockchainContractFactory.js";
 import {Blockchain} from "./Blockchain.js";
 
-export class BlockchainEventFactory extends EntityFactory{
+export class BlockchainEventFactory extends EntityFactory {
 
 
+    public constructor(blockchain: Blockchain, sandra: SandraManager) {
 
-
-    public constructor( blockchain:Blockchain,sandra:SandraManager) {
-
-        super('blockchainEvent','blockchainEventFile',sandra);
+        super('blockchainEvent', 'blockchainEventFile', sandra);
 
         this.updateOnExistingRef = sandra.get(Blockchain.TXID_CONCEPT_NAME);
 
@@ -23,8 +18,6 @@ export class BlockchainEventFactory extends EntityFactory{
 
 
     }
-
-
 
 
 }

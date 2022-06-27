@@ -15,7 +15,7 @@ export class BlockchainEvent extends Entity {
     public static EVENT_SOURCE_CONTRACT = 'blockchainContract';
     public static EVENT_BLOCK_TIME = 'timestamp';
     public static QUANTITY = 'quantity';
-    public static STATUS = 'status';
+    public static ASSET_STATUS = 'assetStatus';
     public static ON_BLOCKCHAIN = 'onBlockchain';
     public static EVENT_BLOCK = 'onBlock';
     public static BLOCKCHAIN_EVENT_TYPE_VERB = "blockchainEventType";
@@ -32,7 +32,7 @@ export class BlockchainEvent extends Entity {
                 blockId: number,
                 token: ContractStandard | null,
                 sandra: SandraManager,
-                status:string = "pendingTokenUri" // Added for change - Moving asset creation logic to UpdateMetaData service.
+                status:string = "pending" // Added for change - Moving asset creation logic to UpdateMetaData service.
     ) {
 
         super(factory, [new Reference(sandra.get(Blockchain.TXID_CONCEPT_NAME), txid)]);
@@ -52,7 +52,6 @@ export class BlockchainEvent extends Entity {
 
         this.addReference(new Reference(sandra.get(BlockchainEvent.EVENT_BLOCK_TIME), timestamp));
         this.addReference(new Reference(sandra.get(BlockchainEvent.QUANTITY), quantity));
-        this.addReference(new Reference(sandra.get(BlockchainEvent.STATUS), status));
 
         this.joinEntity(BlockchainEvent.EVENT_SOURCE_ADDRESS, source, sandra)
         this.joinEntity(BlockchainEvent.EVENT_DESTINATION_VERB, destination, sandra)
@@ -62,6 +61,7 @@ export class BlockchainEvent extends Entity {
         this.joinEntity(BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra)
 
         this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
+        this.setTriplet(BlockchainEvent.ASSET_STATUS, status, sandra);
 
         let refArray: Reference[] = [];
 

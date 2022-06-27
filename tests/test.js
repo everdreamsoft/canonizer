@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Assets_1 = require("./Assets");
+const Event_1 = require("./Event");
 startUnitTesting();
 function startUnitTesting() {
-    Assets_1.Assets.test().then(res => {
+    Event_1.Event.test().then(res => {
     });
     // EntityTest.test();
     // JetskiWebInterface.test().then(res => {
