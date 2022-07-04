@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Event_1 = require("./Event");
+const EntityTest_1 = require("./EntityTest");
 startUnitTesting();
 function startUnitTesting() {
-    Event_1.Event.test().then(res => {
-    });
-    // EntityTest.test();
+    // Event.test().then(res => {
+    // });
+    EntityTest_1.EntityTest.test();
     // JetskiWebInterface.test().then(res => {
     //     console.log("JWI test completed");
     // }).catch(err => {

@@ -9,11 +9,11 @@ class EntityTest {
     constructor() {
     }
     static test() {
-        EntityTest.testWithoutUpdateReference();
+        // EntityTest.testWithoutUpdateReference();
         EntityTest.testUpdateReference();
-        EntityTest.testEntitiesAddition();
-        EntityTest.testJoinedEntities();
-        EntityTest.testSearch();
+        // EntityTest.testEntitiesAddition();
+        // EntityTest.testJoinedEntities();
+        // EntityTest.testSearch();
     }
     static testWithoutUpdateReference() {
         let sandra = new SandraManager_1.SandraManager();

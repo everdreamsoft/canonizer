@@ -42,7 +42,54 @@ class EntityFactory {
             }
         });
     }
+    updateExistingEntity(newEntity, existingEntity) {
+        newEntity.referenceArray.forEach(element => {
+            this.sandraManager.registerNewReference(element);
+            this.refMap.set(element.concept.unid, element.concept.shortname);
+            let refMapByConcept;
+            if (!this.entityByRevValMap.has(element.concept)) {
+                refMapByConcept = new Map();
+                this.entityByRevValMap.set(element.concept, refMapByConcept);
+            }
+            else {
+                // @ts-ignore
+                refMapByConcept = this.entityByRevValMap.get(element.concept);
+            }
+            if (refMapByConcept.has(element.value)) {
+                let existingElement = refMapByConcept.get(element.value);
+                // @ts-ignore
+                existingElement.push(newEntity);
+            }
+            else {
+                refMapByConcept.set(element.value, [newEntity]);
+            }
+        });
+        // Replacing reference array
+        existingEntity.referenceArray = newEntity.referenceArray;
+        // Updating triplets
+        newEntity.subjectConcept.triplets.forEach((value, key) => {
+            existingEntity.subjectConcept.triplets.set(key, value);
+        });
+    }
     addOrUpdateEntity(entity, onRefConcept) {
+        const updateOn = onRefConcept ? onRefConcept : this.updateOnExistingRef;
+        let entityOnFactoryConstraint = this.entityArray.find(element => element.getRefValue(updateOn) == entity.getRefValue(updateOn));
+        if (entityOnFactoryConstraint !== undefined && onRefConcept && onRefConcept != this.updateOnExistingRef) {
+            //user want to update entity but the constraint provided violate factory constraint
+            throw new Error("Factory integrity constraint violation entity exist with "
+                + this.updateOnExistingRef.shortname + "while checking on integrity on" + onRefConcept.shortname);
+        }
+        let indexOfExistingEntity = this.entityArray.findIndex(element => element.getRefValue(updateOn) == entity.getRefValue(updateOn));
+        // Update the existing entity wih new one.
+        if (indexOfExistingEntity >= 0) {
+            this.updateExistingEntity(entity, this.entityArray[indexOfExistingEntity]);
+            return this;
+        }
+        // Add new entity to array
+        this.addEntity(entity);
+        return this;
+    }
+    addOrUpdateEntityOld(entity, onRefConcept) {
         const updateOn = onRefConcept ? onRefConcept : this.updateOnExistingRef;
         let entityOnFactoryConstraint = this.entityArray.find(element => element.getRefValue(updateOn) == entity.getRefValue(updateOn));
         if (entityOnFactoryConstraint !== undefined && onRefConcept && onRefConcept != this.updateOnExistingRef) {

@@ -10,11 +10,11 @@ export class EntityTest {
 
     public static test() {
 
-        EntityTest.testWithoutUpdateReference();
+        // EntityTest.testWithoutUpdateReference();
         EntityTest.testUpdateReference();
-        EntityTest.testEntitiesAddition();
-        EntityTest.testJoinedEntities();
-        EntityTest.testSearch();
+        // EntityTest.testEntitiesAddition();
+        // EntityTest.testJoinedEntities();
+        // EntityTest.testSearch();
 
     }
 

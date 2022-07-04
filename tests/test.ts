@@ -1,14 +1,15 @@
 import {Assets} from "./Assets";
 import {Event} from "./Event";
+import {EntityTest} from "./EntityTest";
 
 startUnitTesting();
 
 function startUnitTesting() {
 
-    Event.test().then(res => {
-    });
+    // Event.test().then(res => {
+    // });
 
-    // EntityTest.test();
+    EntityTest.test();
 
     // JetskiWebInterface.test().then(res => {
     //     console.log("JWI test completed");
