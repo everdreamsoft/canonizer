@@ -2,6 +2,8 @@ import {Concept} from "./Concept.js";
 import {SandraManager} from "./SandraManager.js";
 import {Entity} from "./Entity";
 import {Gossiper} from "./Gossiper.js";
+import {Reference} from "./Reference";
+import {AssetInterface} from "./canonizer/Asset";
 
 interface JoinedFactory {
     entityFactory: EntityFactory;
@@ -33,6 +35,38 @@ export class EntityFactory {
         }
         this.updateOnExistingRef = updateOnExistingRef;
 
+    }
+
+    public getReferences(references: any): Array<Reference> {
+        throw new Error("Function not implemented");
+    }
+
+    public replaceOrAddReference(entity: Entity, data: any) {
+        throw new Error("Function not implemented");
+    }
+
+    public getOrCreateEntity(references: any) {
+
+        let existingRefKey = Object.keys(references).find(value => {
+            return value == this.updateOnExistingRef.shortname
+        })
+
+        if (this.updateOnExistingRef.shortname != "null_concept" && existingRefKey) {
+
+            let indexOfExistingEntity = this.entityArray.findIndex(element => {
+                return existingRefKey ? element.getRefValue(this.updateOnExistingRef) == references[existingRefKey] : false;
+            });
+
+            if (indexOfExistingEntity >= 0) {
+                this.replaceOrAddReference( this.entityArray[indexOfExistingEntity], references);
+                return this.entityArray[indexOfExistingEntity];
+            } else {
+                return null;
+            }
+
+        } else {
+            return null
+        }
     }
 
     public addEntity(entity: Entity) {
@@ -133,7 +167,9 @@ export class EntityFactory {
 
     }
 
-
+    // TODO - Old Code, did not work for assets, kept this code in case reference is needed?
+    // Bug in this code - in case you have a triplet in existing entity, it changes the rfrence by changing the
+    // subject id of the existing entity with new one. T
     public addOrUpdateEntityOld(entity: Entity, onRefConcept?: Concept): this {
 
         const updateOn = onRefConcept ? onRefConcept : this.updateOnExistingRef;

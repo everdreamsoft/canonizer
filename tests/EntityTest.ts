@@ -2,6 +2,8 @@ import {EntityFactory} from "../src/EntityFactory";
 import {SandraManager} from "../src/SandraManager";
 import {Entity} from "../src/Entity";
 import {Reference} from "../src/Reference";
+import {AssetFactory} from "../src/canonizer/AssetFactory";
+import {Asset} from "../src/canonizer/Asset";
 
 export class EntityTest {
 
@@ -9,13 +11,12 @@ export class EntityTest {
     }
 
     public static test() {
-
-        // EntityTest.testWithoutUpdateReference();
+        //EntityTest.testUpdateReferenceForAsset();
+        EntityTest.testWithoutUpdateReference();
         EntityTest.testUpdateReference();
-        // EntityTest.testEntitiesAddition();
-        // EntityTest.testJoinedEntities();
-        // EntityTest.testSearch();
-
+        EntityTest.testEntitiesAddition();
+        EntityTest.testJoinedEntities();
+        EntityTest.testSearch();
     }
 
     private static testWithoutUpdateReference() {
@@ -53,6 +54,46 @@ export class EntityTest {
 
     }
 
+    private static testUpdateReferenceForAsset() {
+
+        let sandra = new SandraManager();
+
+        // Creating factory with updateExistingReference with concept "name"
+        let assetFactory = new AssetFactory(sandra);
+
+        let asset1:Asset = assetFactory.getOrCreateEntity({
+            assetId: "id1",
+            metadataUrl: "metadataUrl1",
+            emote: "emote1",
+            name: "name1",
+            imageUrl: "imageUrl1",
+            description: "desc1"
+        }) as Asset;
+
+        console.log(asset1.getId());
+        console.log(asset1.getImageUrl());
+
+        asset1.setTriplet("inCollection", "A", sandra);
+        asset1.setTriplet("inCollection", "B", sandra);
+
+        let asset2:Asset = assetFactory.getOrCreateEntity({
+            assetId: "id1",
+            metadataUrl: "metadataUrl2",
+            emote: "emote2",
+            name: "name2",
+            imageUrl: "imageUrl2",
+            description: "desc2"
+        }) as Asset;
+
+        asset2.setTriplet("inCollection", "C", sandra);
+        asset1.setTriplet("inCollection", "D", sandra);
+;
+        console.log(asset1.getId());
+        console.log(asset1.getImageUrl());
+        console.log(asset1.getDescription());
+
+    }
+
     private static testUpdateReference() {
 
         let sandra = new SandraManager();
@@ -65,10 +106,17 @@ export class EntityTest {
             new Reference(sandra.get("radius"), "60000")
         ]);
 
+        jupiterEntity.setTriplet("hasMoon", "Europa", sandra);
+        jupiterEntity.setTriplet("hasMoon", "Io", sandra);
+
         let jupiterEntityUpdated = new Entity(planetFactory, [
             new Reference(sandra.get("name"), "Jupiter"),
             new Reference(sandra.get("radius"), "70000")
         ]);
+
+        jupiterEntity.setTriplet("hasMoon", "Iota1", sandra);
+        jupiterEntityUpdated.setTriplet("hasMoon", "Iota", sandra);
+
 
         describe("Entity Instance and References with updateExistingReference ", () => {
 

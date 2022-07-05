@@ -32,7 +32,7 @@ export class Entity {
         })
 
         if (factory.updateOnExistingRef.shortname != "null_concept") {
-            factory.addOrUpdateEntity(this, factory.updateOnExistingRef);
+           factory.addOrUpdateEntity(this, factory.updateOnExistingRef);
         } else
             factory.addEntity(this);
 

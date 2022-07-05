@@ -17,6 +17,32 @@ class EntityFactory {
         }
         this.updateOnExistingRef = updateOnExistingRef;
     }
+    getReferences(references) {
+        throw new Error("Function not implemented");
+    }
+    replaceOrAddReference(entity, data) {
+        throw new Error("Function not implemented");
+    }
+    getOrCreateEntity(references) {
+        let existingRefKey = Object.keys(references).find(value => {
+            return value == this.updateOnExistingRef.shortname;
+        });
+        if (this.updateOnExistingRef.shortname != "null_concept" && existingRefKey) {
+            let indexOfExistingEntity = this.entityArray.findIndex(element => {
+                return existingRefKey ? element.getRefValue(this.updateOnExistingRef) == references[existingRefKey] : false;
+            });
+            if (indexOfExistingEntity >= 0) {
+                this.replaceOrAddReference(this.entityArray[indexOfExistingEntity], references);
+                return this.entityArray[indexOfExistingEntity];
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
+    }
     addEntity(entity) {
         this.entityArray.push(entity);
         let factory = this;
@@ -89,6 +115,9 @@ class EntityFactory {
         this.addEntity(entity);
         return this;
     }
+    // TODO - Old Code, did not work for assets, kept this code in case reference is needed?
+    // Bug in this code - in case you have a triplet in existing entity, it changes the rfrence by changing the
+    // subject id of the existing entity with new one. T
     addOrUpdateEntityOld(entity, onRefConcept) {
         const updateOn = onRefConcept ? onRefConcept : this.updateOnExistingRef;
         let entityOnFactoryConstraint = this.entityArray.find(element => element.getRefValue(updateOn) == entity.getRefValue(updateOn));
