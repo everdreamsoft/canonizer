@@ -8,10 +8,8 @@ import {Reference} from "./Reference.js";
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 interface simpleReferenceForDisplay {
-
     conceptUnid: number,
     value: string
-
 }
 
 export interface ApiConnector {
@@ -132,9 +130,30 @@ export class Gossiper {
 
             triplet[1].forEach(element => {
                 myData.triplets[triplet[0].shortname].push(element.unid);
-
             })
 
+        }
+
+        //check triplet references
+        for (let tripletParam of entity.subjectConcept.tripletParams) {
+            if (!myData.tripletParams) myData.tripletParams = {};
+            if (!myData.tripletParams[tripletParam[0].shortname]) myData.tripletParams[tripletParam[0].shortname] = [];
+
+            tripletParam[1].forEach(element => {
+                let paramsList: any[] = [];
+                element.value.forEach((value, key) => {
+                    let param = {};
+                    // @ts-ignore
+                    param[key] = value;
+                    paramsList.push(param);
+                });
+
+                myData.tripletParams[tripletParam[0].shortname].push({
+                    targetUnid: element.concept.unid,
+                    params: paramsList
+                });
+
+            })
         }
         //check triplet references
         for (let tripletRef of entity.subjectConcept.tripletsReferences) {
@@ -258,7 +277,7 @@ export class Gossiper {
 
     }
 
-    public async listenFromRemote(connector: ApiConnector): Promise<any>{
+    public async listenFromRemote(connector: ApiConnector): Promise<any> {
 
         const xmlhttp = new XMLHttpRequest();
         return new Promise((resolve: any, reject: any) => {

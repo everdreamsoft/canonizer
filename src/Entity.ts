@@ -8,6 +8,7 @@ import {SandraManager} from "./SandraManager";
 
 export class Entity {
 
+
     public subjectConcept: Concept;
     public id: number;
     // TODO make private and make getters
@@ -32,7 +33,7 @@ export class Entity {
         })
 
         if (factory.updateOnExistingRef.shortname != "null_concept") {
-           factory.addOrUpdateEntity(this, factory.updateOnExistingRef);
+            factory.addOrUpdateEntity(this, factory.updateOnExistingRef);
         } else
             factory.addEntity(this);
 
@@ -76,8 +77,8 @@ export class Entity {
         this.factory.joinFactory(entity.factory, verb)
     }
 
-    public setTriplet(verb: string, target: string, sandraManager: SandraManager, refArray?: Reference[]) {
-        this.subjectConcept.setTriplet(sandraManager.get(verb), sandraManager.get(target), false, refArray);
+    public setTriplet(verb: string, target: string, sandraManager: SandraManager, refArray?: Reference[], updateOnExisting?: boolean) {
+        this.subjectConcept.setTriplet(sandraManager.get(verb), sandraManager.get(target), false, refArray, updateOnExisting);
     }
 
     public setPureShortnameTriplet(verb: string, target: string, sandraManager: SandraManager, refArray?: Reference[]) {

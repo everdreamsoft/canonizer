@@ -50,8 +50,8 @@ class Entity {
         this.subjectConcept.setTriplet(sandraManager.get(verb), entity.subjectConcept, false, refArray);
         this.factory.joinFactory(entity.factory, verb);
     }
-    setTriplet(verb, target, sandraManager, refArray) {
-        this.subjectConcept.setTriplet(sandraManager.get(verb), sandraManager.get(target), false, refArray);
+    setTriplet(verb, target, sandraManager, refArray, updateOnExisting) {
+        this.subjectConcept.setTriplet(sandraManager.get(verb), sandraManager.get(target), false, refArray, updateOnExisting);
     }
     setPureShortnameTriplet(verb, target, sandraManager, refArray) {
         this.subjectConcept.setTriplet(sandraManager.get(verb), sandraManager.get(target), true, refArray);

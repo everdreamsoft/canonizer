@@ -72,6 +72,26 @@ class Gossiper {
             });
         }
         //check triplet references
+        for (let tripletParam of entity.subjectConcept.tripletParams) {
+            if (!myData.tripletParams)
+                myData.tripletParams = {};
+            if (!myData.tripletParams[tripletParam[0].shortname])
+                myData.tripletParams[tripletParam[0].shortname] = [];
+            tripletParam[1].forEach(element => {
+                let paramsList = [];
+                element.value.forEach((value, key) => {
+                    let param = {};
+                    // @ts-ignore
+                    param[key] = value;
+                    paramsList.push(param);
+                });
+                myData.tripletParams[tripletParam[0].shortname].push({
+                    targetUnid: element.concept.unid,
+                    params: paramsList
+                });
+            });
+        }
+        //check triplet references
         for (let tripletRef of entity.subjectConcept.tripletsReferences) {
             if (!myData.tripletsReferences)
                 myData.tripletsReferences = {};

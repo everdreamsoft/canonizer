@@ -8,8 +8,10 @@ class Concept {
         this.shortname = shortname;
         this.triplets = new Map();
         this.tripletsReferences = new Map();
+        this.tripletParams = new Map();
     }
-    setTriplet(verb, target, notEntity = false, refs) {
+    setTriplet(verb, target, notEntity = false, refs, updateOnExisting) {
+        updateOnExisting = updateOnExisting ? updateOnExisting : false;
         let verbExist = false;
         if (this.triplets.get(verb)) {
             // @ts-ignore
@@ -30,6 +32,15 @@ class Concept {
             else {
                 this.tripletsReferences.set(verb, [{ concept: target, refs: refs }]);
             }
+        }
+        if (updateOnExisting) {
+            let param = new Map([["updateOnExisting", String(updateOnExisting)]]);
+            if (this.tripletParams.get(verb)) {
+                // @ts-ignore
+                this.tripletParams.get(verb).push({ concept: target, value: param });
+            }
+            else
+                this.tripletParams.set(verb, [{ concept: target, value: param }]);
         }
     }
     getTriplets(verb, target, notEntity = false, refs) {
