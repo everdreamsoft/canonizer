@@ -52,14 +52,10 @@ export class Event {
     }
 
     private static async updateCollectionUniqueKey() {
-
     }
 
     private static async updateAssets()
     {
-
-
-
     }
 
     private static async addEvents(events:any) {
