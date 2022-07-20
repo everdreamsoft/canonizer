@@ -6,16 +6,43 @@ const SandraManager_1 = require("../src/SandraManager");
 const Entity_1 = require("../src/Entity");
 const Reference_1 = require("../src/Reference");
 const AssetFactory_1 = require("../src/canonizer/AssetFactory");
+const Gossiper_1 = require("../src/Gossiper");
 class EntityTest {
     constructor() {
     }
     static test() {
         //EntityTest.testUpdateReferenceForAsset();
+        EntityTest.testUpdateExistingBrother();
         EntityTest.testWithoutUpdateReference();
         EntityTest.testUpdateReference();
         EntityTest.testEntitiesAddition();
         EntityTest.testJoinedEntities();
         EntityTest.testSearch();
+    }
+    static testUpdateExistingBrother() {
+        let sandra = new SandraManager_1.SandraManager();
+        // Creating factory without updateExistingReference
+        let planetFactory = new EntityFactory_1.EntityFactory("planet", "atlasFile", sandra, sandra.get("name"));
+        let moonFactory = new EntityFactory_1.EntityFactory("moon", "moonFile", sandra, sandra.get("name"));
+        let jupiterEntity = new Entity_1.Entity(planetFactory, [new Reference_1.Reference(sandra.get("name"), "jupiter")]);
+        let iotaMoon = new Entity_1.Entity(moonFactory, [new Reference_1.Reference(sandra.get("name"), "iota")]);
+        jupiterEntity.joinEntity("hasMoon", iotaMoon, sandra);
+        jupiterEntity.setTriplet("hasWeather", "no", sandra, undefined, true);
+        let gossiper = new Gossiper_1.Gossiper(planetFactory);
+        let json = gossiper.exposeGossip(true);
+        describe("Test brother entity update,  ", () => {
+            test('Triplet params in json', () => {
+                expect(json.entityFactory.entityArray[0].tripletParams['hasWeather']).toHaveLength(1);
+            });
+            let val = json.entityFactory.entityArray[0].tripletParams['hasWeather'][0].params[0].updateOnExisting;
+            let target = json.entityFactory.entityArray[0].tripletParams['hasWeather'][0].targetUnid;
+            test('Param values for updateOnExisting ', () => {
+                expect(val).toEqual('true');
+            });
+            test('Param target for updateOnExisting ', () => {
+                expect(target).toEqual(sandra.get("no").unid);
+            });
+        });
     }
     static testWithoutUpdateReference() {
         let sandra = new SandraManager_1.SandraManager();

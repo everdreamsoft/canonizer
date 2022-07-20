@@ -4,6 +4,7 @@ import {Entity} from "../src/Entity";
 import {Reference} from "../src/Reference";
 import {AssetFactory} from "../src/canonizer/AssetFactory";
 import {Asset} from "../src/canonizer/Asset";
+import {Gossiper} from "../src/Gossiper";
 
 export class EntityTest {
 
@@ -11,12 +12,52 @@ export class EntityTest {
     }
 
     public static test() {
+
         //EntityTest.testUpdateReferenceForAsset();
+        EntityTest.testUpdateExistingBrother();
         EntityTest.testWithoutUpdateReference();
         EntityTest.testUpdateReference();
         EntityTest.testEntitiesAddition();
         EntityTest.testJoinedEntities();
         EntityTest.testSearch();
+    }
+
+    private static testUpdateExistingBrother() {
+        let sandra = new SandraManager();
+
+        // Creating factory without updateExistingReference
+        let planetFactory = new EntityFactory("planet", "atlasFile", sandra, sandra.get("name"));
+        let moonFactory = new EntityFactory("moon", "moonFile", sandra, sandra.get("name"));
+
+        let jupiterEntity = new Entity(planetFactory, [new Reference(sandra.get("name"), "jupiter")]);
+        let iotaMoon = new Entity(moonFactory, [new Reference(sandra.get("name"), "iota")]);
+
+        jupiterEntity.joinEntity("hasMoon", iotaMoon, sandra);
+        jupiterEntity.setTriplet("hasWeather", "no", sandra, undefined, true)
+
+        let gossiper = new Gossiper(planetFactory);
+        let json = gossiper.exposeGossip(true);
+
+        describe("Test brother entity update,  ", () => {
+
+            test('Triplet params in json', () => {
+                expect(json.entityFactory.entityArray[0].tripletParams['hasWeather']).toHaveLength(1);
+            });
+
+            let val = json.entityFactory.entityArray[0].tripletParams['hasWeather'][0].params[0].updateOnExisting
+            let target = json.entityFactory.entityArray[0].tripletParams['hasWeather'][0].targetUnid;
+
+            test('Param values for updateOnExisting ', () => {
+                expect(val).toEqual('true');
+            });
+
+            test('Param target for updateOnExisting ', () => {
+                expect(target).toEqual(sandra.get("no").unid);
+            });
+
+        });
+
+
     }
 
     private static testWithoutUpdateReference() {
@@ -61,7 +102,7 @@ export class EntityTest {
         // Creating factory with updateExistingReference with concept "name"
         let assetFactory = new AssetFactory(sandra);
 
-        let asset1:Asset = assetFactory.getOrCreateEntity({
+        let asset1: Asset = assetFactory.getOrCreateEntity({
             assetId: "id1",
             metadataUrl: "metadataUrl1",
             emote: "emote1",
@@ -76,7 +117,7 @@ export class EntityTest {
         asset1.setTriplet("inCollection", "A", sandra);
         asset1.setTriplet("inCollection", "B", sandra);
 
-        let asset2:Asset = assetFactory.getOrCreateEntity({
+        let asset2: Asset = assetFactory.getOrCreateEntity({
             assetId: "id1",
             metadataUrl: "metadataUrl2",
             emote: "emote2",
@@ -87,7 +128,7 @@ export class EntityTest {
 
         asset2.setTriplet("inCollection", "C", sandra);
         asset1.setTriplet("inCollection", "D", sandra);
-;
+        ;
         console.log(asset1.getId());
         console.log(asset1.getImageUrl());
         console.log(asset1.getDescription());
