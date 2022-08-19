@@ -27,7 +27,7 @@ class BlockchainEvent extends Entity_js_1.Entity {
         let blockchainBlock = blockchain.blockFactory.getOrCreate(blockId, timestamp, blockchain);
         this.joinEntity(BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra);
         this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
-        this.setTriplet(BlockchainEvent.ASSET_STATUS, status, sandra);
+        this.setTriplet(BlockchainEvent.ASSET_STATUS, status, sandra, [], true);
         let refArray = [];
         if (token) {
             //we need to get the tokenpath data and add it as reference on the event

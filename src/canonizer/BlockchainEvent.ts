@@ -61,7 +61,7 @@ export class BlockchainEvent extends Entity {
         this.joinEntity(BlockchainEvent.EVENT_BLOCK, blockchainBlock, sandra)
 
         this.setTriplet(BlockchainEvent.ON_BLOCKCHAIN, blockchain.name, sandra);
-        this.setTriplet(BlockchainEvent.ASSET_STATUS, status, sandra);
+        this.setTriplet(BlockchainEvent.ASSET_STATUS, status, sandra, [], true);
 
         let refArray: Reference[] = [];
 

@@ -2,7 +2,6 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 class Api {
@@ -27,8 +26,7 @@ class Api {
     }
 }
 exports.default = Api;
-_a = Api;
 Api.API_ROUTE = 'http://localhost:8000/api/v1/';
-Api.PROCESSES_URL = _a.API_ROUTE + 'jwi/process/';
-Api.ASSETS_WITHOUT_META_URL = `${_a.API_ROUTE}jetski/assetsWithoutMeta/`;
+Api.PROCESSES_URL = this.API_ROUTE + 'jwi/process/';
+Api.ASSETS_WITHOUT_META_URL = `${this.API_ROUTE}jetski/assetsWithoutMeta/`;
 //# sourceMappingURL=API.js.map
