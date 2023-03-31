@@ -4,6 +4,9 @@ exports.UniqueContractStandard = void 0;
 const Reference_js_1 = require("../../Reference.js");
 const ContractStandard_js_1 = require("../ContractStandard.js");
 class UniqueContractStandard extends ContractStandard_js_1.ContractStandard {
+    getDisplayStructure() {
+        return "tokenId-" + this.getTokenId();
+    }
     constructor(canonizeManager, tokenTokenId) {
         let factory = canonizeManager.getContractStandardFactory();
         super(factory, [new Reference_js_1.Reference(canonizeManager.getSandra().get('class_name'), "CsCannon\\\Blockchains\\\Substrate\\\Unique\\\UniqueContractStandard")]);
@@ -11,9 +14,6 @@ class UniqueContractStandard extends ContractStandard_js_1.ContractStandard {
         if (tokenTokenId) {
             this.setTokenId(tokenTokenId);
         }
-    }
-    getDisplayStructure() {
-        return "tokenId-" + this.getTokenId();
     }
     setTokenId(value) {
         this.setSpecifierValue(this.sandra.get('tokenId'), value);

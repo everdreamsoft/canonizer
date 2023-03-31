@@ -27,5 +27,6 @@ JetskiAddressEntityFactory.START_BLOCK = 'startBlock';
 JetskiAddressEntityFactory.END_BLOCK = 'endBlock';
 JetskiAddressEntityFactory.STANDARD = 'standard';
 JetskiAddressEntityFactory.BLOCK_RANGE = 'blockRange';
+JetskiAddressEntityFactory.METADATA_TYPE = 'metadataType';
 JetskiAddressEntityFactory.JOINED_COLLECTION = 'joinedCollection';
 //# sourceMappingURL=JetskiAddressEntityFactory.js.map

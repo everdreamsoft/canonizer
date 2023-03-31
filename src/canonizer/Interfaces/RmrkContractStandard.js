@@ -4,6 +4,9 @@ exports.RmrkContractStandard = void 0;
 const Reference_js_1 = require("../../Reference.js");
 const ContractStandard_js_1 = require("../ContractStandard.js");
 class RmrkContractStandard extends ContractStandard_js_1.ContractStandard {
+    getDisplayStructure() {
+        return "sn-" + this.getSn();
+    }
     constructor(canonizeManager, tokenSn) {
         let factory = canonizeManager.getContractStandardFactory();
         super(factory, [new Reference_js_1.Reference(canonizeManager.getSandra().get('class_name'), "CsCannon\\\Blockchains\\\Interfaces\\\RmrkContractStandard")]);
@@ -12,9 +15,6 @@ class RmrkContractStandard extends ContractStandard_js_1.ContractStandard {
         if (tokenSn) {
             this.setSn(tokenSn);
         }
-    }
-    getDisplayStructure() {
-        return "sn-" + this.getSn();
     }
     setSn(value) {
         this.setSpecifierValue(this.sandra.get('sn'), value);

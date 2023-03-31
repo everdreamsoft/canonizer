@@ -13,7 +13,8 @@ export interface JetskiAddressInterface {
     startBlock: string,
     endBlock: string,
     standard: string,
-    blockRange: string
+    blockRange: string,
+    metadataType:string
 }
 
 export class JetskiAddressEntity extends Entity {
@@ -32,6 +33,7 @@ export class JetskiAddressEntity extends Entity {
         this.addReference(new Reference(sandra.get(JetskiAddressEntityFactory.END_BLOCK), jetskiAddressData.endBlock));
         this.addReference(new Reference(sandra.get(JetskiAddressEntityFactory.STANDARD), jetskiAddressData.standard));
         this.addReference(new Reference(sandra.get(JetskiAddressEntityFactory.BLOCK_RANGE), jetskiAddressData.blockRange));
+        this.addReference(new Reference(sandra.get(JetskiAddressEntityFactory.METADATA_TYPE), jetskiAddressData.metadataType));
 
     }
 

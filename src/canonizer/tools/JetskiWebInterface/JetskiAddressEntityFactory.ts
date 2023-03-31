@@ -17,6 +17,7 @@ export class JetskiAddressEntityFactory extends EntityFactory {
     static readonly END_BLOCK = 'endBlock';
     static readonly STANDARD = 'standard';
     static readonly BLOCK_RANGE = 'blockRange';
+    static readonly METADATA_TYPE = 'metadataType';
 
     static readonly JOINED_COLLECTION = 'joinedCollection';
 

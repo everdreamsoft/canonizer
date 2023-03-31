@@ -104,6 +104,7 @@ class JetskiWebInterface {
             lastBlockProcessed: '9944215',
             status: 'active',
             lastBlockSaved: '9943915',
+            metadataType: ""
         });
         let jetskiAddress2 = new JetskiAddressEntity_1.JetskiAddressEntity(jetskiAddressFactory, sandra, {
             hash: "123456",
@@ -115,6 +116,7 @@ class JetskiWebInterface {
             lastBlockProcessed: '',
             status: 'active',
             lastBlockSaved: '',
+            metadataType: ""
         });
         //processEntity.bindJetskiAddress(jetskiAddress1);
         //processEntity.bindJetskiAddress(jetskiAddress2);

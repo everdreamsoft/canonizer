@@ -15,6 +15,7 @@ class JetskiAddressEntity extends Entity_js_1.Entity {
         this.addReference(new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.END_BLOCK), jetskiAddressData.endBlock));
         this.addReference(new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.STANDARD), jetskiAddressData.standard));
         this.addReference(new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.BLOCK_RANGE), jetskiAddressData.blockRange));
+        this.addReference(new Reference_1.Reference(sandra.get(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.METADATA_TYPE), jetskiAddressData.metadataType));
     }
     bindJetskiCollection(collection) {
         this.joinEntity(JetskiAddressEntityFactory_1.JetskiAddressEntityFactory.JOINED_COLLECTION, collection, this.factory.sandraManager);

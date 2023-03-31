@@ -123,6 +123,7 @@ export class JetskiWebInterface {
             lastBlockProcessed: '9944215',
             status: 'active',
             lastBlockSaved: '9943915',
+            metadataType:""
         })
 
         let jetskiAddress2 = new JetskiAddressEntity(jetskiAddressFactory, sandra, {
@@ -135,6 +136,7 @@ export class JetskiWebInterface {
             lastBlockProcessed: '',
             status: 'active',
             lastBlockSaved: '',
+            metadataType:""
         });
 
         //processEntity.bindJetskiAddress(jetskiAddress1);
